@@ -1,15 +1,12 @@
-Welcome to itucsdbNN's documentation!
+Welcome to itucsdb1942's documentation!
 =====================================
 
 :Team: Team Name
 
 :Members:
 
-   * Member 1
-   * Member 2
-   * Member 3
-   * Member 4
-   * Member 5
+   * Neslihan Çekiç
+   * Mürüvvet Bozkurt
 
 **project description goes here (a few paragraphs)**
 
