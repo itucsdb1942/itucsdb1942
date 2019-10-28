@@ -6,17 +6,15 @@ import books
 import tvseries
 
 
-class tvdb():
-    def __init__(self,idd="null",name="null",ep="null"):
-        self.idd=idd
-        self.name=name
-        self.ep=ep
+
 
 INIT_STATEMENTS = [
     """SELECT * FROM tvseries;
     """
    
 ]
+
+
 
 
 
