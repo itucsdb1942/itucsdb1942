@@ -2,6 +2,9 @@ import os
 import sys
 
 import psycopg2 as dbapi2
+import books
+import tvseries
+
 
 class tvdb():
     def __init__(self,idd="null",name="null",ep="null"):
