@@ -2,26 +2,18 @@ import os
 import sys
 
 import psycopg2 as dbapi2
-import books
-import tvseries
 
 
-
-
+url="postgres://dneperyi:l94XrLU-lOV2MOaQOPBnoYqVdKreucNZ@manny.db.elephantsql.com:5432/dneperyi"
 INIT_STATEMENTS = [
     """SELECT * FROM tvseries;
     """
    
 ]
 
-
-
-
-
-
 #dsn = """user='postgres' password='docker'
  #       host='localhost' port=5432 dbname='mydatabase'"""
-printf = tvdb()
+
 
 def initialize(url):
     try:
@@ -66,7 +58,7 @@ def initialize(url):
     try:
         connection = dbapi2.connect(url)
         cursor = connection.cursor()
-        statement = """ CREATE TABLE bookss(
+        statement = """ CREATE TABLE books(
             ID SERIAL PRIMARY KEY,
             NAME VARCHAR(80),
             WRITER VARCHAR(80),
@@ -100,14 +92,9 @@ def initialize(url):
         cursor.close()"""
         
 
-def a():
-    return printf
 
 if __name__ == "__main__":
     print(44)
 else:
-    url = os.getenv("python dbinit.py", "postgres://dneperyi:l94XrLU-lOV2MOaQOPBnoYqVdKreucNZ@manny.db.elephantsql.com:5432/dneperyi")
-    if url is None:
-        print("Usage: DATABASE_URL=url python dbinit.py", file=sys.stderr)
-        sys.exit(1)
     initialize(url)
+
