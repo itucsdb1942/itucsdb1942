@@ -15,6 +15,7 @@ INIT_STATEMENTS = [
 
 
 
+
 #dsn = """user='postgres' password='docker'
  #       host='localhost' port=5432 dbname='mydatabase'"""
 printf = tvdb()
