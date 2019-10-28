@@ -15,12 +15,77 @@ INIT_STATEMENTS = [
    
 ]
 
+
+
+
 #dsn = """user='postgres' password='docker'
  #       host='localhost' port=5432 dbname='mydatabase'"""
 printf = tvdb()
 
 def initialize(url):
-    with dbapi2.connect(url) as connection:
+    try:
+        connection = dbapi2.connect(url)
+        cursor = connection.cursor()
+        statement = """CREATE DOMAIN SCORES AS FLOAT
+            CHECK((VALUE>=1.0) AND (VALUE<=10.0));
+        
+        """
+        cursor.execute(statement)
+        connection.commit()
+        cursor.close()
+    except dbapi2.DatabaseError:
+        connection.rollback()
+    finally:
+        connection.close()
+
+
+    try:
+        connection = dbapi2.connect(url)
+        cursor = connection.cursor()
+        statement = """
+            CREATE TABLE tvseries (
+            ID SERIAL PRIMARY KEY,
+            TITLE VARCHAR(80) UNIQUE NOT NULL,
+            CHANNEL VARCHAR(80),
+            LANGUAGE VARCHAR(80),
+            SEASON INTEGER,
+            YEAR INTEGER,
+            GENRE VARCHAR(80),
+            VOTE INTEGER,
+            SCORE SCORES
+        );"""
+        cursor.execute(statement)
+        connection.commit()
+        cursor.close()
+    except dbapi2.DatabaseError:
+        connection.rollback()
+    finally:
+        connection.close()
+
+    try:
+        connection = dbapi2.connect(url)
+        cursor = connection.cursor()
+        statement = """ CREATE TABLE bookss(
+            ID SERIAL PRIMARY KEY,
+            NAME VARCHAR(80),
+            WRITER VARCHAR(80),
+            PUB_YEAR INTEGER,
+            T_PAGE INTEGER,
+            PUBLISHER VARCHAR(80),
+            LANGUAGE VARCHAR(80),
+            GENRE VARCHAR(80),
+            SCORE SCORES,
+            VOTE INTEGER); """
+        cursor.execute(statement)
+        connection.commit()
+        cursor.close()
+    except dbapi2.DatabaseError:
+        connection.rollback()
+    finally:
+        connection.close()
+
+    
+"""  with dbapi2.connect(url) as connection:
         cursor = connection.cursor()
         for statement in INIT_STATEMENTS:
             cursor.execute(statement)
@@ -31,7 +96,7 @@ def initialize(url):
                 printf.ep = ep
 
                 
-        cursor.close()
+        cursor.close()"""
         
 
 def a():
@@ -40,9 +105,7 @@ def a():
 if __name__ == "__main__":
     print(44)
 else:
-    print("555")
-    url = os.getenv("python dbinit.py", "postgres://yqplkmdw:6ZAgWY_E0tcKhin3yUXcgbtQ0RJ7Sf43@manny.db.elephantsql.com:5432/yqplkmdw")
-    print(url)
+    url = os.getenv("python dbinit.py", "postgres://dneperyi:l94XrLU-lOV2MOaQOPBnoYqVdKreucNZ@manny.db.elephantsql.com:5432/dneperyi")
     if url is None:
         print("Usage: DATABASE_URL=url python dbinit.py", file=sys.stderr)
         sys.exit(1)
