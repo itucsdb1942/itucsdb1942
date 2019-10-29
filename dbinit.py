@@ -70,6 +70,7 @@ def initialize(url):
             SCORE SCORES,
             VOTE INTEGER); """
         cursor.execute(statement)
+        
         connection.commit()
         cursor.close()
     except dbapi2.DatabaseError:
