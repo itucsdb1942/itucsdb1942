@@ -1,8 +1,9 @@
 import os
 import sys
-import dbinit as dbapi2
+import psycopg2 as dbapi2
+import dbinit as db
 
-url=dbapi2.url
+url=db.url
 
 book_data = [
     {'title': "Harry Potter and the Philosopher's Stone",
@@ -60,9 +61,9 @@ with dbapi2.connect(url) as connection:
     with connection.cursor() as cursor:
         for item in book_data:
             statement = """
-                INSERT INTO books (TITLE, WRITER, YR, TPAGE, PUBLISHER, LANGUAGE, GENRE, SCORE, VOTE)
-                           VALUES (%(NAME)s, %(WRİTER)s, %(PUB_YEAR)s, %(T_PAGE)s,
-                                   %(PUBLISHER)s, %(LANGUAGE)s, %(GENRE)s, %(SCORE)s, %(VOTE)s, )
+                INSERT INTO books (NAME, WRITER, PUB_YEAR, T_PAGE, PUBLISHER, LANGUAGE, GENRE, SCORE, VOTE)
+                           VALUES (%(title)s, %(writer)s, %(year_pub)s, %(tpage)s,
+                                   %(publisher)s, %(language)s, %(genre)s, %(score)s, %(vote)s)
                 RETURNING id
             """
             cursor.execute(statement)
