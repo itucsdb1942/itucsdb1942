@@ -42,10 +42,10 @@ def initialize(url):
             CHANNEL VARCHAR(80),
             LANGUAGE VARCHAR(80),
             SEASON INTEGER,
-            YEAR INTEGER,
+            YEAR NUMERIC(4),
             GENRE VARCHAR(80),
-            VOTE INTEGER,
-            SCORE SCORES
+            VOTE INTEGER DEFAULT 0,
+            SCORE SCORES  DEFAULT 0
         );"""
         cursor.execute(statement)
         connection.commit()
@@ -62,13 +62,13 @@ def initialize(url):
             ID SERIAL PRIMARY KEY,
             NAME VARCHAR(80),
             WRITER VARCHAR(80),
-            PUB_YEAR INTEGER,
+            PUB_YEAR NUMERIC(4),
             T_PAGE INTEGER,
             PUBLISHER VARCHAR(80),
             LANGUAGE VARCHAR(80),
             GENRE VARCHAR(80),
-            SCORE SCORES,
-            VOTE INTEGER); """
+            SCORE SCORES  DEFAULT 0,
+            VOTE INTEGER  DEFAULT 0); """
         cursor.execute(statement)
         
         connection.commit()
