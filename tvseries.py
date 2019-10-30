@@ -3,7 +3,7 @@ import sys
 import psycopg2 as dbapi2
 import dbinit as db
 
-uri=db.url
+url=db.url
 
 tv_data = [
 
@@ -16,7 +16,7 @@ tv_data = [
 ]
 
 channel_ids = {}
-with dbapi2.connect(uri) as connection:
+with dbapi2.connect(url) as connection:
     with connection.cursor() as cursor:
         for item in tv_data:
             channel_names = [item['channel']]
@@ -29,8 +29,9 @@ with dbapi2.connect(uri) as connection:
                     connection.commit()
                     channel_id = cursor.fetchone()[0]
                     channel_ids[name] = channel_id
+connection.close()
 
-with dbapi2.connect(uri) as connection:
+with dbapi2.connect(url) as connection:
     with connection.cursor() as cursor:
         for item in tv_data:
             statement = """
@@ -45,3 +46,4 @@ with dbapi2.connect(uri) as connection:
             book_id = cursor.fetchone()[0]
  
 
+connection.close()

@@ -60,13 +60,13 @@ book_data = [
 with dbapi2.connect(url) as connection:
     with connection.cursor() as cursor:
         for item in book_data:
-            statement = """
-                INSERT INTO books (NAME, WRITER, PUB_YEAR, T_PAGE, PUBLISHER, LANGUAGE, GENRE, SCORE, VOTE)
+            statement = """INSERT INTO books (NAME, WRITER, PUB_YEAR, T_PAGE, PUBLISHER, LANGUAGE, GENRE, SCORE, VOTE)
                            VALUES (%(title)s, %(writer)s, %(year_pub)s, %(tpage)s,
                                    %(publisher)s, %(language)s, %(genre)s, %(score)s, %(vote)s)
-                RETURNING id
-            """
+                RETURNING id"""
+            
             cursor.execute(statement,item)
             connection.commit()
             book_id = cursor.fetchone()[0]
- 
+
+connection.close()

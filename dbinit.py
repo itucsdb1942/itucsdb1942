@@ -13,14 +13,14 @@ INIT_STATEMENTS = [
         """CREATE TABLE channel( 
                 ID SERIAL PRIMARY KEY,
                 chan_name VARCHAR(40)
-        )""",
+        );""",
 
        """ CREATE TABLE season (
             ID SERIAL PRIMARY KEY,
             TITLE VARCHAR(80) NOT NULL,
             season_n INTEGER,
             episode_n VARCHAR(80)
-        )""",
+        );""",
 
         """CREATE TABLE tvseries (
             ID SERIAL PRIMARY KEY,
@@ -31,7 +31,7 @@ INIT_STATEMENTS = [
             GENRE VARCHAR(80),
             VOTE INTEGER DEFAULT 0,
             SCORE SCORES
-        )""",
+        );""",
 
        """ CREATE TABLE books(
             ID SERIAL PRIMARY KEY,
@@ -43,7 +43,7 @@ INIT_STATEMENTS = [
             LANGUAGE VARCHAR(80),
             GENRE VARCHAR(80),
             SCORE SCORES DEFAULT 0,
-            VOTE INTEGER DEFAULT 0)""",
+            VOTE INTEGER DEFAULT 0);""",
     
    
 ]
@@ -61,7 +61,6 @@ def initialize(url):
             connection.commit()
             cursor.close()
         except dbapi2.DatabaseError:
-            print("lol")
             connection.rollback()
         finally:
             connection.close()
