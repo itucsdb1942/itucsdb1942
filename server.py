@@ -1,6 +1,6 @@
 from flask import Flask,render_template
 import dbinit
-import books
+import books, tvseries
 
 app = Flask(__name__)
 

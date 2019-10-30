@@ -66,7 +66,7 @@ with dbapi2.connect(url) as connection:
                                    %(publisher)s, %(language)s, %(genre)s, %(score)s, %(vote)s)
                 RETURNING id
             """
-            cursor.execute(statement)
+            cursor.execute(statement,item)
             connection.commit()
             book_id = cursor.fetchone()[0]
  
