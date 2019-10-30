@@ -36,20 +36,6 @@ tv_data = [
      'genre':"Science-Fiction"},
 ]
 
-tv_book = {}
-
-with dbapi2.connect(url) as connection:
-    with connection.cursor() as cursor:
-            statement = """SELECT tvseries.title, channel.chan_name FROM tvseries, channel
-                 WHERE(tvseries.channelid=channel.id); """
-            cursor.execute(statement)
-            for title, channel in cursor:
-                tv_book['title']=title
-                tv_book['channel']=channel
-connection.close()
-
-print(tv_book)
-
 channel_ids = {}
 try:
     with dbapi2.connect(url) as connection:
@@ -70,6 +56,16 @@ except dbapi2.DatabaseError:
 finally:
     connection.close()
 
+channel_book={}
+with dbapi2.connect(url) as connection:
+    with connection.cursor() as cursor:
+            statement = """SELECT channel.id, channel.chan_name FROM  channel; """
+            cursor.execute(statement)
+            for id, name in cursor:
+                channel_book[name]=id
+connection.close()
+print(channel_book)
+
 try:
     with dbapi2.connect(url) as connection:
         with connection.cursor() as cursor:
@@ -78,7 +74,7 @@ try:
                                 VALUES (%(title)s, %(channelid)s, %(language)s, %(year)s, %(genre)s)
                             RETURNING id;"""                
                 
-                    item['channelid'] = channel_ids[item['channel']]
+                    item['channelid'] = channel_book[item['channel']]
                     
                     cursor.execute(statement,item)
                     connection.commit()
