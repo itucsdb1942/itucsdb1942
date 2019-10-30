@@ -12,19 +12,19 @@ INIT_STATEMENTS = [
             CHECK((VALUE>=0.0) AND (VALUE<=10.0)) DEFAULT 0.0;""",
         """CREATE TABLE channel( 
                 ID SERIAL PRIMARY KEY,
-                chan_name VARCHAR(40)
+                chan_name  VARCHAR(40) UNIQUE
         );""",
 
        """ CREATE TABLE season (
             ID SERIAL PRIMARY KEY,
-            TITLE VARCHAR(80) NOT NULL,
+            TITLE VARCHAR(80) UNIQUE NOT NULL,
             season_n INTEGER,
             episode_n VARCHAR(80)
         );""",
 
         """CREATE TABLE tvseries (
             ID SERIAL PRIMARY KEY,
-            TITLE VARCHAR(80) NOT NULL,
+            TITLE VARCHAR(80) UNIQUE NOT NULL,
             CHANNELID INTEGER REFERENCES channel(id),
             LANGUAGE VARCHAR(80),
             YEAR INTEGER,
@@ -35,7 +35,7 @@ INIT_STATEMENTS = [
 
        """ CREATE TABLE books(
             ID SERIAL PRIMARY KEY,
-            NAME VARCHAR(80),
+            NAME VARCHAR(80) UNIQUE NOT NULL,
             WRITER VARCHAR(80),
             PUB_YEAR INTEGER,
             T_PAGE INTEGER,
@@ -66,7 +66,7 @@ def initialize(url):
             connection.close()
 
 if __name__ == "__main__":
-    print(44)
+    print()
 else:
     initialize(url)
 

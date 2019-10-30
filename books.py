@@ -56,17 +56,20 @@ book_data = [
      'score': 10,
      'vote': 15},
 ]
+try:
+    with dbapi2.connect(url) as connection:
+        with connection.cursor() as cursor:
+            for item in book_data:
+                statement = """INSERT INTO books (NAME, WRITER, PUB_YEAR, T_PAGE, PUBLISHER, LANGUAGE, GENRE, SCORE, VOTE)
+                            VALUES (%(title)s, %(writer)s, %(year_pub)s, %(tpage)s,
+                                    %(publisher)s, %(language)s, %(genre)s, %(score)s, %(vote)s)
+                    RETURNING id"""
+                
+                cursor.execute(statement,item)
+                connection.commit()
+                book_id = cursor.fetchone()[0]
+except dbapi2.DatabaseError:
+    connection.rollback()
+finally:
+    connection.close()
 
-with dbapi2.connect(url) as connection:
-    with connection.cursor() as cursor:
-        for item in book_data:
-            statement = """INSERT INTO books (NAME, WRITER, PUB_YEAR, T_PAGE, PUBLISHER, LANGUAGE, GENRE, SCORE, VOTE)
-                           VALUES (%(title)s, %(writer)s, %(year_pub)s, %(tpage)s,
-                                   %(publisher)s, %(language)s, %(genre)s, %(score)s, %(vote)s)
-                RETURNING id"""
-            
-            cursor.execute(statement,item)
-            connection.commit()
-            book_id = cursor.fetchone()[0]
-
-connection.close()
