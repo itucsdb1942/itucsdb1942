@@ -10,6 +10,7 @@ INIT_STATEMENTS = [
 
     """ CREATE DOMAIN SCORES AS FLOAT
             CHECK((VALUE>=0.0) AND (VALUE<=10.0)) DEFAULT 0.0;""",
+            
         """CREATE TABLE channel( 
                 ID SERIAL PRIMARY KEY,
                 chan_name  VARCHAR(40) UNIQUE
