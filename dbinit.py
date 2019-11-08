@@ -45,8 +45,6 @@ INIT_STATEMENTS = [
         """CREATE TABLE writer(
             ID SERIAL PRIMARY KEY,
             wr_name VARCHAR(50) NOT NULL,
-            wr_middle VARCHAR(50),
-            Wr_last VARCHAR(50),
             wr_country VARCHAR(50)
         );""",
 

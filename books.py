@@ -56,20 +56,23 @@ book_data = [
      'score': 10,
      'vote': 15},
 ]
+
+
+
 publisher_ids ={}
 try:
     with dbapi2.connect(url) as connection:
         with connection.cursor() as cursor:
-            for item in book_data:
-                publisher_names = [item['publisher']]
-            for name in publisher_names:
-                if name not in publisher_names:
-                    statement = """INSERT INTO publisher (pub_name, pub_country) VALUES (%s %s)
+             for item in book_data:
+                pub_names = [item['publisher']]
+                for name in pub_names:
+                    if name not in publisher_ids:
+                        statement = """INSERT INTO publisher (pub_name) VALUES (%s)
                                     RETURNING id"""
-                    cursor.execute(statement, (name,))
-                    connection.commit()
-                    pub_id = cursor.fetchone()[0]
-                    publisher_ids[name] = pub_id       
+                        cursor.execute(statement, (name,))
+                        connection.commit()
+                        pub_id = cursor.fetchone()[0]
+                        publisher_ids[name] = pub_id       
 except dbapi2.DatabaseError:
     connection.rollback()
 finally:
@@ -78,11 +81,10 @@ finally:
 publisher_book = {}
 with dbapi2.connect(url) as connection:
     with connection.cursor() as cursor:
-        statement = """SELECT id, pub_name, pub_country FROM  publisher; """
+        statement = """SELECT id, pub_name FROM publisher; """
         cursor.execute(statement)
-        for id, name, country in cursor:
+        for id, name in cursor:
             publisher_book[name] = id
-            publisher_book[country] = id
 connection.close()
 print(publisher_book)
 
@@ -91,17 +93,17 @@ writer_ids = {}
 try:
     with dbapi2.connect(url) as connection:
         with connection.cursor() as cursor:
-            for item1 in book_data:
-                writer_names = [item1['writer']]
-            for name in writer_names:
-                if name not in writer_names:
-                    statement = """INSERT INTO writer (wr_name, wr_middle, wr_last, wr_country) VALUES (%s %s %s %s)
+            for item in book_data:
+                wri_names = [item['writer']]
+                for name in wri_names:
+                    if name not in writer_ids:
+                        statement = """INSERT INTO writer (wr_name) VALUES (%s)
                                     RETURNING id;"""
                     
-                    cursor.execute(statement)
-                    connection.commit()
-                    writer_id = cursor.fetchone()[0]
-                    writer_ids[name] = writer_id       
+                        cursor.execute(statement,(name,))
+                        connection.commit()
+                        writer_id = cursor.fetchone()[0]
+                        writer_ids[name] = writer_id       
 except dbapi2.DatabaseError:
     connection.rollback()
 finally:
@@ -110,13 +112,10 @@ finally:
 writer_book = {}
 with dbapi2.connect(url) as connection:
     with connection.cursor() as cursor:
-        statement = """SELECT id, wr_name, wr_middle, wr_last, wr_country FROM writer; """
+        statement = """SELECT id, wr_name FROM writer; """
         cursor.execute(statement)
-        for id, name, middle, last, country in cursor:
+        for id, name in cursor:
             writer_book[name] = id
-            writer_book[middle] = id
-            writer_book[last] = id
-            writer_book[country] = id
 connection.close()
 print(writer_book)
 
