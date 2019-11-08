@@ -69,7 +69,7 @@ try:
                     cursor.execute(statement, (name,))
                     connection.commit()
                     pub_id = cursor.fetchone()[0]
-                    pub_ids[name] = pub_id       
+                    publisher_ids[name] = pub_id       
 except dbapi2.DatabaseError:
     connection.rollback()
 finally:
@@ -110,7 +110,7 @@ finally:
 writer_book = {}
 with dbapi2.connect(url) as connection:
     with connection.cursor() as cursor:
-        statement = """SELECT id, wr_name, wr_middle, wr_last, wr_country FROM  writer; """
+        statement = """SELECT id, wr_name, wr_middle, wr_last, wr_country FROM writer; """
         cursor.execute(statement)
         for id, name, middle, last, country in cursor:
             writer_book[name] = id
@@ -143,11 +143,10 @@ finally:
 genre_book={}
 with dbapi2.connect(url) as connection:
     with connection.cursor() as cursor:
-            statement = """SELECT id, genre_name, book_id FROM  genre; """
+            statement = """SELECT id, genre_name FROM genre; """
             cursor.execute(statement)
-            for id, name, book in cursor:
+            for id, name in cursor:
                 genre_book[name]= id
-                genre_book[book] = id
 connection.close()
 print(genre_book)
 

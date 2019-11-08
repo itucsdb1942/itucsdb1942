@@ -34,7 +34,28 @@ INIT_STATEMENTS = [
             SCORE SCORES
         );""",
 
-       """ CREATE TABLE books(
+      
+
+         """CREATE TABLE publisher( 
+                ID SERIAL PRIMARY KEY,
+                pub_name  VARCHAR(40) UNIQUE,
+                pub_country VARCHAR(40)
+        );""",
+
+        """CREATE TABLE writer(
+            ID SERIAL PRIMARY KEY,
+            wr_name VARCHAR(50) NOT NULL,
+            wr_middle VARCHAR(50),
+            Wr_last VARCHAR(50),
+            wr_country VARCHAR(50)
+        );""",
+
+        """CREATE TABLE genre(
+            ID SERIAL PRIMARY KEY,
+            genre_name VARCHAR(50)
+         );""",
+
+         """ CREATE TABLE books(
             ID SERIAL PRIMARY KEY,
             NAME VARCHAR(80) UNIQUE NOT NULL,
             WRITERID INTEGER REFERENCES writer(id),
@@ -46,25 +67,8 @@ INIT_STATEMENTS = [
             SCORE SCORES DEFAULT 0,
             VOTE INTEGER DEFAULT 0);""",
 
-         """CREATE TABLE publisher( 
-                ID SERIAL PRIMARY KEY,
-                pub_name  VARCHAR(40) UNIQUE,
-                pub_country VARCHAR(40)
-        );""",
-        
-        """CREATE TABLE writer(
-            ID SERIAL PRIMARY KEY,
-            wr_name VARCHAR(50) NOT NULL,
-            wr_middle VARCHAR(50),
-            Wr_last VARCHAR(50),
-            wr_country VARCHAR(50)
-        );""",
-        
-        """CREATE TABLE genre(
-            ID SERIAL PRIMARY KEY,
-            genre_name VARCHAR(50),
-            book_id INTEGER REFERENCES books(ID)
-        );""",
+       
+
     
    
 ]
