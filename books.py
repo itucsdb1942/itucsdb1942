@@ -64,9 +64,9 @@ try:
                 publisher_names = [item['publisher']]
             for name in publisher_names:
                 if name not in publisher_names:
-                    statement = """INSERT INTO publisher (pub_name, country) VALUES (%s %s)
+                    statement = """INSERT INTO publisher (pub_name, pub_country) VALUES (%s %s)
                                     RETURNING id"""
-                    cursor.execute(statement)
+                    cursor.execute(statement, (name,))
                     connection.commit()
                     pub_id = cursor.fetchone()[0]
                     pub_ids[name] = pub_id       
@@ -76,17 +76,17 @@ finally:
     connection.close()
 
 publisher_book = {}
-try: 
-    with dbapi2.connect(url) as connection:
-        with connection.cursor() as cursor:
-            statement = """SELECT publisher.id, publisher.pub_name, publisher.country FROM publisher;"""
-            cursor.execute(statement)
-            for id, name, country in cursor:
-                publisher_book[name] = id
-                publisher_book[country] = id
-finally: 
-    connection.close()
+with dbapi2.connect(url) as connection:
+    with connection.cursor() as cursor:
+        statement = """SELECT publisher.id, publisher.pub_name, publisher.pub_country FROM  channel; """
+        cursor.execute(statement)
+        for id, name, country in cursor:
+            publisher_book[name] = id
+            publisher_book[country] = id
+connection.close()
 print(publisher_book)
+
+
 writer_ids = {}
 try:
     with dbapi2.connect(url) as connection:
@@ -96,7 +96,8 @@ try:
             for name in writer_names:
                 if name not in writer_names:
                     statement = """INSERT INTO writer (wr_name, wr_middle, wr_last, wr_country) VALUES (%s %s %s %s)
-                                    RETURNING id"""
+                                    RETURNING id;"""
+                    
                     cursor.execute(statement)
                     connection.commit()
                     writer_id = cursor.fetchone()[0]
@@ -112,10 +113,11 @@ try:
     with dbapi2.connect(url) as connection:
         with connection.cursor() as cursor:
             for item in book_data:
-                statement = """INSERT INTO books (NAME, WRITER, PUB_YEAR, T_PAGE, PUBLISHER, LANGUAGE, GENRE, SCORE, VOTE)
+                statement = """INSERT INTO books (NAME, WRITER, PUB_YEAR, T_PAGE, PUBLISHERID, LANGUAGE, GENRE, SCORE, VOTE)
                             VALUES (%(title)s, %(writer)s, %(year_pub)s, %(tpage)s,
-                                    %(publisher)s, %(language)s, %(genre)s, %(score)s, %(vote)s)
-                    RETURNING id"""
+                                    %(publisherid)s, %(language)s, %(genre)s, %(score)s, %(vote)s)
+                    RETURNING id;"""
+                item['publisherid'] = publisher_book[item['publisher']]
                 
                 cursor.execute(statement,item)
                 connection.commit()
