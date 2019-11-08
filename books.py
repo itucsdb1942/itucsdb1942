@@ -145,8 +145,9 @@ with dbapi2.connect(url) as connection:
     with connection.cursor() as cursor:
             statement = """SELECT id, genre_name, book_id FROM  genre; """
             cursor.execute(statement)
-            for id, name in cursor:
-                genre_book[name]=id
+            for id, name, book in cursor:
+                genre_book[name]= id
+                genre_book[book] = id
 connection.close()
 print(genre_book)
 
@@ -160,6 +161,8 @@ try:
                                     %(publisherid)s, %(language)s, %(genreid)s, %(score)s, %(vote)s)
                     RETURNING id;"""
                 item['publisherid'] = publisher_book[item['publisher']]
+                item['genreid'] = genre_book[item['genre']]
+                item['writerid'] = writer_book[item['writer']]
                 
                 cursor.execute(statement,item)
                 connection.commit()
