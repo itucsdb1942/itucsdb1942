@@ -10,6 +10,16 @@ INIT_STATEMENTS = [
 
     """ CREATE DOMAIN SCORES AS FLOAT
             CHECK((VALUE>=0.0) AND (VALUE<=10.0)) DEFAULT 0.0;""",
+    """ CREATE TABLE user (
+            ID SERIAL PRIMARY KEY,
+            name VARCHAR(20) NOT NULL,
+            surname VARCHAR(20) NOT NULL,
+            username VARCHAR(20) UNIQUE NOT NULL,
+            email VARCHAR(40) NOT NULL,
+            gender VARCHAR(6) NOT NULL,
+            date DATE NOT NULL,
+            password VARCHAR(40) NOT NULL
+        );"""
 
         """CREATE TABLE channel( 
                 ID SERIAL PRIMARY KEY,

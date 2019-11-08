@@ -7,18 +7,25 @@
             <div class="col-md-8 text-center">
 
                 <div class="card card-login py-4">
-                    <form class="form-login" method="" action="">
+                    <form class="form-login" method="POST" action="">
+                        {{form.hidden_tag()}}
                         <div class="card-header card-header-primary text-center">
                             <h1 class="card-title mb-4">Sign up</h1>
                         </div>
                         <div class="card-body pb-4 pt-8">
+
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                           <i class="ion-ios-contact"></i>
                                       </span>
                                 </div>
-                                {{form.name(type="text" , class="form-control" , placeholder="Name" )}}
+                                {% if form.name.errors %} {{form.name(type="text" , class="form-control is-invalid" , placeholder="Name")}}
+                                <div class="invalid-feedback">
+                                    {% for error in form.name.errors %}
+                                    <span>{{ error }}</span> {% endfor %}
+                                </div>
+                                {% else %} {{form.name(type="text" , class="form-control" , placeholder="Name" )}}{% endif%}
                             </div>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
@@ -26,7 +33,12 @@
                                   <i class="ion-ios-contact"></i>
                               </span>
                                 </div>
-                                {{form.surname(type="text" , class="form-control" , placeholder="Surname" )}}
+                                {% if form.surname.errors %} {{form.surname(type="text" , class="form-control is-invalid" , placeholder="Surname")}}
+                                <div class="invalid-feedback">
+                                    {% for error in form.surname.errors %}
+                                    <span>{{ error }}</span> {% endfor %}
+                                </div>
+                                {% else %} {{form.surname(type="text" , class="form-control" , placeholder="Surname" )}}{% endif%}
                             </div>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
@@ -34,7 +46,13 @@
                                                     <i class="ion-ios-contact"></i>
                                                 </span>
                                 </div>
-                                {{form.mail(type="text" , class="form-control" , placeholder="E-mail")}}
+                                {% if form.mail.errors %} {{form.mail(type="text" , class="form-control is-invalid" , placeholder="E-mail")}}
+                                <div class="invalid-feedback">
+                                    {% for error in form.mail.errors %}
+                                    <span>{{ error }}</span> {% endfor %}
+                                </div>
+                                {% else %} {{form.mail(type="text" , class="form-control" , placeholder="E-mail")}} {% endif%}
+
                             </div>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
@@ -42,16 +60,22 @@
                                                 <i class="ion-ios-contact"></i>
                                             </span>
                                 </div>
-                                {{form.username(type="text" , class="form-control" , placeholder="Username" )}}
+                                {% if form.username.errors %} {{form.username(type="text" , class="form-control is-invalid" , placeholder="Username")}}
+                                <div class="invalid-feedback">
+                                    {% for error in form.username.errors %}
+                                    <span>{{ error }}</span> {% endfor %}
+                                </div>
+                                {% else %} {{form.username(type="text" , class="form-control" , placeholder="Username" )}}{% endif%}
                             </div>
 
                             <div class="input-group mb-4">
                                 <h4>
                                     <span class="typo-note pl-4 ml-5 mr-4 ">Gender:  </span></h4>
+
                                 <div class="form-radio ml-5 mr-4">
                                     <div class="radio">
                                         <label>
-                                                      <input type="radio" name="radio-input">
+                                                      <input type="radio" name="radio-input" id="male" value="male">
                                                       <span class="checkmark"></span>
                                             <span class="fill-control-description">Male</span>
                                             </label>
@@ -61,7 +85,7 @@
                                 <div class="form-radio mr-4">
                                     <div class="radio">
                                         <label>
-                                                      <input type="radio" name="radio-input">
+                                                      <input type="radio" name="radio-input" id="female" value="female">
                                                       <span class="checkmark"></span>
                                                       <span class="fill-control-description">Female</span>
                                                   </label>
@@ -71,7 +95,7 @@
                                 <div class="form-radio mr-4">
                                     <div class="radio">
                                         <label>
-                                                      <input type="radio" name="radio-input">
+                                                      <input type="radio" name="radio-input" id="other" value="other">
                                                       <span class="checkmark"></span>
                                                       <span class="fill-control-description">Other</span>
                                                   </label>
@@ -104,7 +128,12 @@
                             <i class="ion-ios-lock"></i>
                           </span>
                                 </div>
-                                {{form.password(type="password" , class="form-control" , placeholder="Password" )}}
+                                {% if form.password.errors %} {{form.password(type="text" , class="form-control is-invalid" , placeholder="Password")}}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password.errors %}
+                                    <span>{{ error }}</span> {% endfor %}
+                                </div>
+                                {% else %} {{form.password(type="password" , class="form-control" , placeholder="Password" )}}{% endif%}
                             </div>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
@@ -112,14 +141,17 @@
                             <i class="ion-ios-lock"></i>
                           </span>
                                 </div>
-                                {{form.confirmpassword(type="password", class="form-control" , placeholder="Confirm Password" )}}
+                                {% if form.confirmpassword.errors %} {{form.confirmpassword(type="text" , class="form-control is-invalid" , placeholder="Confirm Password")}}
+                                <div class="invalid-feedback">
+                                    {% for error in form.confirmpassword.errors %}
+                                    <span>{{ error }}</span> {% endfor %}
+                                </div>
+                                {% else %} {{form.confirmpassword(type="password" , class="form-control" , placeholder="Confirm Password" )}}{% endif%}
                             </div>
 
                         </div>
-                        <div class="input-group mb-4">
-                            <div class="footer text-center mb-2">
-                                {{form.submit(class="btn btn-primary btn-round px-5")}}
-                            </div>
+                        <div class="footer text-center mb-2">
+                            {{form.submit(class="btn btn-primary btn-round px-5")}}
                         </div>
 
                     </form>
