@@ -10,7 +10,6 @@ INIT_STATEMENTS = [
 
     """ CREATE DOMAIN SCORES AS FLOAT
             CHECK((VALUE>=0.0) AND (VALUE<=10.0)) DEFAULT 0.0;""",
-            
         """CREATE TABLE channel( 
                 ID SERIAL PRIMARY KEY,
                 chan_name  VARCHAR(40) UNIQUE
@@ -37,14 +36,31 @@ INIT_STATEMENTS = [
        """ CREATE TABLE books(
             ID SERIAL PRIMARY KEY,
             NAME VARCHAR(80) UNIQUE NOT NULL,
-            WRITER VARCHAR(80),
+            WRITERID INTEGER REFERENCES writer(ID),
             PUB_YEAR INTEGER,
             T_PAGE INTEGER,
-            PUBLISHER VARCHAR(80),
+            PUBLISHERID REFERENCES publisher(ID),
             LANGUAGE VARCHAR(80),
-            GENRE VARCHAR(80),
+            GENREID INTEGER REFERENCES genre(ID),
             SCORE SCORES DEFAULT 0,
             VOTE INTEGER DEFAULT 0);""",
+        """CREATE TABLE  publisher(
+            ID SERIAL PRIMARY KEY,
+            pub_name VARCHAR(50) UNIQUE
+            country VARCHAR(50),
+        )"""
+        """CREATE TABLE writer(
+            ID SERIAL PRIMARY KEY,
+            wr_name VARCHAR(50) NOT NULL,
+            wr_middle VARCHAR(50),
+            Wr_last VARCHAR(50),
+            wr_country VARCHAR(50)
+        )"""
+        """CREATE TABLE genre(
+            ID SERIAL PRIMARY KEY,
+            genre_name VARCHAR(50),
+            book_id INTEGER REFERENCES books(ID)
+        )"""
     
    
 ]
