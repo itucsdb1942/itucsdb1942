@@ -78,13 +78,12 @@ finally:
 publisher_book = {}
 with dbapi2.connect(url) as connection:
     with connection.cursor() as cursor:
-        statement = """SELECT id, pub_name, pub_country FROM publisher; """
+        statement = """SELECT id, pub_name, pub_country FROM  publisher; """
         cursor.execute(statement)
         for id, name, country in cursor:
             publisher_book[name] = id
             publisher_book[country] = id
 connection.close()
-
 print(publisher_book)
 
 
@@ -108,15 +107,57 @@ except dbapi2.DatabaseError:
 finally:
     connection.close()
 
+writer_book = {}
+with dbapi2.connect(url) as connection:
+    with connection.cursor() as cursor:
+        statement = """SELECT id, wr_name, wr_middle, wr_last, wr_country FROM  writer; """
+        cursor.execute(statement)
+        for id, name, middle, last, country in cursor:
+            writer_book[name] = id
+            writer_book[middle] = id
+            writer_book[last] = id
+            writer_book[country] = id
+connection.close()
+print(writer_book)
+
+genre_ids = {}
+try:
+    with dbapi2.connect(url) as connection:
+        with connection.cursor() as cursor:
+            for item in book_data:
+                genre_names = [item['genre']]
+                
+                for name in genre_names:
+                    if name not in genre_ids:
+                        statement = """INSERT INTO genre (genre_name) VALUES (%s)
+                                    RETURNING id"""
+                        cursor.execute(statement, (name,))
+                        connection.commit()
+                        genre_id = cursor.fetchone()[0]
+                        genre_ids[name] = genre_id
+except dbapi2.DatabaseError:
+    connection.rollback()
+finally:
+    connection.close()
+
+genre_book={}
+with dbapi2.connect(url) as connection:
+    with connection.cursor() as cursor:
+            statement = """SELECT id, genre_name, book_id FROM  genre; """
+            cursor.execute(statement)
+            for id, name in cursor:
+                genre_book[name]=id
+connection.close()
+print(genre_book)
 
 
 try:
     with dbapi2.connect(url) as connection:
         with connection.cursor() as cursor:
             for item in book_data:
-                statement = """INSERT INTO books (NAME, WRITER, PUB_YEAR, T_PAGE, PUBLISHERID, LANGUAGE, GENRE, SCORE, VOTE)
-                            VALUES (%(title)s, %(writer)s, %(year_pub)s, %(tpage)s,
-                                    %(publisherid)s, %(language)s, %(genre)s, %(score)s, %(vote)s)
+                statement = """INSERT INTO books (NAME, WRITERID, PUB_YEAR, T_PAGE, PUBLISHERID, LANGUAGE, GENREID, SCORE, VOTE)
+                            VALUES (%(title)s, %(writerid)s, %(year_pub)s, %(tpage)s,
+                                    %(publisherid)s, %(language)s, %(genreid)s, %(score)s, %(vote)s)
                     RETURNING id;"""
                 item['publisherid'] = publisher_book[item['publisher']]
                 
