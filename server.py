@@ -1,4 +1,4 @@
-from flask import Flask,render_template,url_for
+from flask import Flask,render_template,url_for,flash, redirect
 from userform import registirationForm, loginForm
 
 import dbinit
@@ -6,20 +6,32 @@ import books, tvseries
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = '41d1a759fd2a316f650e89fdb03e21d0'
+
+
 @app.route("/")
-def home_page():
-    
-    return render_template("index.html")
+def login_page():
+    form=loginForm()
+    return render_template("login.html", form = form)
 
 @app.route("/home")
-
-def h_page():
+def home():
     return render_template("home.html")
 
-@app.route("/signup")
+@app.route("/signup", methods=['GET', 'POST'])
 
 def signup_page():
-    return render_template("signup.html")
+    form=registirationForm()
+
+    if form.validate_on_submit():
+        flash(f'Account Created for {form.username.data}!', 'success')
+        print('lol')
+        return redirect(url_for('home'))
+    else:
+        print('lol2')
+
+    return render_template("signup.html", form=form)
+
 
 if __name__ == "__main__":
     app.run()

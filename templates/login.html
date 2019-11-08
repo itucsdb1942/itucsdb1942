@@ -1,0 +1,83 @@
+{% extends "layout.html" %} {% block content %}
+<div class="main-section">
+    <section class="hero-wrap" style="background-image: url(/static/images/book.jpeg);" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row description align-items-center justify-content-center">
+                <div class="col-md-8 text-center">
+                    <div class="text">
+                        <h2>TRACE</h2>
+                        <h4 class="mb-5">A tracking system for your books and TV series.</h4>
+                        <!--sıgn ın panel-->
+                        <div class="overlay"></div>
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                                    <div class="card card-login py-4">
+                                        <form class="form-login" method="" action="">
+                                            <div class="card-header card-header-primary text-center">
+                                                <h4 class="card-title">Login</h4>
+                                                <!--<div class="social-line">
+									 <a href="#" class="btn-icon d-flex align-items-center justify-content-center">
+										<i class="ion-logo-facebook"></i>
+									  </a>
+									  <a href="#" class="btn-icon d-flex align-items-center justify-content-center">
+										<i class="ion-logo-twitter"></i>
+									  </a>
+									  <a href="#" class="btn-icon d-flex align-items-center justify-content-center">
+										<i class="ion-logo-googleplus"></i>
+									  </a>-
+									</div>-->
+                                            </div>
+                                            <div class="card-body pb-4 pt-8">
+                                                <div class="input-group mb-4">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+										  <i class="ion-ios-contact"></i>
+										</span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Username">
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+										  <i class="ion-ios-lock"></i>
+										</span>
+                                                    </div>
+                                                    <input type="password" class="form-control" placeholder="Password...">
+                                                </div>
+                                                <div class="form-check d-flex justify-content-center">
+                                                    <label class="custom-control fill-checkbox mb-0 d-inline-block">
+															  <input type="checkbox" class="fill-control-input">
+															  <span class="fill-control-indicator"></span>
+															  <span class="fill-control-description">I Agree to the terms and conditions.</span>
+														  </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="footer text-center mb-2">
+                                                <a href="/home" class="btn btn-primary btn-round px-5">Get Started</a>
+                                                <p>or</p>
+                                                <a href="/signup" class="btn btn-dark btn-round px-3">Sign Up</a>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--sıgn ın panel END-->
+                        <!--<p><a href="/signin" class="btn btn-primary px-5 py-4 mb-2"><i class="ion-ios-cloud-download mr-2"></i>Sign in</a> 
+						     <a href="#" class="btn btn-dark px-5 py-4 mb-2"><i class="ion-ios-code mr-2"></i>Sing up</a></p>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="mouse">
+				<a href="#" class="mouse-icon">
+					<div class="mouse-wheel"><span class="ion-ios-arrow-round-down"></span></div>
+				</a>
+			</div> -->
+    </section>
+
+    {% endblock content %}

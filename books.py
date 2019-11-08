@@ -78,12 +78,13 @@ finally:
 publisher_book = {}
 with dbapi2.connect(url) as connection:
     with connection.cursor() as cursor:
-        statement = """SELECT publisher.id, publisher.pub_name, publisher.pub_country FROM  channel; """
+        statement = """SELECT id, pub_name, pub_country FROM publisher; """
         cursor.execute(statement)
         for id, name, country in cursor:
             publisher_book[name] = id
             publisher_book[country] = id
 connection.close()
+
 print(publisher_book)
 
 
