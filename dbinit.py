@@ -44,8 +44,6 @@ INIT_STATEMENTS = [
             SCORE SCORES
         );""",
 
-      
-
          """CREATE TABLE publisher( 
                 ID SERIAL PRIMARY KEY,
                 pub_name  VARCHAR(40) UNIQUE,
@@ -75,7 +73,16 @@ INIT_STATEMENTS = [
             SCORE SCORES DEFAULT 0,
             VOTE INTEGER DEFAULT 0);""",
 
-       
+       """ CREATE TABLE users(
+            ID SERIAL PRIMARY KEY,
+            NAME VARCHAR(20) NOT NULL,
+            SURNAME VARCHAR(20) NOT NULL,
+            USERNAME VARCHAR(20) NOT NULL,
+            mail VARCHAR(80) NOT NULL,
+            gender VARCHAR(6) NOT NULL,
+            birth DATE NOT NULL,
+            password VARCHAR(80) NOT NULL
+            );""",
 
     
    

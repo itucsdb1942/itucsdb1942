@@ -72,37 +72,38 @@
                                 <h4>
                                     <span class="typo-note pl-4 ml-5 mr-4 ">Gender:  </span></h4>
 
-                                <div class="form-radio ml-5 mr-4">
-                                    <div class="radio">
-                                        <label>
-                                                      <input type="radio" name="radio-input" id="male" value="male">
-                                                      <span class="checkmark"></span>
-                                            <span class="fill-control-description">Male</span>
-                                            </label>
-                                    </div>
-                                </div>
-
+                                {% if form.gender.errors %} {% for subfield in form.gender %}
                                 <div class="form-radio mr-4">
                                     <div class="radio">
                                         <label>
-                                                      <input type="radio" name="radio-input" id="female" value="female">
-                                                      <span class="checkmark"></span>
-                                                      <span class="fill-control-description">Female</span>
-                                                  </label>
-                                    </div>
-                                </div>
+                                                        {{ subfield(type="radio", class="form-control is-invalid" ) }}
+                                                        <span class="checkmark"></span>
+                                                        <span class="fill-control-description">{{ subfield.label }} </span>
+                                                        
+                                                </label>
 
+                                    </div>
+
+                                </div>
+                                {% endfor %}
+                                <div hidden {{ form.gender(class="form-control is-invalid" ) }}></div>
+                                <div class="invalid-feedback">
+                                    {% for error in form.gender.errors %}
+                                    <span>{{ error }}</span> {% endfor %}
+                                </div>
+                                {% else %} {% for subfield in form.gender %}
                                 <div class="form-radio mr-4">
                                     <div class="radio">
                                         <label>
-                                                      <input type="radio" name="radio-input" id="other" value="other">
-                                                      <span class="checkmark"></span>
-                                                      <span class="fill-control-description">Other</span>
-                                                  </label>
+                                                            {{ subfield(type="radio", class="fill-control" ) }}
+                                    
+                                                            <span class="checkmark"></span>
+                                                            <span class="fill-control-description"> {{ subfield.label }} </span>
+                                                    </label>
+
                                     </div>
                                 </div>
-
-
+                                {% endfor %} {% endif %}
 
 
                             </div>
@@ -117,8 +118,13 @@
                                                     <i class="ion-ios-calendar"></i>
                                                 </span>
                                 </div>
-                                <div class="input-text date" id="id_0">
-                                    <input type="text" class="form-control" placeholder="Date of Birth" required/>
+                                <div class="input-text date">
+                                    {% if form.date.errors %} {{form.date(type="date" , class="form-control is-invalid" , placeholder="Date of Birth")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.date.errors %}
+                                        <span>{{ error }}</span> {% endfor %}
+                                    </div>
+                                    {% else %} {{form.date(type="date" , class="form-control" , placeholder="Date of Birth")}} {% endif%}
                                 </div>
                             </div>
 
