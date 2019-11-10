@@ -1,18 +1,35 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
+import dbinit,books,tvseries
+from flask_bcrypt import Bcrypt
+from flask_login import LoginManager,login_user
+from userdb import User, username_check, get
 from userform import registirationForm, loginForm
-
-import dbinit
-import books, tvseries
-from userdb import User
 app = Flask(__name__)
-
 app.config['SECRET_KEY'] = '41d1a759fd2a316f650e89fdb03e21d0'
+app.config['DATABASE_URL'] = 'postgres://dneperyi:l94XrLU-lOV2MOaQOPBnoYqVdKreucNZ@manny.db.elephantsql.com:5432/dneperyi'
+bcrypt = Bcrypt(app)
+login_manager= LoginManager(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return get(int(user_id))
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def login_page():
     form=loginForm()
+    if request.method =='POST':
+        if form.validate_on_submit:
+            print("lol")
+            user = username_check(form.username.data)
+            if user and bcrypt.check_password_hash(user.password,form.password.data):
+                login_user(user, remember=form.remember.data)
+                return redirect(url_for('home'))
+            else:
+                print("lol2")
+                flash(f'Login Unsuccessful. Check Username and Password!', 'warning')
     return render_template("login.html", form = form)
+    
 
 @app.route("/home")
 def home():
@@ -23,17 +40,15 @@ def home():
 def signup_page():
     form=registirationForm()
     if request.method =='POST':
-        print(form.name.data,form.surname.data,form.username.data,form.mail.data,form.password.data,form.gender.data,form.date.data)
         if form.validate_on_submit():
-            flash(f'Account Created for {form.username.data}!', 'success')
+            crypt_password=bcrypt.generate_password_hash(form.password.data).decode('utf-8') #creating hashed password
+            flash(f'Account Created for {form.username.data}! Now You Can Login.', 'success')
             user=User(name=form.name.data, surname=form.surname.data, username=form.username.data,
-                         mail=form.mail.data, gender=form.gender.data, date=form.date.data, password=form.password.data)
-            user.display()
+                         mail=form.mail.data, gender=form.gender.data, date=form.date.data, password=crypt_password)
             user.adduser()
-            return redirect(url_for('home'))
+            return redirect(url_for('login_page'))
         else:
-            
-            flash(f'Mistake {form.username.data}!', 'warning')
+            flash(f'Failed to Create Account for {form.username.data}!', 'danger')
 
     return render_template("signup.html", form=form)
 

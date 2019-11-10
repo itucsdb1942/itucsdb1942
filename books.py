@@ -86,7 +86,6 @@ with dbapi2.connect(url) as connection:
         for id, name in cursor:
             publisher_book[name] = id
 connection.close()
-print(publisher_book)
 
 
 writer_ids = {}
@@ -117,7 +116,6 @@ with dbapi2.connect(url) as connection:
         for id, name in cursor:
             writer_book[name] = id
 connection.close()
-print(writer_book)
 
 genre_ids = {}
 try:
@@ -147,7 +145,6 @@ with dbapi2.connect(url) as connection:
             for id, name in cursor:
                 genre_book[name]= id
 connection.close()
-print(genre_book)
 
 
 try:

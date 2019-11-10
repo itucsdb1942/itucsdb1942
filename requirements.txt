@@ -2,3 +2,5 @@ Flask>=1.0
 psycopg2-binary>=2.7
 gunicorn>=19.9
 flask-wtf>=0.14
+flask-bcrypt>=0.7.1
+flask-login>=0.4.1

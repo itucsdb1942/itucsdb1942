@@ -34,24 +34,28 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-primary ftco-navbar-light" id="ftco-navbar">
-        <div class="container">
-            <a class="navbar-brand" href="/">Trace.</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="oi oi-menu"></span> Menu
-                          </button>
-
-        </div>
-    </nav>
-    <section>
+    <div class="main-section">
         {% with messages= get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
         <div class="alert alert-{{category}}">
+            <div class="overlay"></div>
             <div class="container">
                 <div class="d-flex">
+                    {% if category == 'success' %}
                     <div class="alert-icon">
                         <i class="ion-ios-checkmark-circle"></i>
                     </div>
-                    <p class="mb-0 ml-2"><b>Success Alert:</b>{{message}}</p>
+                    <p class="mb-0 ml-2"><b>Success Alert:</b> Yeey! {{message}}</p>
+                    {% endif %} {% if category == 'danger' %}
+                    <div class="alert-icon">
+                        <i class="ion-ios-information-circle-outline"></i>
+                    </div>
+                    <p class="mb-0 ml-2"><b>Error Alert:</b> Upps! {{message}}</p>
+                    {% endif %} {% if category == 'warning' %}
+                    <div class="alert-icon">
+                        <i class="ion-ios-warning"></i>
+                    </div>
+                    <p class="mb-0 ml-2"><b>Warning Alert:</b> Hey, {{message}}</p>
+                    {% endif %}
                 </div>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                     <span aria-hidden="true"><i class="ion-ios-close"></i></span>
@@ -59,7 +63,8 @@
             </div>
         </div>
         {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
-    </section>
+    </div>
+
     <footer class="ftco-section ftco-section-2">
         <div class="col-md-12 text-center">
             <p class="mb-0">

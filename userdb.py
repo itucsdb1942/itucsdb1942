@@ -2,11 +2,14 @@ import os
 import sys
 import psycopg2 as dbapi2
 import dbinit as db
-
+from flask_login import UserMixin
 url=db.url
 
-class User():
-    def __init__(self, name,surname,username,mail,gender,date,password):
+
+
+class User(UserMixin):
+    def __init__(self, id = None, name = None ,surname = None ,username = None ,mail = None ,gender = None ,date = None ,password = None):
+        self.id=id
         self.name=name
         self.surname=surname
         self.username=username
@@ -14,15 +17,6 @@ class User():
         self.gender=gender
         self.date=date
         self.password=password
-    def display(self):
-    
-      print(self.name,
-        self.surname,
-        self.username,
-        self.mail,
-        self.gender,
-        self.date,
-        self.password)
 
     def adduser(self):
 
@@ -49,6 +43,44 @@ class User():
         finally:
             connection.close()   
 
+    
+def get(user_id):
+        with dbapi2.connect(url) as connection:
+            with connection.cursor() as cursor:
+                    statement = """SELECT id, name, surname, username, mail, gender, birth, password FROM users 
+                                        WHERE id = ({}); """.format(user_id)
+                    cursor.execute(statement)
+                    user= False
+                    for i, n, s, u, m, g, b, p  in cursor:
+                        user= User(id=i, name=n, surname=s, username=u,
+                        mail=m, gender=g, date=b, password=p)
+                    return user
+        connection.close()
 
+def username_check(username):
+        with dbapi2.connect(url) as connection:
+            with connection.cursor() as cursor:
+                    statement = """SELECT id, name, surname, username, mail, gender, birth, password FROM users 
+                                        WHERE username = (%s); """
+                    cursor.execute(statement,(username,))
+                    user= False
+                    for i, n, s, u, m, g, b, p  in cursor:
+                        user= User(id=i, name=n, surname=s, username=u,
+                        mail=m, gender=g, date=b, password=p)
+                    return user
+        connection.close()
+    
+def mail_check(mail):
+        with dbapi2.connect(url) as connection:
+            with connection.cursor() as cursor:
+                    statement = """SELECT id, name, surname, username, mail, gender, birth, password FROM users 
+                                        WHERE mail = (%s); """
+                    cursor.execute(statement,(mail,))
+                    user= False
+                    for i, n, s, u, m, g, b, p  in cursor:
+                        user= User(id=i, name=n, surname=s, username=u,
+                        mail=m, gender=g, date=b, password=p)
+                    return user
+        connection.close()
 
 

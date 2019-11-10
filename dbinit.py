@@ -3,7 +3,6 @@ import sys
 
 import psycopg2 as dbapi2
 
-
 url="postgres://dneperyi:l94XrLU-lOV2MOaQOPBnoYqVdKreucNZ@manny.db.elephantsql.com:5432/dneperyi"
 
 INIT_STATEMENTS = [
@@ -77,8 +76,8 @@ INIT_STATEMENTS = [
             ID SERIAL PRIMARY KEY,
             NAME VARCHAR(20) NOT NULL,
             SURNAME VARCHAR(20) NOT NULL,
-            USERNAME VARCHAR(20) NOT NULL,
-            mail VARCHAR(80) NOT NULL,
+            USERNAME VARCHAR(20) UNIQUE NOT NULL,
+            mail VARCHAR(80) UNIQUE NOT NULL,
             gender VARCHAR(6) NOT NULL,
             birth DATE NOT NULL,
             password VARCHAR(80) NOT NULL
@@ -87,10 +86,6 @@ INIT_STATEMENTS = [
     
    
 ]
-
-#dsn = """user='postgres' password='docker'
- #       host='localhost' port=5432 dbname='mydatabase'"""
-
 
 def initialize(url):
     for statement in INIT_STATEMENTS:
@@ -105,8 +100,9 @@ def initialize(url):
         finally:
             connection.close()
 
-if __name__ == "__main__":
-    print()
-else:
-    initialize(url)
+initialize(url)
+
+
+
+
 

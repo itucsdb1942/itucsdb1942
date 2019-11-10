@@ -64,7 +64,6 @@ with dbapi2.connect(url) as connection:
             for id, name in cursor:
                 channel_book[name]=id
 connection.close()
-print(channel_book)
 
 try:
     with dbapi2.connect(url) as connection:
