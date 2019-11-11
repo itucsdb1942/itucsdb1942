@@ -3,9 +3,63 @@
     <div class="container">
         <a class="navbar-brand" href="/home">Trace.</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="oi oi-menu"></span> Menu
-                          </button>
+    <span class="oi oi-menu"></span> Menu
+  </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="dropdown nav-item">
+                    <a href="#" class="dropdown-toggle nav-link icon d-flex align-items-center" data-toggle="dropdown">
+                        <i class="ion-ios-menu mr-2"></i> Menu
+                        <b class="caret"></b>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-left">
+                        <a href="#" class="dropdown-item"><i class="ion-ios-settings mr-2"></i>Settings</a>
+                        <a href="#" class="dropdown-item"><i class="ion-ios-log-out mr-2"></i>Log out</a>
+                    </div>
+                </li>
 
+            </ul>
+        </div>
     </div>
 </nav>
+
+<section class="hero-wrap" style="background-image: url(/static/images/book.jpeg);" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row description align-items-center justify-content-center">
+            <div class="col-md-8 text-center">
+                <div class="text">
+                    <h2>TRACE</h2>
+                    <h4 class="mb-5">A tracking system for your books and TV series.</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mouse">
+        <a href="#" class="mouse-icon">
+            <div class="mouse-wheel"><span class="ion-ios-arrow-round-down"></span></div>
+        </a>
+    </div>
+</section>
+
+<section class="ftco-section" id="print">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <h2 class="heading-section">Methods <br>
+                </h2>
+            </div>
+            <form method="POST" action="">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary btn-round">
+                                <i class="ion-ios-tv"></i> Print TV Series
+                        </button>
+                    <button type="button" class="btn btn-primary btn-round">
+                                <i class="ion-ios-book"></i> Print Books
+                        </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
 {% endblock content %}

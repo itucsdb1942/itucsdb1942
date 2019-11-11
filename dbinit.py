@@ -9,6 +9,7 @@ INIT_STATEMENTS = [
 
     """ CREATE DOMAIN SCORES AS FLOAT
             CHECK((VALUE>=0.0) AND (VALUE<=10.0)) DEFAULT 0.0;""",
+
     """ CREATE TABLE user (
             ID SERIAL PRIMARY KEY,
             name VARCHAR(20) NOT NULL,
@@ -18,30 +19,40 @@ INIT_STATEMENTS = [
             gender VARCHAR(6) NOT NULL,
             date DATE NOT NULL,
             password VARCHAR(40) NOT NULL
-        );"""
+        );""",
 
         """CREATE TABLE channel( 
                 ID SERIAL PRIMARY KEY,
                 chan_name  VARCHAR(40) UNIQUE
         );""",
 
-       """ CREATE TABLE season (
-            ID SERIAL PRIMARY KEY,
-            TITLE VARCHAR(80) UNIQUE NOT NULL,
-            season_n INTEGER,
-            episode_n VARCHAR(80)
-        );""",
-
         """CREATE TABLE tvseries (
             ID SERIAL PRIMARY KEY,
             TITLE VARCHAR(80) UNIQUE NOT NULL,
             CHANNELID INTEGER REFERENCES channel(id),
-            LANGUAGE VARCHAR(80),
+            LANGUAGE VARCHAR(20),
+            SEASON INTEGER,
             YEAR INTEGER,
-            GENRE VARCHAR(80),
+            GENRE VARCHAR(20),
             VOTE INTEGER DEFAULT 0,
             SCORE SCORES
         );""",
+
+        """ CREATE TABLE episode (
+            ID SERIAL PRIMARY KEY,
+            TVID INTEGER REFERENCES tvseries(id),
+            season_n INTEGER,
+            number INTEGER,
+            name VARCHAR(80)
+        );""",
+
+       """ CREATE TABLE season (
+            TVID INTEGER REFERENCES tvseries(id),
+            EPID INTEGER REFERENCES episode(id),
+            episode_no INTEGER,
+            PRIMARY KEY(TVID,EPID)
+        );""",
+
 
          """CREATE TABLE publisher( 
                 ID SERIAL PRIMARY KEY,
@@ -51,13 +62,13 @@ INIT_STATEMENTS = [
 
         """CREATE TABLE writer(
             ID SERIAL PRIMARY KEY,
-            wr_name VARCHAR(50) NOT NULL,
+            wr_name VARCHAR(50) NOT NULL UNIQUE,
             wr_country VARCHAR(50)
         );""",
 
         """CREATE TABLE genre(
             ID SERIAL PRIMARY KEY,
-            genre_name VARCHAR(50)
+            genre_name VARCHAR(50) UNIQUE
          );""",
 
          """ CREATE TABLE books(
@@ -84,7 +95,6 @@ INIT_STATEMENTS = [
             );""",
 
     
-   
 ]
 
 def initialize(url):

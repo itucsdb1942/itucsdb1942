@@ -123,7 +123,6 @@ try:
         with connection.cursor() as cursor:
             for item in book_data:
                 genre_names = [item['genre']]
-                
                 for name in genre_names:
                     if name not in genre_ids:
                         statement = """INSERT INTO genre (genre_name) VALUES (%s)

@@ -14,6 +14,10 @@ login_manager= LoginManager(app)
 def load_user(user_id):
     return get(int(user_id))
 
+tv_list=tvseries.print_tv()
+
+for item in tv_list:
+    item.print()
 
 @app.route("/", methods=['GET', 'POST'])
 def login_page():

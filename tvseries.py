@@ -10,7 +10,7 @@ tv_data = [
      {'title': "Game of Thrones",
      'channel': "HBO",
      'language': "English",
-     'season':7,
+     'season':8,
      'year':2011,
      'genre':"Fantastic"},
 
@@ -36,6 +36,40 @@ tv_data = [
      'genre':"Science-Fiction"},
 ]
 
+got_data=[
+
+    {'season': 1,
+     'episode': 1,
+     'title': "Winter Is Coming"},
+    {'season': 1,
+     'episode': 2,
+     'title': "The Kingsroad"},
+    {'season': 1,
+     'episode': 3,
+     'title': "Lord Snow"},
+    {'season': 1,
+     'episode': 4,
+     'title': "Cripples, Bastards, and Broken Things"},
+    {'season': 1,
+     'episode': 5,
+     'title': "The Wolf and the Lion"},
+    {'season': 1,
+     'episode': 6,
+     'title': "A Golden Crown"},
+    {'season': 1,
+     'episode': 7,
+     'title': "You Win or You Die"},
+    {'season': 1,
+     'episode': 8,
+     'title': "The Pointy End"},
+      {'season': 1,
+     'episode': 9,
+     'title': "Baelor"},
+    {'season': 1,
+     'episode': 10,
+     'title': "Fire and Blood"},
+]
+
 channel_ids = {}
 try:
     with dbapi2.connect(url) as connection:
@@ -59,7 +93,7 @@ finally:
 channel_book={}
 with dbapi2.connect(url) as connection:
     with connection.cursor() as cursor:
-            statement = """SELECT channel.id, channel.chan_name FROM  channel; """
+            statement = """SELECT channel.id, channel.chan_name FROM channel; """
             cursor.execute(statement)
             for id, name in cursor:
                 channel_book[name]=id
@@ -69,8 +103,8 @@ try:
     with dbapi2.connect(url) as connection:
         with connection.cursor() as cursor:
                 for item in tv_data:
-                    statement = """INSERT INTO tvseries (TITLE, CHANNELID, LANGUAGE, YEAR, GENRE)
-                                VALUES (%(title)s, %(channelid)s, %(language)s, %(year)s, %(genre)s)
+                    statement = """INSERT INTO tvseries (TITLE, CHANNELID, LANGUAGE, YEAR, SEASON, GENRE)
+                                VALUES (%(title)s, %(channelid)s, %(language)s, %(year)s, %(season)s, %(genre)s)
                             RETURNING id;"""                
                 
                     item['channelid'] = channel_book[item['channel']]
@@ -82,3 +116,39 @@ except dbapi2.DatabaseError:
     connection.rollback()
 finally:
     connection.close()   
+
+
+
+class TV:
+    def __init__(self, title,language,year,season,genre,channel,vote,score):
+        self.title=title
+        self.language=language
+        self.year=year
+        self.season=season
+        self.genre=genre
+        self.channel=channel
+        self.vote=vote
+        self.score=score
+
+    def print(self):
+        print(self.title,self.channel,self.year,self.genre,self.season,self.language,self.vote,self.score)
+
+def print_tv():
+    tv_list=[]
+    with dbapi2.connect(url) as connection:
+        with connection.cursor() as cursor:
+                statement = """SELECT TITLE, CHANNELID, LANGUAGE, YEAR, SEASON, GENRE, VOTE, SCORE FROM tvseries; """
+                cursor.execute(statement)
+                for title, channelid, lang, year, season, genre, vote, score in cursor:
+                    with dbapi2.connect(url) as connection2:
+                         with connection.cursor() as cursor2:
+                            statement = """SELECT channel.chan_name FROM channel
+                                            WHERE channel.id = %s ; """
+                            cursor2.execute(statement,(channelid,))
+                            channel = cursor2.fetchone()[0]
+                    connection2.close()
+                    tv =TV(title,lang,year,season,genre,channel,vote,score)
+                    tv_list.append(tv)
+    connection.close()
+    return tv_list
+    
