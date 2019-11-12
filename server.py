@@ -1,12 +1,15 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
 import dbinit,books,tvseries
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager,login_user
+from flask_login import LoginManager,login_user, current_user, logout_user
 from userdb import User, username_check, get
 from userform import registirationForm, loginForm
+
 app = Flask(__name__)
+
 app.config['SECRET_KEY'] = '41d1a759fd2a316f650e89fdb03e21d0'
 app.config['DATABASE_URL'] = 'postgres://dneperyi:l94XrLU-lOV2MOaQOPBnoYqVdKreucNZ@manny.db.elephantsql.com:5432/dneperyi'
+
 bcrypt = Bcrypt(app)
 login_manager= LoginManager(app)
 
@@ -14,30 +17,32 @@ login_manager= LoginManager(app)
 def load_user(user_id):
     return get(int(user_id))
 
-tv_list=tvseries.print_tv()
-
-for item in tv_list:
-    item.print()
 
 @app.route("/", methods=['GET', 'POST'])
 def login_page():
     form=loginForm()
     if request.method =='POST':
         if form.validate_on_submit:
-            print("lol")
             user = username_check(form.username.data)
             if user and bcrypt.check_password_hash(user.password,form.password.data):
                 login_user(user, remember=form.remember.data)
                 return redirect(url_for('home'))
             else:
-                print("lol2")
                 flash(f'Login Unsuccessful. Check Username and Password!', 'warning')
     return render_template("login.html", form = form)
     
 
-@app.route("/home")
+@app.route("/home", methods=['GET', 'POST'])
 def home():
-    return render_template("home.html")
+    tv_list=tvseries.print_tv()
+    return render_template("home.html", tv=tv_list)
+""" for item in tv_list:
+        seasonn=item.print_episode()
+        print(seasonn.keys())
+        for a in seasonn[1]:
+        print(a.name)"""
+    
+    
 
 @app.route("/signup", methods=['GET', 'POST'])
 
@@ -56,6 +61,16 @@ def signup_page():
 
     return render_template("signup.html", form=form)
 
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('login_page'))
+
+@app.route("/account")
+def account():
+    
+     return render_template("account.html")
 
 if __name__ == "__main__":
     app.run()
+    

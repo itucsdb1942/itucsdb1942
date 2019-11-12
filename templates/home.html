@@ -1,27 +1,5 @@
 {% extends "layout.html" %} {% block content %}
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-primary ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand" href="/home">Trace.</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="oi oi-menu"></span> Menu
-  </button>
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="dropdown nav-item">
-                    <a href="#" class="dropdown-toggle nav-link icon d-flex align-items-center" data-toggle="dropdown">
-                        <i class="ion-ios-menu mr-2"></i> Menu
-                        <b class="caret"></b>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-left">
-                        <a href="#" class="dropdown-item"><i class="ion-ios-settings mr-2"></i>Settings</a>
-                        <a href="#" class="dropdown-item"><i class="ion-ios-log-out mr-2"></i>Log out</a>
-                    </div>
-                </li>
 
-            </ul>
-        </div>
-    </div>
-</nav>
 
 <section class="hero-wrap" style="background-image: url(/static/images/book.jpeg);" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
@@ -42,24 +20,72 @@
     </div>
 </section>
 
-<section class="ftco-section" id="print">
+
+<section class="ftco-section ftco-section-2" id="navigationTabs">
+
+
     <div class="container">
-        <div class="row mb-5">
-            <div class="col-md-12">
-                <h2 class="heading-section">Methods <br>
+        <div class="row">
+            {% for item in tv %}
+            <div class="col-lg-6 mb-5 mb-md-0">
+
+                <h2 class="heading-section mb-3"> <i class="ion-ios-film mr-2"></i>{{item.title}} <br>
+
                 </h2>
-            </div>
-            <form method="POST" action="">
-                <div class="col-md-12">
-                    <button type="button" class="btn btn-primary btn-round">
-                                <i class="ion-ios-tv"></i> Print TV Series
-                        </button>
-                    <button type="button" class="btn btn-primary btn-round">
-                                <i class="ion-ios-book"></i> Print Books
-                        </button>
+                <div class="row no-gutters tabulation">
+                    <div class="col-md-4">
+                        <ul class="nav nav-pills nav-fill d-md-flex d-block">
+                            <li class="nav-item text-left">
+                                <a class="nav-link active py-3" data-toggle="tab" href="#info{{item.id}}"><span class="ion-ios-information-circle mr-2"></span> Information</a>
+                            </li>
+                            <li class="nav-item text-left">
+                                <a class="nav-link py-3" data-toggle="tab" href="#season{{item.id}}"><span class="ion-ios-expand mr-2"></span> Seasons </a>
+                            </li>
+                            <li class="nav-item text-left">
+                                <a class="nav-link py-3" data-toggle="tab" href="#episode{{item.id}}"><span class="ion-ios-list mr-2"></span> Episodes</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="tab-content rounded">
+                            <div class="tab-pane container p-4 active" id="info{{item.id}}">
+                                <p>Release Date: {{item.year}}</p>
+                                <p>Genre: {{item.genre}}</p>
+                                <p>Channel: {{item.channel}}</p>
+                                <p>Language: {{item.language}}</p>
+                                <p>Vote: {{item.vote}}</p>
+                                <p>Score: {{item.score}}</p>
+                            </div>
+                            <div class="tab-pane container p-4 fade" id="season{{item.id}}">
+                                {% for season in range(1, item.season+1) %}
+                                <div>Season {{season}}
+                                    <i class="ion-ios-eye-off"></i>
+                                    <div class="progress mb-2" style="height: 15px;">
+
+                                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                                            <span>40% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                {% endfor %}
+
+                            </div>
+                            <div class="tab-pane container p-4 fade" id="episode{{item.id}}">
+                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </form>
+            </div>
+            {% endfor %}
         </div>
     </div>
+
 </section>
+
+
+
 {% endblock content %}

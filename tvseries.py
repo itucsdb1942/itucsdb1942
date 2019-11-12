@@ -4,6 +4,54 @@ import psycopg2 as dbapi2
 import dbinit as db
 
 url=db.url
+class Episode:
+     def __init__(self, id,tv,name,season_n,episode_n):
+        self.id=id
+        self.tv=tv
+        self.name=name
+        self.season_n=season_n
+        self.episode_n=episode_n
+
+class TV:
+    def __init__(self, id,title,language,year,season,genre,channel,vote,score):
+        self.id=id
+        self.title=title
+        self.language=language
+        self.year=year
+        self.season=season
+        self.genre=genre
+        self.channel=channel
+        self.vote=vote
+        self.score=score
+
+    def print(self):
+        print(self.title,self.channel,self.year,self.genre,self.season,self.language,self.vote,self.score)
+
+    def print_episode(self):
+        tv_book={}
+        with dbapi2.connect(url) as connection:
+            with connection.cursor() as cursor:
+                    statement = """SELECT id FROM tvseries
+                             WHERE title=(%s); """
+                    cursor.execute(statement,(self.title,))
+                    tv_id=cursor.fetchone()[0]
+        connection.close()
+        all_list={}
+        for x in range(1,self.season+1):
+            episode_list=[]
+            with dbapi2.connect(url) as connection:
+                with connection.cursor() as cursor:
+                        statement = """SELECT ID, name, number FROM episode
+                                        WHERE tvid = (%s) AND season_n = (%s); """
+                        cursor.execute(statement,(tv_id,x,))
+                        for id, name, episode_n  in cursor:
+                            episode = Episode(id,self.title,name,x,episode_n)
+                            episode_list.append(episode)
+                        all_list[x]=episode_list    
+            connection.close()
+
+        return all_list
+
 
 tv_data = [
 
@@ -115,31 +163,42 @@ try:
 except dbapi2.DatabaseError:
     connection.rollback()
 finally:
+    connection.close()  
+
+tv_book={}
+with dbapi2.connect(url) as connection:
+    with connection.cursor() as cursor:
+            statement = """SELECT id, title FROM tvseries; """
+            cursor.execute(statement)
+            for id, name in cursor:
+                tv_book[name]=id
+connection.close()
+
+try:
+    with dbapi2.connect(url) as connection:
+        with connection.cursor() as cursor:
+                for item in got_data:
+                    statement = """INSERT INTO episode (tvid, name, number, season_n)
+                                VALUES (%(tvid)s, %(title)s, %(episode)s, %(season)s)
+                            RETURNING id;"""                
+                    item['tvid'] = tv_book['Game of Thrones']
+                    cursor.execute(statement,item)
+                    connection.commit()
+                    episode_id = cursor.fetchone()[0]
+except dbapi2.DatabaseError:
+    connection.rollback()
+finally:
     connection.close()   
+  
 
-
-
-class TV:
-    def __init__(self, title,language,year,season,genre,channel,vote,score):
-        self.title=title
-        self.language=language
-        self.year=year
-        self.season=season
-        self.genre=genre
-        self.channel=channel
-        self.vote=vote
-        self.score=score
-
-    def print(self):
-        print(self.title,self.channel,self.year,self.genre,self.season,self.language,self.vote,self.score)
 
 def print_tv():
     tv_list=[]
     with dbapi2.connect(url) as connection:
         with connection.cursor() as cursor:
-                statement = """SELECT TITLE, CHANNELID, LANGUAGE, YEAR, SEASON, GENRE, VOTE, SCORE FROM tvseries; """
+                statement = """SELECT ID, TITLE, CHANNELID, LANGUAGE, YEAR, SEASON, GENRE, VOTE, SCORE FROM tvseries; """
                 cursor.execute(statement)
-                for title, channelid, lang, year, season, genre, vote, score in cursor:
+                for id, title, channelid, lang, year, season, genre, vote, score in cursor:
                     with dbapi2.connect(url) as connection2:
                          with connection.cursor() as cursor2:
                             statement = """SELECT channel.chan_name FROM channel
@@ -147,7 +206,7 @@ def print_tv():
                             cursor2.execute(statement,(channelid,))
                             channel = cursor2.fetchone()[0]
                     connection2.close()
-                    tv =TV(title,lang,year,season,genre,channel,vote,score)
+                    tv =TV(id,title,lang,year,season,genre,channel,vote,score)
                     tv_list.append(tv)
     connection.close()
     return tv_list

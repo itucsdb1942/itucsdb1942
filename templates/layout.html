@@ -33,7 +33,32 @@
 </head>
 
 <body>
+    {% if current_user.is_authenticated%}
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-primary ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/home">Trace.</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+          </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="dropdown nav-item">
+                        <a href="#" class="dropdown-toggle nav-link icon d-flex align-items-center" data-toggle="dropdown">
+                            <i class="ion-ios-menu mr-2"></i> Menu
+                            <b class="caret"></b>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-left">
+                            <a href="{{ url_for('account') }}" class="dropdown-item"><i class="ion-ios-contact mr-2"></i>Account</a>
+                            <a href="{{ url_for('logout') }}" class="dropdown-item"><i class="ion-ios-log-out mr-2"></i>Log out</a>
+                        </div>
+                    </li>
 
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% endif %}
     <div class="main-section">
         {% with messages= get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
         <div class="alert alert-{{category}}">

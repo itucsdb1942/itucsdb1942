@@ -40,17 +40,11 @@ INIT_STATEMENTS = [
 
         """ CREATE TABLE episode (
             ID SERIAL PRIMARY KEY,
-            TVID INTEGER REFERENCES tvseries(id),
+            tvid INTEGER REFERENCES tvseries(id),
             season_n INTEGER,
             number INTEGER,
             name VARCHAR(80)
-        );""",
-
-       """ CREATE TABLE season (
-            TVID INTEGER REFERENCES tvseries(id),
-            EPID INTEGER REFERENCES episode(id),
-            episode_no INTEGER,
-            PRIMARY KEY(TVID,EPID)
+            UNIQUE(tvid,season_n,number,name)
         );""",
 
 
