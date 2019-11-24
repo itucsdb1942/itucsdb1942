@@ -13,7 +13,7 @@ class Episode:
         self.episode_n=episode_n
 
 class TV:
-    def __init__(self, id,title,language,year,season,genre,channel,vote,score):
+    def __init__(self, id=None,title=None,language=None,year=None,season=None,genre=None,channel=None,vote=None,score= None):
         self.id=id
         self.title=title
         self.language=language
@@ -49,6 +49,48 @@ class TV:
         connection.close()
 
         return ep_list
+
+    def addtv(self):
+
+        channel_ids = {}
+        try:
+            with dbapi2.connect(url) as connection:
+                with connection.cursor() as cursor:
+                                statement = """INSERT INTO channel (chan_name) VALUES (%s)
+                                            RETURNING id"""
+                                cursor.execute(statement, (self.channel,))
+                                connection.commit()
+                                channel_id = cursor.fetchone()[0]
+        except dbapi2.DatabaseError:
+            connection.rollback()
+        finally:
+            connection.close()
+
+        channel_book={}
+        with dbapi2.connect(url) as connection:
+            with connection.cursor() as cursor:
+                    statement = """SELECT channel.id, channel.chan_name FROM channel
+                                        WHERE chan_name = (%s); """
+                    cursor.execute(statement,(self.channel,))
+                    for id, name in cursor:
+                        channel_book[name]=id
+        connection.close()
+        print(channel_book[self.channel])
+
+          
+        try:
+            with dbapi2.connect(url) as connection:
+                with connection.cursor() as cursor:
+                            statement = """INSERT INTO tvseries (TITLE, CHANNELID, LANGUAGE, YEAR, SEASON, GENRE)
+                                        VALUES (%s, %s, %s, %s, %s, %s)
+                                    RETURNING id;"""                
+                            cursor.execute(statement,(self.title,channel_book[self.channel],self.language,self.year,self.season,self.genre,))
+                            connection.commit()
+                            tv_id = cursor.fetchone()[0]
+        except dbapi2.DatabaseError:
+            connection.rollback()
+        finally:
+            connection.close()  
 
     
 

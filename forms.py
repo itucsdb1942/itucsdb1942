@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,PasswordField,SubmitField,RadioField,DateField,BooleanField
+from wtforms import StringField,PasswordField,SubmitField,RadioField,DateField,BooleanField, DecimalField
 from wtforms.validators import DataRequired, Length, Email,EqualTo, ValidationError
 from userdb import username_check, mail_check
 
@@ -29,3 +29,12 @@ class loginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+class tvForm(FlaskForm):
+    title= StringField('Title',validators=[DataRequired()])
+    language= StringField('Language',validators=[DataRequired()])
+    year= DecimalField('Year',validators=[DataRequired()])
+    season= DecimalField('Season',validators=[DataRequired()])
+    genre= StringField('Genre',validators=[DataRequired()])
+    channel= StringField('Channel',validators=[DataRequired()])
+    submit = SubmitField('Add Tv Series')

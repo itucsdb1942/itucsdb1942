@@ -1,9 +1,9 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
-from tvseries import print_tv
+from tvseries import print_tv, TV
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager,login_user, current_user, logout_user
 from userdb import User, username_check, get
-from userform import registirationForm, loginForm
+from forms import registirationForm, loginForm, tvForm
 
 app = Flask(__name__)
 
@@ -54,6 +54,28 @@ def signup_page():
             flash(f'Failed to Create Account for {form.username.data}!', 'danger')
 
     return render_template("signup.html", form=form)
+
+@app.route("/addtv", methods=['GET', 'POST'])
+def tvform_page():
+    form=tvForm()
+    if request.method =='POST':
+        if form.validate_on_submit:
+            tv = TV(title=form.title.data,language=form.language.data, year=form.year.data,season=form.season.data,genre=form.genre.data,channel=form.channel.data)
+            tv.addtv()
+            flash(f'{form.title.data} is created!', 'success')
+            return redirect(url_for('home'))
+    return render_template("addtv.html", form = form)
+
+@app.route("/addbook", methods=['GET', 'POST'])
+def tvform_page():
+    form=tvForm()
+    if request.method =='POST':
+        if form.validate_on_submit:
+            tv = TV(title=form.title.data,language=form.language.data, year=form.year.data,season=form.season.data,genre=form.genre.data,channel=form.channel.data)
+            tv.addtv()
+            flash(f'{form.title.data} is created!', 'success')
+            return redirect(url_for('home'))
+    return render_template("addbook.html", form = form)
 
 @app.route("/logout")
 def logout():
