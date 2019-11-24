@@ -51,40 +51,14 @@ class TV:
         return ep_list
 
     def addtv(self):
-
-        channel_ids = {}
+  
         try:
             with dbapi2.connect(url) as connection:
                 with connection.cursor() as cursor:
-                                statement = """INSERT INTO channel (chan_name) VALUES (%s)
-                                            RETURNING id"""
-                                cursor.execute(statement, (self.channel,))
-                                connection.commit()
-                                channel_id = cursor.fetchone()[0]
-        except dbapi2.DatabaseError:
-            connection.rollback()
-        finally:
-            connection.close()
-
-        channel_book={}
-        with dbapi2.connect(url) as connection:
-            with connection.cursor() as cursor:
-                    statement = """SELECT channel.id, channel.chan_name FROM channel
-                                        WHERE chan_name = (%s); """
-                    cursor.execute(statement,(self.channel,))
-                    for id, name in cursor:
-                        channel_book[name]=id
-        connection.close()
-        print(channel_book[self.channel])
-
-          
-        try:
-            with dbapi2.connect(url) as connection:
-                with connection.cursor() as cursor:
-                            statement = """INSERT INTO tvseries (TITLE, CHANNELID, LANGUAGE, YEAR, SEASON, GENRE)
+                            statement = """INSERT INTO tvseries (TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE)
                                         VALUES (%s, %s, %s, %s, %s, %s)
                                     RETURNING id;"""                
-                            cursor.execute(statement,(self.title,channel_book[self.channel],self.language,self.year,self.season,self.genre,))
+                            cursor.execute(statement,(self.title,self.channel,self.language,self.year,self.season,self.genre,))
                             connection.commit()
                             tv_id = cursor.fetchone()[0]
         except dbapi2.DatabaseError:
@@ -160,45 +134,13 @@ got_data=[
      'title': "Fire and Blood"},
 ]
 
-channel_ids = {}
-try:
-    with dbapi2.connect(url) as connection:
-        with connection.cursor() as cursor:
-            for item in tv_data:
-                channel_names = [item['channel']]
-                
-                for name in channel_names:
-                    if name not in channel_ids:
-                        statement = """INSERT INTO channel (chan_name) VALUES (%s)
-                                    RETURNING id"""
-                        cursor.execute(statement, (name,))
-                        connection.commit()
-                        channel_id = cursor.fetchone()[0]
-                        channel_ids[name] = channel_id
-except dbapi2.DatabaseError:
-    connection.rollback()
-finally:
-    connection.close()
-
-channel_book={}
-with dbapi2.connect(url) as connection:
-    with connection.cursor() as cursor:
-            statement = """SELECT channel.id, channel.chan_name FROM channel; """
-            cursor.execute(statement)
-            for id, name in cursor:
-                channel_book[name]=id
-connection.close()
-
 try:
     with dbapi2.connect(url) as connection:
         with connection.cursor() as cursor:
                 for item in tv_data:
                     statement = """INSERT INTO tvseries (TITLE, CHANNELID, LANGUAGE, YEAR, SEASON, GENRE)
-                                VALUES (%(title)s, %(channelid)s, %(language)s, %(year)s, %(season)s, %(genre)s)
-                            RETURNING id;"""                
-                
-                    item['channelid'] = channel_book[item['channel']]
-                    
+                                VALUES (%(title)s, %(channel)s, %(language)s, %(year)s, %(season)s, %(genre)s)
+                            RETURNING id;"""    
                     cursor.execute(statement,item)
                     connection.commit()
                     tv_id = cursor.fetchone()[0]
@@ -238,16 +180,9 @@ def print_tv():
     tv_list=[]
     with dbapi2.connect(url) as connection:
         with connection.cursor() as cursor:
-                statement = """SELECT ID, TITLE, CHANNELID, LANGUAGE, YEAR, SEASON, GENRE, VOTE, SCORE FROM tvseries; """
+                statement = """SELECT ID, TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE, VOTE, SCORE FROM tvseries; """
                 cursor.execute(statement)
-                for id, title, channelid, lang, year, season, genre, vote, score in cursor:
-                    with dbapi2.connect(url) as connection2:
-                         with connection.cursor() as cursor2:
-                            statement = """SELECT channel.chan_name FROM channel
-                                            WHERE channel.id = %s ; """
-                            cursor2.execute(statement,(channelid,))
-                            channel = cursor2.fetchone()[0]
-                    connection2.close()
+                for id, title, channel, lang, year, season, genre, vote, score in cursor:
                     tv =TV(id,title,lang,year,season,genre,channel,vote,score)
                     tv_list.append(tv)
     connection.close()

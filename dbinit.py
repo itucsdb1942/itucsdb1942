@@ -21,15 +21,10 @@ INIT_STATEMENTS = [
             password VARCHAR(40) NOT NULL
         );""",
 
-        """CREATE TABLE channel( 
-                ID SERIAL PRIMARY KEY,
-                chan_name  VARCHAR(40) UNIQUE
-        );""",
-
         """CREATE TABLE tvseries (
             ID SERIAL PRIMARY KEY,
             TITLE VARCHAR(80) UNIQUE NOT NULL,
-            CHANNELID INTEGER REFERENCES channel(id),
+            CHANNEL VARCHAR(20),
             LANGUAGE VARCHAR(20),
             SEASON INTEGER,
             YEAR INTEGER,
