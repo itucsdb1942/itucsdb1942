@@ -3,7 +3,7 @@ from tvseries import print_tv, TV
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager,login_user, current_user, logout_user
 from userdb import User, username_check, get
-from forms import registirationForm, loginForm, tvForm
+from forms import registirationForm, loginForm, tvForm, bookForm
 
 app = Flask(__name__)
 
@@ -67,11 +67,11 @@ def tvform_page():
     return render_template("addtv.html", form = form)
 
 @app.route("/addbook", methods=['GET', 'POST'])
-def tvform_page():
-    form=tvForm()
+def bookForm_page():
+    form=bookForm()
     if request.method =='POST':
         if form.validate_on_submit:
-            tv = TV(title=form.title.data,language=form.language.data, year=form.year.data,season=form.season.data,genre=form.genre.data,channel=form.channel.data)
+            book = TV(title=form.title.data,language=form.language.data, year=form.year.data,season=form.season.data,genre=form.genre.data,channel=form.channel.data)
             tv.addtv()
             flash(f'{form.title.data} is created!', 'success')
             return redirect(url_for('home'))

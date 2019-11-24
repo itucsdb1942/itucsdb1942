@@ -5,6 +5,70 @@ import dbinit as db
 
 url=db.url
 
+class Book:
+    def _init_(self, id=None, name=None, writer=None,pub_year=None,tpage=None,genre=None,publisher=None, language=None,vote=None,score= None):
+        self.id = id
+        self.name= name
+        self.writer= writer
+        self.pub_year= pub_year
+        self.tpage= tpage
+        self.genre= genre
+        self.publisher= publisher 
+        self.language= language 
+        self.vote=vote 
+        self.score= score
+    def addbook(self):
+        try:
+            with dbapi2.connect(url) as connection:
+                with connection.cursor() as cursor:
+                        wri_name = self.writer
+                        statement = """INSERT INTO writer (wr_name) VALUES (%s)
+                                        RETURNING id;"""
+                        
+                        cursor.execute(statement,(wri_name,))
+                        connection.commit()
+                        writer_id = cursor.fetchone()[0]    
+        except dbapi2.DatabaseError:
+            connection.rollback()
+        finally:
+            connection.close()
+
+        try:
+            with dbapi2.connect(url) as connection:
+                with connection.cursor() as cursor:
+                    for item in book_data:
+                        statement = """INSERT INTO books (NAME, WRITERID, PUB_YEAR, T_PAGE, PUBLISHER, LANGUAGE, GENRE, SCORE, VOTE)
+                                    VALUES (%s,%s,%s, %s,%s,%s,%s,%s,%s)
+                            RETURNING id;"""
+                        
+                        cursor.execute(statement, (self.name, writer_id, self.pub_year, self.tpage, self.publisher, self.language, self.genre, self.score, self.vote))
+                        connection.commit()
+                        book_id = cursor.fetchone()[0]
+        except dbapi2.DatabaseError:
+            connection.rollback()
+        finally:
+            connection.close()
+
+    
+
+def print_book():
+        book_list=[]
+        with dbapi2.connect(url) as connection:
+            with connection.cursor() as cursor:
+                statement = """SELECT NAME, WRITERID, PUB_YEAR, T_PAGE, PUBLISHER, LANGUAGE, GENRE, SCORE, VOTE FROM BOOKS; """
+                cursor.execute(statement)
+                for id, name, wri_id, year, page, pub, lang, gen, sc, vote in cursor:
+                    with dbapi2.connect(url) as connection2:
+                        with connection2.cursor() as cursor2:
+                            statement = """SELECT WR_NAME FROM  writer WHERE id=%s; """
+                            cursor2.execute(statement,(wri_id,))
+                            wr_name =cursor2.fetchone()[0]     
+                    connection2.close()
+                    book =Book(id, name,wr_name, year, page, pub, lang, gen, sc, vote)
+                    book_list.append(book)
+        connection.close()
+        return book_list
+
 book_data = [
     {'title': "Harry Potter and the Philosopher's Stone",
      'writer': "J. K. Rowling",
