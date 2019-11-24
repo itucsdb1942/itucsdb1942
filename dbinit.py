@@ -47,23 +47,11 @@ INIT_STATEMENTS = [
             UNIQUE(tvid,season_n,number,name)
         );""",
 
-
-         """CREATE TABLE publisher( 
-                ID SERIAL PRIMARY KEY,
-                pub_name  VARCHAR(40) UNIQUE,
-                pub_country VARCHAR(40)
-        );""",
-
         """CREATE TABLE writer(
             ID SERIAL PRIMARY KEY,
             wr_name VARCHAR(50) NOT NULL UNIQUE,
             wr_country VARCHAR(50)
         );""",
-
-        """CREATE TABLE genre(
-            ID SERIAL PRIMARY KEY,
-            genre_name VARCHAR(50) UNIQUE
-         );""",
 
          """ CREATE TABLE books(
             ID SERIAL PRIMARY KEY,
@@ -71,9 +59,9 @@ INIT_STATEMENTS = [
             WRITERID INTEGER REFERENCES writer(id),
             PUB_YEAR INTEGER,
             T_PAGE INTEGER,
-            PUBLISHERID INTEGER REFERENCES publisher(id),
+            PUBLISHER VARCHAR(50),
             LANGUAGE VARCHAR(80),
-            GENREID INTEGER REFERENCES genre(id),
+            GENRE VARCHAR(50),
             SCORE SCORES DEFAULT 0,
             VOTE INTEGER DEFAULT 0);""",
 
