@@ -38,7 +38,7 @@ INIT_STATEMENTS = [
             tvid INTEGER REFERENCES tvseries(id),
             season_n INTEGER,
             number INTEGER,
-            name VARCHAR(80)
+            name VARCHAR(80),
             UNIQUE(tvid,season_n,number,name)
         );""",
 

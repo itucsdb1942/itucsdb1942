@@ -1,5 +1,6 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
-from tvseries import print_tv, TV
+from tvseries import TV,print_tv
+from books import Book, print_book
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager,login_user, current_user, logout_user
 from userdb import User, username_check, get
@@ -71,9 +72,10 @@ def bookForm_page():
     form=bookForm()
     if request.method =='POST':
         if form.validate_on_submit:
-            book = TV(title=form.title.data,language=form.language.data, year=form.year.data,season=form.season.data,genre=form.genre.data,channel=form.channel.data)
-            tv.addtv()
-            flash(f'{form.title.data} is created!', 'success')
+            print(form.name.data,form.writer.data)
+            book = Book(name=form.name.data,writer=form.writer.data, year_pub=form.year_pub.data,tpage=form.tpage.data,publisher=form.publisher.data,language=form.language.data,genre=form.genre.data)
+            book.addbook()
+            flash(f'{form.name.data} is created!', 'success')
             return redirect(url_for('home'))
     return render_template("addbook.html", form = form)
 

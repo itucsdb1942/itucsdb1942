@@ -138,7 +138,7 @@ try:
     with dbapi2.connect(url) as connection:
         with connection.cursor() as cursor:
                 for item in tv_data:
-                    statement = """INSERT INTO tvseries (TITLE, CHANNELID, LANGUAGE, YEAR, SEASON, GENRE)
+                    statement = """INSERT INTO tvseries (TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE)
                                 VALUES (%(title)s, %(channel)s, %(language)s, %(year)s, %(season)s, %(genre)s)
                             RETURNING id;"""    
                     cursor.execute(statement,item)

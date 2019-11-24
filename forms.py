@@ -39,12 +39,12 @@ class tvForm(FlaskForm):
     channel= StringField('Channel',validators=[DataRequired()])
     submit = SubmitField('Add Tv Series')
 class bookForm(FlaskForm):
-    title= StringField('Title',validators=[DataRequired()])
+    name= StringField('Title',validators=[DataRequired()])
     writer = StringField('Author',validators=[DataRequired()])
     year_pub = DecimalField('Year of Publication',validators=[DataRequired()])
     tpage = DecimalField('Total Page',validators=[DataRequired()])
     publisher = StringField('Publisher',validators=[DataRequired()])
     language = StringField('Language',validators=[DataRequired()])
     genre = StringField('Genre',validators=[DataRequired()])
-    submit = SubmitField('Add Tv Series')
+    submit = SubmitField('Add Book')
 

@@ -6,18 +6,36 @@ import dbinit as db
 url=db.url
 
 class Book:
-    def _init_(self, id=None, name=None, writer=None,pub_year=None,tpage=None,genre=None,publisher=None, language=None,vote=None,score= None):
+    def __init__(self, id=None, name=None, writer=None,year_pub=None,tpage=None,genre=None,publisher=None, language=None,vote=None,score= None):
         self.id = id
         self.name= name
         self.writer= writer
-        self.pub_year= pub_year
+        self.year_pub= year_pub
         self.tpage= tpage
         self.genre= genre
         self.publisher= publisher 
         self.language= language 
         self.vote=vote 
-        self.score= score
+        self.score=score
+
     def addbook(self):
+
+        writer_ids={}
+
+        try:
+            with dbapi2.connect(url) as connection:
+                with connection.cursor() as cursor:
+                        wri_name = self.writer
+                        statement = """SELECT id FROM writer WHERE wr_name= (%s);"""
+                        cursor.execute(statement,(wri_name,))
+                        connection.commit()
+                        writer_id = cursor.fetchone()[0]   
+                        writer_ids[wri_name]=writer_id
+        except dbapi2.DatabaseError:
+            connection.rollback()
+        finally:
+            connection.close()
+
         try:
             with dbapi2.connect(url) as connection:
                 with connection.cursor() as cursor:
@@ -27,7 +45,8 @@ class Book:
                         
                         cursor.execute(statement,(wri_name,))
                         connection.commit()
-                        writer_id = cursor.fetchone()[0]    
+                        writer_id = cursor.fetchone()[0]   
+                        writer_ids[wri_name]=writer_id
         except dbapi2.DatabaseError:
             connection.rollback()
         finally:
@@ -36,12 +55,10 @@ class Book:
         try:
             with dbapi2.connect(url) as connection:
                 with connection.cursor() as cursor:
-                    for item in book_data:
                         statement = """INSERT INTO books (NAME, WRITERID, PUB_YEAR, T_PAGE, PUBLISHER, LANGUAGE, GENRE, SCORE, VOTE)
                                     VALUES (%s,%s,%s, %s,%s,%s,%s,%s,%s)
                             RETURNING id;"""
-                        
-                        cursor.execute(statement, (self.name, writer_id, self.pub_year, self.tpage, self.publisher, self.language, self.genre, self.score, self.vote))
+                        cursor.execute(statement, (self.name, writer_ids[self.writer], self.year_pub, self.tpage, self.publisher, self.language, self.genre, self.score, self.vote))
                         connection.commit()
                         book_id = cursor.fetchone()[0]
         except dbapi2.DatabaseError:

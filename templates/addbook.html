@@ -20,12 +20,12 @@
                                           <i class="ion-ios-contact"></i>
                                       </span>
                                 </div>
-                                {% if form.title.errors %} {{form.title(type="text" , class="form-control is-invalid" , placeholder="Title")}}
+                                {% if form.name.errors %} {{form.name(type="text" , class="form-control is-invalid" , placeholder="Title")}}
                                 <div class="invalid-feedback">
                                     {% for error in form.name.errors %}
                                     <span>{{ error }}</span> {% endfor %}
                                 </div>
-                                {% else %} {{form.title(type="text" , class="form-control" , placeholder="Title" )}}{% endif%}
+                                {% else %} {{form.name(type="text" , class="form-control" , placeholder="Title" )}}{% endif%}
                             </div>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
@@ -33,12 +33,12 @@
                                   <i class="ion-ios-contact"></i>
                               </span>
                                 </div>
-                                {% if form.channel.errors %} {{form.channel(type="text" , class="form-control is-invalid" , placeholder="Channel")}}
+                                {% if form.writer.errors %} {{form.writer(type="text" , class="form-control is-invalid" , placeholder="writer")}}
                                 <div class="invalid-feedback">
-                                    {% for error in form.channel.errors %}
+                                    {% for error in form.writer.errors %}
                                     <span>{{ error }}</span> {% endfor %}
                                 </div>
-                                {% else %} {{form.channel(type="text" , class="form-control" , placeholder="Channel" )}}{% endif%}
+                                {% else %} {{form.writer(type="text" , class="form-control" , placeholder="writer" )}}{% endif%}
                             </div>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
@@ -46,12 +46,12 @@
                                                     <i class="ion-ios-contact"></i>
                                                 </span>
                                 </div>
-                                {% if form.language.errors %} {{form.language(type="text" , class="form-control is-invalid" , placeholder="language")}}
+                                {% if form.year_pub.errors %} {{form.year_pub(type="text" , class="form-control is-invalid" , placeholder="year_pub")}}
                                 <div class="invalid-feedback">
-                                    {% for error in form.language.errors %}
+                                    {% for error in form.year_pub.errors %}
                                     <span>{{ error }}</span> {% endfor %}
                                 </div>
-                                {% else %} {{form.language(type="text" , class="form-control" , placeholder="language")}} {% endif%}
+                                {% else %} {{form.year_pub(type="text" , class="form-control" , placeholder="year_pub")}} {% endif%}
 
                             </div>
                             <div class="input-group mb-4">
@@ -60,25 +60,12 @@
                                                 <i class="ion-ios-contact"></i>
                                             </span>
                                 </div>
-                                {% if form.year.errors %} {{form.year(type="text" , class="form-control is-invalid" , placeholder="year")}}
+                                {% if form.tpage.errors %} {{form.tpage(type="text" , class="form-control is-invalid" , placeholder="tpage")}}
                                 <div class="invalid-feedback">
-                                    {% for error in form.year.errors %}
+                                    {% for error in form.tpage.errors %}
                                     <span>{{ error }}</span> {% endfor %}
                                 </div>
-                                {% else %} {{form.year(type="text" , class="form-control" , placeholder="year" )}}{% endif%}
-                            </div>
-                            <div class="input-group mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                                    <i class="ion-ios-contact"></i>
-                                                </span>
-                                </div>
-                                {% if form.genre.errors %} {{form.genre(type="text" , class="form-control is-invalid" , placeholder="genre")}}
-                                <div class="invalid-feedback">
-                                    {% for error in form.genre.errors %}
-                                    <span>{{ error }}</span> {% endfor %}
-                                </div>
-                                {% else %} {{form.genre(type="text" , class="form-control" , placeholder="genre" )}}{% endif%}
+                                {% else %} {{form.tpage(type="text" , class="form-control" , placeholder="tpage" )}}{% endif%}
                             </div>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
@@ -86,12 +73,38 @@
                                                         <i class="ion-ios-contact"></i>
                                                     </span>
                                 </div>
-                                {% if form.season.errors %} {{form.season(type="text" , class="form-control is-invalid" , placeholder="season")}}
+                                {% if form.publisher.errors %} {{form.publisher(type="text" , class="form-control is-invalid" , placeholder="publisher")}}
                                 <div class="invalid-feedback">
-                                    {% for error in form.season.errors %}
+                                    {% for error in form.publisher.errors %}
                                     <span>{{ error }}</span> {% endfor %}
                                 </div>
-                                {% else %} {{form.season(type="text" , class="form-control" , placeholder="season" )}}{% endif%}
+                                {% else %} {{form.publisher(type="text" , class="form-control" , placeholder="publisher" )}}{% endif%}
+                            </div>
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                                    <i class="ion-ios-contact"></i>
+                                                </span>
+                                </div>
+                                <div class="input-group mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                                            <i class="ion-ios-contact"></i>
+                                                        </span>
+                                    </div>
+                                    {% if form.language.errors %} {{form.language(type="text" , class="form-control is-invalid" , placeholder="language")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.language.errors %}
+                                        <span>{{ error }}</span> {% endfor %}
+                                    </div>
+                                    {% else %} {{form.language(type="text" , class="form-control" , placeholder="language" )}}{% endif%}
+                                </div>
+                                {% if form.genre.errors %} {{form.genre(type="text" , class="form-control is-invalid" , placeholder="genre")}}
+                                <div class="invalid-feedback">
+                                    {% for error in form.genre.errors %}
+                                    <span>{{ error }}</span> {% endfor %}
+                                </div>
+                                {% else %} {{form.genre(type="text" , class="form-control" , placeholder="genre" )}}{% endif%}
                             </div>
 
                         </div>
