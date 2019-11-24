@@ -5,8 +5,6 @@ import dbinit as db
 from flask_login import UserMixin
 url=db.url
 
-
-
 class User(UserMixin):
     def __init__(self, id = None, name = None ,surname = None ,username = None ,mail = None ,gender = None ,date = None ,password = None):
         self.id=id

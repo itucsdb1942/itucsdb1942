@@ -27,8 +27,8 @@ class TV:
     def print(self):
         print(self.title,self.channel,self.year,self.genre,self.season,self.language,self.vote,self.score)
 
-    def print_episode(self):
-        tv_book={}
+    def print_episode(self,se_number):
+        
         with dbapi2.connect(url) as connection:
             with connection.cursor() as cursor:
                     statement = """SELECT id FROM tvseries
@@ -36,21 +36,21 @@ class TV:
                     cursor.execute(statement,(self.title,))
                     tv_id=cursor.fetchone()[0]
         connection.close()
-        all_list={}
-        for x in range(1,self.season+1):
-            episode_list=[]
-            with dbapi2.connect(url) as connection:
-                with connection.cursor() as cursor:
-                        statement = """SELECT ID, name, number FROM episode
-                                        WHERE tvid = (%s) AND season_n = (%s); """
-                        cursor.execute(statement,(tv_id,x,))
-                        for id, name, episode_n  in cursor:
-                            episode = Episode(id,self.title,name,x,episode_n)
-                            episode_list.append(episode)
-                        all_list[x]=episode_list    
-            connection.close()
+        
+        ep_list=[]
+        with dbapi2.connect(url) as connection:
+            with connection.cursor() as cursor:
+                    statement = """SELECT ID, name, number FROM episode
+                                    WHERE tvid = (%s) AND season_n = (%s); """
+                    cursor.execute(statement,(tv_id,se_number,))
+                    for id, name,ep_number in cursor:
+                        episode = Episode(id,self.title,name,se_number,ep_number)
+                        ep_list.append(episode)
+        connection.close()
 
-        return all_list
+        return ep_list
+
+    
 
 
 tv_data = [

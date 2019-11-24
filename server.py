@@ -1,5 +1,5 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
-import dbinit,books,tvseries
+from tvseries import print_tv
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager,login_user, current_user, logout_user
 from userdb import User, username_check, get
@@ -34,14 +34,8 @@ def login_page():
 
 @app.route("/home", methods=['GET', 'POST'])
 def home():
-    tv_list=tvseries.print_tv()
+    tv_list=print_tv()
     return render_template("home.html", tv=tv_list)
-""" for item in tv_list:
-        seasonn=item.print_episode()
-        print(seasonn.keys())
-        for a in seasonn[1]:
-        print(a.name)"""
-    
     
 
 @app.route("/signup", methods=['GET', 'POST'])
