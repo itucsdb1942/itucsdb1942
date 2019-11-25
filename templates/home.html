@@ -31,10 +31,13 @@
         <div class="row">
             {% for item in tv %}
             <div class="col-lg-6 mb-5 mb-md-0">
+                <form action="" method="POST">
+                    <input hidden type="number" name="form_id" class="input" value="{{item.id}}" />
+                    <h2 class="heading-section mb-3"> <i class="ion-ios-film mr-2"></i> <input type="submit" class="btn btn-lg btn-link" value="{{item.title}}" /><br></h2>
 
-                <h2 class="heading-section mb-3"> <i class="ion-ios-film mr-2"></i>{{item.title}} <br>
 
-                </h2>
+                </form>
+
                 <div class="row no-gutters tabulation">
                     <div class="col-md-4">
                         <ul class="nav nav-pills nav-fill d-md-flex d-block">
@@ -77,22 +80,7 @@
 
                             </div>
                             <div class="tab-pane container p-4 fade" id="episode{{item.id}}">
-                                <div class="dropdown d-inline-block">
-                                    <form action="" method="get">
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                            <div class="btn-group-sm mr-2" role="group" aria-label="First group">
-                                                {% for season in range(1, item.season+1) %}
-                                                <button name="s" data-toggle="collapse" type="submit" class="btn btn-outline-primary" value="{{season}}">{{season}}</button> {% endfor %}
-                                            </div>
-                                        </div>
-                                    </form>
-                                    {% if s %} {% for episode in item.print_episode(s) %}
-                                    <div class="collapse">Episode {{episode.episode_n}}: {{episode.name}}
-                                        <a href="#" class="btn btn-icon btn-dark btn-link" role="button"><i class="ion-ios-eye-off"></i></a>
-                                    </div>
-                                    {% endfor %} {% endif %}
 
-                                </div>
                             </div>
                         </div>
                     </div>

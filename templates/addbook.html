@@ -86,18 +86,19 @@
                                                     <i class="ion-ios-contact"></i>
                                                 </span>
                                 </div>
-                                <div class="input-group mb-4">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
+
+                                {% if form.language.errors %} {{form.language(type="text" , class="form-control is-invalid" , placeholder="language")}}
+                                <div class="invalid-feedback">
+                                    {% for error in form.language.errors %}
+                                    <span>{{ error }}</span> {% endfor %}
+                                </div>
+                                {% else %} {{form.language(type="text" , class="form-control" , placeholder="language" )}}{% endif%}
+                            </div>
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
                                                             <i class="ion-ios-contact"></i>
                                                         </span>
-                                    </div>
-                                    {% if form.language.errors %} {{form.language(type="text" , class="form-control is-invalid" , placeholder="language")}}
-                                    <div class="invalid-feedback">
-                                        {% for error in form.language.errors %}
-                                        <span>{{ error }}</span> {% endfor %}
-                                    </div>
-                                    {% else %} {{form.language(type="text" , class="form-control" , placeholder="language" )}}{% endif%}
                                 </div>
                                 {% if form.genre.errors %} {{form.genre(type="text" , class="form-control is-invalid" , placeholder="genre")}}
                                 <div class="invalid-feedback">

@@ -36,8 +36,14 @@ def login_page():
 @app.route("/home", methods=['GET', 'POST'])
 def home():
     tv_list=print_tv()
+    if request.method =='POST':
+        form_id=request.form['form_id']
+        return redirect(url_for('tv',form_id=form_id))
     return render_template("home.html", tv=tv_list)
     
+@app.route("/tv", methods=['GET', 'POST'])
+def tv():
+    return render_template("tv.html")
 
 @app.route("/signup", methods=['GET', 'POST'])
 
