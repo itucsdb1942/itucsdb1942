@@ -10,8 +10,8 @@
                     <h2>TRACE</h2>
                     <h4 class="mb-5">A tracking system for your books and TV series.</h4>
                     <p class="text-muted mt-3">Contribute Our Database</p>
-                    <p><a href="/addtv" class="btn btn-dark px-5 py-4 mb-2"><i class="ion-ios-film mr-2"></i>Add TV Series</a>
-                        <a href="/addbook" class="btn btn-dark px-5 py-4 mb-2"><i class="ion-ios-book mr-2"></i>Add Books</a></p>
+                    <p><a href="/addtv" class="btn btn-outline-primary px-5 py-4 mb-2"><i class="ion-ios-film mr-2"></i>Add TV Series</a>
+                        <a href="/addbook" class="btn btn-outline-primary px-5 py-4 mb-2"><i class="ion-ios-book mr-2"></i>Add Books</a></p>
                 </div>
             </div>
         </div>
@@ -23,7 +23,6 @@
     </div>
 </section>
 
-
 <section class="ftco-section ftco-section-2" id="navigationTabs">
 
 
@@ -31,11 +30,9 @@
         <div class="row">
             {% for item in tv %}
             <div class="col-lg-6 mb-5 mb-md-0">
-                <form action="" method="POST">
-                    <input hidden type="number" name="form_id" class="input" value="{{item.id}}" />
-                    <h2 class="heading-section mb-3"> <i class="ion-ios-film mr-2"></i> <input type="submit" class="btn btn-lg btn-link" value="{{item.title}}" /><br></h2>
-
-
+                <form id="tv-form{{item.id}}" action="" method="POST">
+                    <input type="hidden" name="form_id" value="{{item.id}}" />
+                    <h2 class="heading-section mb-3"> <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('tv-form{{item.id}}').submit();"><i class="ion-ios-film mr-2"></i>{{item.title}}<br></a></h2>
                 </form>
 
                 <div class="row no-gutters tabulation">
@@ -45,11 +42,9 @@
                                 <a class="nav-link active py-3" data-toggle="tab" href="#info{{item.id}}"><span class="ion-ios-information-circle mr-2"></span> Information</a>
                             </li>
                             <li class="nav-item text-left">
-                                <a class="nav-link py-3" data-toggle="tab" href="#season{{item.id}}"><span class="ion-ios-expand mr-2"></span> Seasons </a>
+                                <a class="nav-link py-3" data-toggle="tab" href="#season{{item.id}}"><span class="ion-ios-list mr-2"></span> Seasons </a>
                             </li>
-                            <li class="nav-item text-left">
-                                <a class="nav-link py-3" data-toggle="tab" href="#episode{{item.id}}"><span class="ion-ios-list mr-2"></span> Episodes</a>
-                            </li>
+
                         </ul>
                     </div>
 
@@ -77,11 +72,8 @@
 
 
                                 {% endfor %}
-
                             </div>
-                            <div class="tab-pane container p-4 fade" id="episode{{item.id}}">
 
-                            </div>
                         </div>
                     </div>
                 </div>

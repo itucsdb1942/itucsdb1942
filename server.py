@@ -1,5 +1,5 @@
-from flask import Flask,render_template,url_for,flash, redirect, request
-from tvseries import TV,print_tv
+from flask import Flask,render_template,url_for,flash, redirect, request,session
+from tvseries import TV,print_tv,find_tv
 from books import Book, print_book
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager,login_user, current_user, logout_user
@@ -37,13 +37,14 @@ def login_page():
 def home():
     tv_list=print_tv()
     if request.method =='POST':
-        form_id=request.form['form_id']
-        return redirect(url_for('tv',form_id=form_id))
+        item=request.form['form_id']
+        return redirect(url_for('tv',item=item))
     return render_template("home.html", tv=tv_list)
     
-@app.route("/tv", methods=['GET', 'POST'])
-def tv():
-    return render_template("tv.html")
+@app.route("/tv/<int:item>", methods=['GET', 'POST']) #dynamic pages
+def tv(item):
+    print('item_id:',item)
+    return render_template("tv.html", tv=tv)
 
 @app.route("/signup", methods=['GET', 'POST'])
 

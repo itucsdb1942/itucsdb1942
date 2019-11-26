@@ -188,3 +188,12 @@ def print_tv():
     connection.close()
     return tv_list
     
+def find_tv(idno):
+    with dbapi2.connect(url) as connection:
+        with connection.cursor() as cursor:
+                statement = """SELECT ID, TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE, VOTE, SCORE FROM tvseries WHERE id=%s; """
+                cursor.execute(statement,(idno,))
+                for id, title, channel, lang, year, season, genre, vote, score in cursor:
+                    tv =TV(id,title,lang,year,season,genre,channel,vote,score)
+    connection.close()
+    return tv
