@@ -73,6 +73,11 @@
                         <i class="ion-ios-warning"></i>
                     </div>
                     <p class="mb-0 ml-2"><b>Warning Alert:</b> Hey, {{message}}</p>
+                    {% endif %}{% if category == 'info' %}
+                    <div class="alert-icon">
+                        <i class="ion-ios-information-circle"></i>
+                    </div>
+                    <p class="mb-0 ml-2"><b>Information Alert:</b> Hey, {{message}}</p>
                     {% endif %}
                 </div>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">

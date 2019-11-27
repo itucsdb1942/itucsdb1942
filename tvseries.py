@@ -28,26 +28,16 @@ class TV:
         print(self.title,self.channel,self.year,self.genre,self.season,self.language,self.vote,self.score)
 
     def print_episode(self,se_number):
-        
-        with dbapi2.connect(url) as connection:
-            with connection.cursor() as cursor:
-                    statement = """SELECT id FROM tvseries
-                             WHERE title=(%s); """
-                    cursor.execute(statement,(self.title,))
-                    tv_id=cursor.fetchone()[0]
-        connection.close()
-        
         ep_list=[]
         with dbapi2.connect(url) as connection:
             with connection.cursor() as cursor:
                     statement = """SELECT ID, name, number FROM episode
                                     WHERE tvid = (%s) AND season_n = (%s); """
-                    cursor.execute(statement,(tv_id,se_number,))
+                    cursor.execute(statement,(self.id,se_number,))
                     for id, name,ep_number in cursor:
-                        episode = Episode(id,self.title,name,se_number,ep_number)
+                        episode = Episode(id,self.id,name,se_number,ep_number)
                         ep_list.append(episode)
         connection.close()
-
         return ep_list
 
     def addtv(self):
@@ -60,7 +50,7 @@ class TV:
                                     RETURNING id;"""                
                             cursor.execute(statement,(self.title,self.channel,self.language,self.year,self.season,self.genre,))
                             connection.commit()
-                            tv_id = cursor.fetchone()[0]
+                            self.id = cursor.fetchone()[0]
         except dbapi2.DatabaseError:
             connection.rollback()
         finally:
@@ -132,6 +122,7 @@ got_data=[
     {'season': 1,
      'episode': 10,
      'title': "Fire and Blood"},
+     
 ]
 
 try:

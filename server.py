@@ -1,8 +1,8 @@
-from flask import Flask,render_template,url_for,flash, redirect, request,session
+from flask import Flask,render_template,url_for,flash, redirect, request
 from tvseries import TV,print_tv,find_tv
 from books import Book, print_book
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager,login_user, current_user, logout_user
+from flask_login import LoginManager,login_user, current_user, logout_user, login_required
 from userdb import User, username_check, get
 from forms import registirationForm, loginForm, tvForm, bookForm
 
@@ -13,7 +13,8 @@ app.config['DATABASE_URL'] = 'postgres://dneperyi:l94XrLU-lOV2MOaQOPBnoYqVdKreuc
 
 bcrypt = Bcrypt(app)
 login_manager= LoginManager(app)
-
+login_manager.login_view='login_page'
+login_manager.login_message_category='info'
 @login_manager.user_loader
 def load_user(user_id):
     return get(int(user_id))
@@ -27,13 +28,15 @@ def login_page():
             user = username_check(form.username.data)
             if user and bcrypt.check_password_hash(user.password,form.password.data):
                 login_user(user, remember=form.remember.data)
-                return redirect(url_for('home'))
+                next_page=request.args.get('next')
+                return redirect(next_page) if next_page else redirect(url_for('home'))
             else:
                 flash(f'Login Unsuccessful. Check Username and Password!', 'warning')
     return render_template("login.html", form = form)
     
 
 @app.route("/home", methods=['GET', 'POST'])
+@login_required
 def home():
     tv_list=print_tv()
     if request.method =='POST':
@@ -42,8 +45,9 @@ def home():
     return render_template("home.html", tv=tv_list)
     
 @app.route("/tv/<int:item>", methods=['GET', 'POST']) #dynamic pages
+@login_required
 def tv(item):
-    print('item_id:',item)
+    tv=find_tv(item)
     return render_template("tv.html", tv=tv)
 
 @app.route("/signup", methods=['GET', 'POST'])
@@ -64,6 +68,7 @@ def signup_page():
     return render_template("signup.html", form=form)
 
 @app.route("/addtv", methods=['GET', 'POST'])
+@login_required
 def tvform_page():
     form=tvForm()
     if request.method =='POST':
@@ -75,6 +80,7 @@ def tvform_page():
     return render_template("addtv.html", form = form)
 
 @app.route("/addbook", methods=['GET', 'POST'])
+@login_required
 def bookForm_page():
     form=bookForm()
     if request.method =='POST':
@@ -92,6 +98,7 @@ def logout():
     return redirect(url_for('login_page'))
 
 @app.route("/account")
+@login_required
 def account():
     
      return render_template("account.html")
