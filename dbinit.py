@@ -1,6 +1,5 @@
 import os
 import sys
-
 import psycopg2 as dbapi2
 
 url="postgres://dneperyi:l94XrLU-lOV2MOaQOPBnoYqVdKreucNZ@manny.db.elephantsql.com:5432/dneperyi"
@@ -10,16 +9,16 @@ INIT_STATEMENTS = [
     """ CREATE DOMAIN SCORES AS FLOAT
             CHECK((VALUE>=0.0) AND (VALUE<=10.0)) DEFAULT 0.0;""",
 
-    """ CREATE TABLE user (
+        """ CREATE TABLE users(
             ID SERIAL PRIMARY KEY,
-            name VARCHAR(20) NOT NULL,
-            surname VARCHAR(20) NOT NULL,
-            username VARCHAR(20) UNIQUE NOT NULL,
-            email VARCHAR(40) NOT NULL,
+            NAME VARCHAR(20) NOT NULL,
+            SURNAME VARCHAR(20) NOT NULL,
+            USERNAME VARCHAR(20) UNIQUE NOT NULL,
+            mail VARCHAR(80) UNIQUE NOT NULL,
             gender VARCHAR(6) NOT NULL,
-            date DATE NOT NULL,
-            password VARCHAR(40) NOT NULL
-        );""",
+            birth DATE NOT NULL,
+            password VARCHAR(80) NOT NULL
+            );""",
 
         """CREATE TABLE tvseries (
             ID SERIAL PRIMARY KEY,
@@ -33,16 +32,47 @@ INIT_STATEMENTS = [
             SCORE SCORES
         );""",
 
+         """ CREATE TABLE tv_commit(
+            ID SERIAL PRIMARY KEY,
+            userid INTEGER REFERENCES users(id),
+            tvid INTEGER REFERENCES tvseries(id),
+            header VARCHAR(20),
+            content VARCHAR(200),
+            LIKE_N INTEGER DEFAULT 0,
+            DISLIKE_N INTEGER DEFAULT 0,
+            date DATE
+            );""", 
+
         """ CREATE TABLE episode (
             ID SERIAL PRIMARY KEY,
             tvid INTEGER REFERENCES tvseries(id),
             season_n INTEGER,
             number INTEGER,
             name VARCHAR(80),
-            UNIQUE(tvid,season_n,number,name)
+            year INTEGER,
+            VOTE INTEGER DEFAULT 0,
+            SCORE SCORES,
+            UNIQUE(tvid,season_n,number)
         );""",
 
-        """CREATE TABLE writer(
+    """ CREATE TABLE tv_list(
+            ID SERIAL PRIMARY KEY,
+            userid INTEGER REFERENCES users(id),
+            tvid INTEGER REFERENCES tvseries(id),
+            fav_list BOOL DEFAULT FALSE,
+            wish_list BOOL DEFAULT FALSE,
+            watched_list BOOL DEFAULT FALSE,
+            watching_list BOOL DEFAULT FALSE
+            );""",
+
+     """ CREATE TABLE tv_trace(
+            ID SERIAL PRIMARY KEY,
+            userid INTEGER REFERENCES users(id),
+            episodeid INTEGER REFERENCES episode(id),
+            watched BOOL DEFAULT FALSE
+            );""",
+
+       """CREATE TABLE writer(
             ID SERIAL PRIMARY KEY,
             wr_name VARCHAR(50) NOT NULL UNIQUE,
             wr_country VARCHAR(50)
@@ -60,17 +90,7 @@ INIT_STATEMENTS = [
             SCORE SCORES DEFAULT 0,
             VOTE INTEGER DEFAULT 0);""",
 
-       """ CREATE TABLE users(
-            ID SERIAL PRIMARY KEY,
-            NAME VARCHAR(20) NOT NULL,
-            SURNAME VARCHAR(20) NOT NULL,
-            USERNAME VARCHAR(20) UNIQUE NOT NULL,
-            mail VARCHAR(80) UNIQUE NOT NULL,
-            gender VARCHAR(6) NOT NULL,
-            birth DATE NOT NULL,
-            password VARCHAR(80) NOT NULL
-            );""",
-
+       
     
 ]
 

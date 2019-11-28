@@ -122,6 +122,36 @@ got_data=[
     {'season': 1,
      'episode': 10,
      'title': "Fire and Blood"},
+    {'season': 2,
+     'episode': 1,
+     'title': "The North Remembers"},
+    {'season': 2,
+     'episode': 2,
+     'title': "The Night Lands"},
+    {'season': 2,
+     'episode': 3,
+     'title': "What Is Dead May Never Die"},
+    {'season': 2,
+     'episode': 4,
+     'title': "Garden of Bones"},
+    {'season': 2,
+     'episode': 5,
+     'title': "The Ghost of Harrenhal"},
+    {'season': 2,
+     'episode': 6,
+     'title': "The Old Gods and the New"},
+    {'season': 2,
+     'episode': 7,
+     'title': "A Man Without Honor"},
+    {'season': 2,
+     'episode': 8,
+     'title': "The Prince of Winterfell"},
+      {'season': 2,
+     'episode': 9,
+     'title': "Black Water"},
+    {'season': 2,
+     'episode': 10,
+     'title': "Valar Morghulis"},
      
 ]
 
@@ -153,6 +183,7 @@ try:
     with dbapi2.connect(url) as connection:
         with connection.cursor() as cursor:
                 for item in got_data:
+                    print("lol")
                     statement = """INSERT INTO episode (tvid, name, number, season_n)
                                 VALUES (%(tvid)s, %(title)s, %(episode)s, %(season)s)
                             RETURNING id;"""                
@@ -165,8 +196,6 @@ except dbapi2.DatabaseError:
 finally:
     connection.close()   
   
-
-
 def print_tv():
     tv_list=[]
     with dbapi2.connect(url) as connection:

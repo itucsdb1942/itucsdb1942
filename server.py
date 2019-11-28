@@ -1,4 +1,5 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
+import dbinit
 from tvseries import TV,print_tv,find_tv
 from books import Book, print_book
 from flask_bcrypt import Bcrypt
