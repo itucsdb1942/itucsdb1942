@@ -90,8 +90,49 @@ INIT_STATEMENTS = [
             SCORE SCORES DEFAULT 0,
             VOTE INTEGER DEFAULT 0);""",
 
-       
-    
+        """CREATE TABLE collbook(
+            ID SERIAL PRIMARY KEY,
+            userid INTEGER REFERENCES users(id),
+            bookid INTEGER REFERENCES books(id),
+            coll_name VARCHAR(50) NOT NULL,
+            numberofbook INTEGER DEFAULT 0,
+            like INTEGER DEFAULT 0,
+            dislike INTEGER DEFAULT 0,
+            date DATE
+        );""",
+
+        """CREATE TABLE book_list(
+            ID SERIAL PRIMARY KEY,
+            userid INTEGER REFERENCES users(id),
+            bookid INTEGER REFERENCES books(id),
+            fav_b BOOL DEFAULT FALSE,
+            wish_b BOOL DEFAULT FALSE,
+            readed BOOL DEFAULT FALSE,
+            reading BOOL DEFAULT FALSE,
+            collid INTGER REFERENCES collbook(id)
+        );""",
+
+        """CREATE TABLE book_trace(
+            ID SERIAL PRIMARY KEY,
+            userid INTEGER REFERENCES users(id),
+            bookid INTEGER REFERENCES books(id),
+            readpage INTEGER DEFAULT 0,
+            readed BOOL DEFAULT FALSE
+        );"""
+
+        """CREATE TABLE comment_b(
+            ID SERIAL PRIMARY KEY,
+            userid INTEGER REFERENCES users(id),
+            bookid INTEGER REFERENCES books(id),
+            headerb VARCHAR(30),
+            contentb VARCHAR(250),
+            like INTEGER DEFAULT 0,
+            dislike INTEGER DEFAULT 0,
+            date DATE
+        );"""
+        
+        
+
 ]
 
 def initialize(url):
