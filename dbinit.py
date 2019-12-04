@@ -118,7 +118,7 @@ INIT_STATEMENTS = [
             bookid INTEGER REFERENCES books(id),
             readpage INTEGER DEFAULT 0,
             readed BOOL DEFAULT FALSE
-        );"""
+        );""",
 
         """CREATE TABLE comment_b(
             ID SERIAL PRIMARY KEY,
