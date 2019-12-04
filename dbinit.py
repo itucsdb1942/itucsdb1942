@@ -129,18 +129,14 @@ INIT_STATEMENTS = [
             dislike INTEGER DEFAULT 0,
             date DATE
         );"""
-        
-        
-
+ 
 ]
-def con(url):
-    connection = dbapi2.connect(url)
-    return connection
+connection = dbapi2.connect(url)
+
 
 def initialize(url):
     for statement in INIT_STATEMENTS:
         try:
-            connection=con(url)
             cursor = connection.cursor()
             cursor.execute(statement)
             connection.commit()

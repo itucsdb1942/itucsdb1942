@@ -3,7 +3,7 @@ import sys
 import psycopg2 as dbapi2
 import dbinit as db
 
-connection = db.con(db.url)
+connection = db.connection
 class Book:
     def __init__(self, id=None, name=None, writer=None,year_pub=None,tpage=None,genre=None,publisher=None, language=None,vote=None,score= None):
         self.id = id

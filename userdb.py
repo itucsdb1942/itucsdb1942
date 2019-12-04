@@ -3,7 +3,7 @@ import sys
 import psycopg2 as dbapi2
 import dbinit as db
 from flask_login import UserMixin
-url=db.url
+connection=db.connection
 
 class User(UserMixin):
     def __init__(self, id = None, name = None ,surname = None ,username = None ,mail = None ,gender = None ,date = None ,password = None):
@@ -28,7 +28,6 @@ class User(UserMixin):
       
 
         try:
-            with dbapi2.connect(url) as connection:
                 with connection.cursor() as cursor:
                             statement = """INSERT INTO users (name, surname, username, mail, gender, birth, password)
                                         VALUES (%(name)s, %(surname)s, %(username)s, %(mail)s, %(gender)s, %(birth)s, %(password)s)
@@ -39,11 +38,10 @@ class User(UserMixin):
         except dbapi2.DatabaseError:
             connection.rollback() 
         finally:
-            connection.close()   
+            cursor.close()   
 
     
 def get(user_id):
-        with dbapi2.connect(url) as connection:
             with connection.cursor() as cursor:
                     statement = """SELECT id, name, surname, username, mail, gender, birth, password FROM users 
                                         WHERE id = ({}); """.format(user_id)
@@ -53,10 +51,9 @@ def get(user_id):
                         user= User(id=i, name=n, surname=s, username=u,
                         mail=m, gender=g, date=b, password=p)
                     return user
-        connection.close()
+            cursor.close()
 
 def username_check(username):
-        with dbapi2.connect(url) as connection:
             with connection.cursor() as cursor:
                     statement = """SELECT id, name, surname, username, mail, gender, birth, password FROM users 
                                         WHERE username = (%s); """
@@ -66,10 +63,9 @@ def username_check(username):
                         user= User(id=i, name=n, surname=s, username=u,
                         mail=m, gender=g, date=b, password=p)
                     return user
-        connection.close()
+            cursor.close()
     
 def mail_check(mail):
-        with dbapi2.connect(url) as connection:
             with connection.cursor() as cursor:
                     statement = """SELECT id, name, surname, username, mail, gender, birth, password FROM users 
                                         WHERE mail = (%s); """
@@ -79,6 +75,6 @@ def mail_check(mail):
                         user= User(id=i, name=n, surname=s, username=u,
                         mail=m, gender=g, date=b, password=p)
                     return user
-        connection.close()
+            cursor.close()
 
 

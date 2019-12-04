@@ -3,7 +3,7 @@ import sys
 import psycopg2 as dbapi2
 import dbinit as db
 
-url=db.url
+connection=db.connection
 class Episode:
      def __init__(self, id,tv,name,season_n,episode_n):
         self.id=id
@@ -29,22 +29,20 @@ class TV:
 
     def print_episode(self,se_number):
         ep_list=[]
-        with dbapi2.connect(url) as connection:
-            with connection.cursor() as cursor:
+        with connection.cursor() as cursor:
                     statement = """SELECT ID, name, number FROM episode
                                     WHERE tvid = (%s) AND season_n = (%s); """
                     cursor.execute(statement,(self.id,se_number,))
                     for id, name,ep_number in cursor:
                         episode = Episode(id,self.id,name,se_number,ep_number)
                         ep_list.append(episode)
-        connection.close()
+        cursor.close()
         return ep_list
 
     def addtv(self):
   
         try:
-            with dbapi2.connect(url) as connection:
-                with connection.cursor() as cursor:
+            with connection.cursor() as cursor:
                             statement = """INSERT INTO tvseries (TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE)
                                         VALUES (%s, %s, %s, %s, %s, %s)
                                     RETURNING id;"""                
@@ -54,7 +52,7 @@ class TV:
         except dbapi2.DatabaseError:
             connection.rollback()
         finally:
-            connection.close()  
+            cursor.close()  
 
     
 
@@ -156,7 +154,6 @@ got_data=[
 ]
 
 try:
-    with dbapi2.connect(url) as connection:
         with connection.cursor() as cursor:
                 for item in tv_data:
                     statement = """INSERT INTO tvseries (TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE)
@@ -168,19 +165,17 @@ try:
 except dbapi2.DatabaseError:
     connection.rollback()
 finally:
-    connection.close()  
+    cursor.close()  
 
 tv_book={}
-with dbapi2.connect(url) as connection:
-    with connection.cursor() as cursor:
+with connection.cursor() as cursor:
             statement = """SELECT id, title FROM tvseries; """
             cursor.execute(statement)
             for id, name in cursor:
                 tv_book[name]=id
-connection.close()
+cursor.close()
 
 try:
-    with dbapi2.connect(url) as connection:
         with connection.cursor() as cursor:
                 for item in got_data:
                     print("lol")
@@ -194,26 +189,24 @@ try:
 except dbapi2.DatabaseError:
     connection.rollback()
 finally:
-    connection.close()   
+    cursor.close()   
   
 def print_tv():
     tv_list=[]
-    with dbapi2.connect(url) as connection:
-        with connection.cursor() as cursor:
+    with connection.cursor() as cursor:
                 statement = """SELECT ID, TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE, VOTE, SCORE FROM tvseries; """
                 cursor.execute(statement)
                 for id, title, channel, lang, year, season, genre, vote, score in cursor:
                     tv =TV(id,title,lang,year,season,genre,channel,vote,score)
                     tv_list.append(tv)
-    connection.close()
+    cursor.close()
     return tv_list
     
 def find_tv(idno):
-    with dbapi2.connect(url) as connection:
         with connection.cursor() as cursor:
                 statement = """SELECT ID, TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE, VOTE, SCORE FROM tvseries WHERE id=%s; """
                 cursor.execute(statement,(idno,))
                 for id, title, channel, lang, year, season, genre, vote, score in cursor:
                     tv =TV(id,title,lang,year,season,genre,channel,vote,score)
-    connection.close()
-    return tv
+        cursor.close()
+        return tv
