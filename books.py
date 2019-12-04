@@ -3,8 +3,7 @@ import sys
 import psycopg2 as dbapi2
 import dbinit as db
 
-url=db.url
-
+connection = db.con(db.url)
 class Book:
     def __init__(self, id=None, name=None, writer=None,year_pub=None,tpage=None,genre=None,publisher=None, language=None,vote=None,score= None):
         self.id = id
@@ -19,71 +18,63 @@ class Book:
         self.score=score
 
     def addbook(self):
-
         writer_ids={}
-
         try:
-            with dbapi2.connect(url) as connection:
-                with connection.cursor() as cursor:
-                        wri_name = self.writer
-                        statement = """SELECT id FROM writer WHERE wr_name= (%s);"""
-                        cursor.execute(statement,(wri_name,))
-                        connection.commit()
-                        writer_id = cursor.fetchone()[0]   
-                        writer_ids[wri_name]=writer_id
+            with connection.cursor() as cursor:
+                wri_name = self.writer
+                statement = """SELECT id FROM writer WHERE wr_name= (%s);"""
+                cursor.execute(statement,(wri_name,))
+                connection.commit()
+                writer_id = cursor.fetchone()[0]   
+                writer_ids[wri_name]=writer_id
         except dbapi2.DatabaseError:
             connection.rollback()
         finally:
-            connection.close()
+            cursor.close()
 
         try:
-            with dbapi2.connect(url) as connection:
-                with connection.cursor() as cursor:
-                        wri_name = self.writer
-                        statement = """INSERT INTO writer (wr_name) VALUES (%s)
+            with connection.cursor() as cursor:
+                wri_name = self.writer
+                statement = """INSERT INTO writer (wr_name) VALUES (%s)
                                         RETURNING id;"""
                         
-                        cursor.execute(statement,(wri_name,))
-                        connection.commit()
-                        writer_id = cursor.fetchone()[0]   
-                        writer_ids[wri_name]=writer_id
+                cursor.execute(statement,(wri_name,))
+                connection.commit()
+                writer_id = cursor.fetchone()[0]   
+                writer_ids[wri_name]=writer_id
         except dbapi2.DatabaseError:
             connection.rollback()
         finally:
-            connection.close()
+            cursor.close()
 
         try:
-            with dbapi2.connect(url) as connection:
-                with connection.cursor() as cursor:
-                        statement = """INSERT INTO books (NAME, WRITERID, PUB_YEAR, T_PAGE, PUBLISHER, LANGUAGE, GENRE, SCORE, VOTE)
+            with connection.cursor() as cursor:
+                statement = """INSERT INTO books (NAME, WRITERID, PUB_YEAR, T_PAGE, PUBLISHER, LANGUAGE, GENRE, SCORE, VOTE)
                                     VALUES (%s,%s,%s, %s,%s,%s,%s,%s,%s)
                             RETURNING id;"""
-                        cursor.execute(statement, (self.name, writer_ids[self.writer], self.year_pub, self.tpage, self.publisher, self.language, self.genre, self.score, self.vote))
-                        connection.commit()
-                        book_id = cursor.fetchone()[0]
+                cursor.execute(statement, (self.name, writer_ids[self.writer], self.year_pub, self.tpage, self.publisher, self.language, self.genre, self.score, self.vote))
+                connection.commit()
+                book_id = cursor.fetchone()[0]
         except dbapi2.DatabaseError:
             connection.rollback()
         finally:
-            connection.close()
+            cursor.close()
 
     
 
 def print_book():
         book_list=[]
-        with dbapi2.connect(url) as connection:
-            with connection.cursor() as cursor:
+        with connection.cursor() as cursor:
                 statement = """SELECT NAME, WRITERID, PUB_YEAR, T_PAGE, PUBLISHER, LANGUAGE, GENRE, SCORE, VOTE FROM BOOKS; """
                 cursor.execute(statement)
                 for id, name, wri_id, year, page, pub, lang, gen, sc, vote in cursor:
-                    with dbapi2.connect(url) as connection2:
-                        with connection2.cursor() as cursor2:
                             statement = """SELECT WR_NAME FROM  writer WHERE id=%s; """
-                            cursor2.execute(statement,(wri_id,))
-                            wr_name =cursor2.fetchone()[0]     
-                    connection2.close()
-                    book =Book(id, name,wr_name, year, page, pub, lang, gen, sc, vote)
-                    book_list.append(book)
-        connection.close()
+                            cursor.execute(statement,(wri_id,))
+                            wr_name =cursor.fetchone()[0]     
+                   
+                book =Book(id, name,wr_name, year, page, pub, lang, gen, sc, vote)
+                book_list.append(book)
+        cursor.close()
         return book_list
 
 book_data = [
@@ -143,7 +134,6 @@ book_data = [
 
 writer_ids = {}
 try:
-    with dbapi2.connect(url) as connection:
         with connection.cursor() as cursor:
             for item in book_data:
                 wri_names = [item['writer']]
@@ -159,20 +149,18 @@ try:
 except dbapi2.DatabaseError:
     connection.rollback()
 finally:
-    connection.close()
+    cursor.close()
 
 writer_book = {}
-with dbapi2.connect(url) as connection:
-    with connection.cursor() as cursor:
+with connection.cursor() as cursor:
         statement = """SELECT id, wr_name FROM writer; """
         cursor.execute(statement)
         for id, name in cursor:
             writer_book[name] = id
-connection.close()
+cursor.close()
 
 try:
-    with dbapi2.connect(url) as connection:
-        with connection.cursor() as cursor:
+    with connection.cursor() as cursor:
             for item in book_data:
                 statement = """INSERT INTO books (NAME, WRITERID, PUB_YEAR, T_PAGE, PUBLISHER, LANGUAGE, GENRE, SCORE, VOTE)
                             VALUES (%(title)s, %(writerid)s, %(year_pub)s, %(tpage)s,
@@ -186,5 +174,5 @@ try:
 except dbapi2.DatabaseError:
     connection.rollback()
 finally:
-    connection.close()
+    cursor.close()
 

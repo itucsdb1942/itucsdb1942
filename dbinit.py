@@ -133,19 +133,20 @@ INIT_STATEMENTS = [
         
 
 ]
+def con(url):
+    connection = dbapi2.connect(url)
+    return connection
 
 def initialize(url):
     for statement in INIT_STATEMENTS:
         try:
-            connection = dbapi2.connect(url)
+            connection=con(url)
             cursor = connection.cursor()
             cursor.execute(statement)
             connection.commit()
             cursor.close()
         except dbapi2.DatabaseError:
             connection.rollback()
-        finally:
-            connection.close()
 
 initialize(url)
 
