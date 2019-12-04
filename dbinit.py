@@ -109,15 +109,14 @@ INIT_STATEMENTS = [
             wish_b BOOL DEFAULT FALSE,
             readed BOOL DEFAULT FALSE,
             reading BOOL DEFAULT FALSE,
-            collid INTGER REFERENCES collbook(id)
+            collid INTEGER REFERENCES collbook(id)
         );""",
 
         """CREATE TABLE book_trace(
             ID SERIAL PRIMARY KEY,
             userid INTEGER REFERENCES users(id),
             bookid INTEGER REFERENCES books(id),
-            readpage INTEGER DEFAULT 0,
-            readed BOOL DEFAULT FALSE
+            readpage INTEGER DEFAULT 0
         );""",
 
         """CREATE TABLE comment_b(
