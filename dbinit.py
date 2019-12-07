@@ -98,7 +98,8 @@ INIT_STATEMENTS = [
             numberofbook INTEGER DEFAULT 0,
             like INTEGER DEFAULT 0,
             dislike INTEGER DEFAULT 0,
-            date DATE
+            date DATE,
+            UNIQUE(userid, coll_name)
         );""",
 
         """CREATE TABLE book_list(

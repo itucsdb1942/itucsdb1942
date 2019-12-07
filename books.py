@@ -59,23 +59,51 @@ class Book:
             connection.rollback()
         finally:
             cursor.close()
+     
+    def update_page(self,userid):
+        try:
+            with connection.cursor() as cursor:
+                statement = """UPDATE book_trace ()
+                                    VALUES (%s,%s,%s, %s,%s,%s,%s,%s,%s)
+                            RETURNING id;"""
+                cursor.execute(statement, (self.name, writer_ids[self.writer], self.year_pub, self.tpage, self.publisher, self.language, self.genre, self.score, self.vote))
+                connection.commit()
+                book_id = cursor.fetchone()[0]
+        except dbapi2.DatabaseError:
+            connection.rollback()
+        finally:
+            cursor.close()
 
     
 
 def print_book():
         book_list=[]
         with connection.cursor() as cursor:
-                statement = """SELECT NAME, WRITERID, PUB_YEAR, T_PAGE, PUBLISHER, LANGUAGE, GENRE, SCORE, VOTE FROM BOOKS; """
+                statement = """SELECT ID, NAME, WRITERID, PUB_YEAR, T_PAGE, PUBLISHER, LANGUAGE, GENRE, SCORE, VOTE FROM BOOKS; """
                 cursor.execute(statement)
                 for id, name, wri_id, year, page, pub, lang, gen, sc, vote in cursor:
+                        with connection.cursor() as cursor2:
                             statement = """SELECT WR_NAME FROM  writer WHERE id=%s; """
-                            cursor.execute(statement,(wri_id,))
-                            wr_name =cursor.fetchone()[0]     
-                   
-                book =Book(id, name,wr_name, year, page, pub, lang, gen, sc, vote)
-                book_list.append(book)
+                            cursor2.execute(statement,(wri_id,))
+                            wr_name =cursor2.fetchone()[0]     
+                            print("lol2")
+                        book =Book(id, name, wr_name, year, page, pub, lang, gen, sc, vote)
+                        book_list.append(book)
         cursor.close()
         return book_list
+
+def find_book(idno):
+        with connection.cursor() as cursor:
+                statement = """SELECT ID, NAME, WRITERID, PUB_YEAR, T_PAGE, PUBLISHER, LANGUAGE, GENRE, SCORE, VOTE FROM BOOKS WHERE id=%s; """
+                cursor.execute(statement,(idno,))
+                for id, name, wri_id, year, page, pub, lang, gen, sc, vote in cursor:
+                    statement = """SELECT WR_NAME FROM  writer WHERE id=%s; """
+                    cursor.execute(statement,(wri_id,))
+                    wr_name =cursor.fetchone()[0]   
+                book = Book(id, name, wr_name, year, page, pub, lang, gen, sc, vote)
+        cursor.close()
+        return book
+
 
 book_data = [
     {'title': "Harry Potter and the Philosopher's Stone",

@@ -38,6 +38,7 @@ class tvForm(FlaskForm):
     genre= StringField('Genre',validators=[DataRequired()])
     channel= StringField('Channel',validators=[DataRequired()])
     submit = SubmitField('Add Tv Series')
+    
 class bookForm(FlaskForm):
     name= StringField('Title',validators=[DataRequired()])
     writer = StringField('Author',validators=[DataRequired()])

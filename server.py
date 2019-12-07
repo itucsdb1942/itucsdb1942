@@ -1,7 +1,7 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
 import dbinit
 from tvseries import TV,print_tv,find_tv
-from books import Book, print_book
+from books import Book, print_book, find_book
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager,login_user, current_user, logout_user, login_required
 from userdb import User, username_check, get
@@ -16,6 +16,7 @@ bcrypt = Bcrypt(app)
 login_manager= LoginManager(app)
 login_manager.login_view='login_page'
 login_manager.login_message_category='info'
+
 @login_manager.user_loader
 def load_user(user_id):
     return get(int(user_id))
@@ -34,22 +35,44 @@ def login_page():
             else:
                 flash(f'Login Unsuccessful. Check Username and Password!', 'warning')
     return render_template("login.html", form = form)
-    
 
 @app.route("/home", methods=['GET', 'POST'])
 @login_required
 def home():
+    return render_template("home.html")    
+
+@app.route("/tv", methods=['GET', 'POST'])
+@login_required
+def tvpage():
     tv_list=print_tv()
     if request.method =='POST':
         item=request.form['form_id']
         return redirect(url_for('tv',item=item))
-    return render_template("home.html", tv=tv_list)
+    return render_template("tvpage.html", tv=tv_list)
     
 @app.route("/tv/<int:item>", methods=['GET', 'POST']) #dynamic pages
 @login_required
 def tv(item):
     tv=find_tv(item)
     return render_template("tv.html", tv=tv)
+
+
+@app.route("/bookpage", methods=['GET', 'POST'])
+@login_required
+def bookpage():
+    book_list=print_book()
+    if request.method =='POST':
+        item=request.form['page']
+        print(item)
+    return render_template("bookpage.html", book=book_list)
+
+@app.route("/book/<int:item>", methods=['GET', 'POST']) #dynamic pages
+@login_required
+def book(item):
+    book = find_book()
+    return render_template("book.html")
+
+
 
 @app.route("/signup", methods=['GET', 'POST'])
 

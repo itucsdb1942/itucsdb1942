@@ -4,13 +4,41 @@ import psycopg2 as dbapi2
 import dbinit as db
 
 connection=db.connection
+
 class Episode:
-     def __init__(self, id,tv,name,season_n,episode_n):
+    def __init__(self, id,tv,name,season_n,episode_n):
         self.id=id
         self.tv=tv
         self.name=name
         self.season_n=season_n
         self.episode_n=episode_n
+
+    def watching(self,userid):
+
+        try:
+            with connection.cursor() as cursor:
+                    statement = """INSERT INTO tv_list (userid, tvid, watching_list)  VALUES (%s, %s, %s) RETURNING id;"""
+                    cursor.execute(statement,(userid, self.tv, "TRUE",))
+            cursor.close()
+           
+        try:
+            with connection.cursor() as cursor:
+                statement = """INSERT INTO tv_trace (userid, episodeid, watched)  VALUES (%s, %s, %s) RETURNING id;"""
+                cursor.execute(statement,(userid, self.id, "TRUE",))
+            cursor.close()
+
+    def watched(self,userid):
+
+        try:
+            with connection.cursor() as cursor:
+                    statement = """INSERT INTO tv_list (userid, tvid, watched_list)  VALUES (%s, %s, %s) RETURNING id;"""
+                    cursor.execute(statement,(userid, self.tv, "TRUE",))
+                    statement = """UPDATE tv_list SET watching_list= (%s) WHERE userid = (%s) AND tvid = (%s);"""
+                    cursor.execute(statement,("FALSE",userid, self.tv,))
+            cursor.close()
+
+        
+
 
 class TV:
     def __init__(self, id=None,title=None,language=None,year=None,season=None,genre=None,channel=None,vote=None,score= None):
