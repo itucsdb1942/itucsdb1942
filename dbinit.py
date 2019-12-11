@@ -13,7 +13,7 @@ INIT_STATEMENTS = [
             ID SERIAL PRIMARY KEY,
             NAME VARCHAR(20) NOT NULL,
             SURNAME VARCHAR(20) NOT NULL,
-            USERNAME VARCHAR(20) UNIQUE NOT NULL,
+            USERNAME VARCHAR(20) UNIQUEUNI NOT NULL,
             mail VARCHAR(80) UNIQUE NOT NULL,
             gender VARCHAR(6) NOT NULL,
             birth DATE NOT NULL,
@@ -117,7 +117,8 @@ INIT_STATEMENTS = [
             ID SERIAL PRIMARY KEY,
             userid INTEGER REFERENCES users(id),
             bookid INTEGER REFERENCES books(id),
-            readpage INTEGER DEFAULT 0
+            readpage INTEGER DEFAULT 0,
+            UNIQUE(userid, bookid)
         );""",
 
         """CREATE TABLE comment_b(

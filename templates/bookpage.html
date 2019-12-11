@@ -64,13 +64,14 @@
                                 <form id='page{{item.id}}' action="" method="POST">
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <input type="text" name="page" class="form-control border-right-0" placeholder="Please enter the number of pages you read">
+                                            <input type="text" name="page" class="form-control border-right-0" placeholder="Please enter the number of pages you read"/>
+                                             <input type="hidden" name="bookid" value="{{item.id}}"/>
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text border-left-0 rounded-right">
                                             <i class="ion-logo-ionic"></i>
                                         </span>
                                             </div>
-                                            <button type="button" href="javascript:{}" onclick="document.getElementById('tv-form{{item.id}}').submit();" class="btn btn-primary btn-sm btn-fab btn-round ml-4">
+                                            <button type="button" href="javascript:{}" onclick="document.getElementById('page{{item.id}}').submit();" class="btn btn-primary btn-sm btn-fab btn-round ml-4">
                                                 <i class="ion-ios-checkbox"></i>
                                               </button>
                                         </div>

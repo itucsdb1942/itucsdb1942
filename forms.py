@@ -48,4 +48,5 @@ class bookForm(FlaskForm):
     language = StringField('Language',validators=[DataRequired()])
     genre = StringField('Genre',validators=[DataRequired()])
     submit = SubmitField('Add Book')
+ 
 

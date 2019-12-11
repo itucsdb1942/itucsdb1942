@@ -60,22 +60,28 @@ class Book:
         finally:
             cursor.close()
      
-    def update_page(self,userid):
-        try:
-            with connection.cursor() as cursor:
-                statement = """UPDATE book_trace ()
-                                    VALUES (%s,%s,%s, %s,%s,%s,%s,%s,%s)
-                            RETURNING id;"""
-                cursor.execute(statement, (self.name, writer_ids[self.writer], self.year_pub, self.tpage, self.publisher, self.language, self.genre, self.score, self.vote))
-                connection.commit()
-                book_id = cursor.fetchone()[0]
-        except dbapi2.DatabaseError:
-            connection.rollback()
-        finally:
-            cursor.close()
-
+def updatepage(bookid, userid, page):
+    try:
+        with connection.cursor() as cursor:
+            statement = """INSERT INTO book_trace (userid, bookid, readpage)
+                        VALUES ( %s, %s, %s)
+                    RETURNING id;"""
+            cursor.execute(statement,(userid,bookid,page,))
+            connection.commit()
+    except dbapi2.errors.UniqueViolation:
+        connection.rollback()
+        with connection.cursor() as cursor:
+            statement = """ UPDATE book_trace 
+                        SET readpage = %s WHERE userid = %s AND bookid = %s"""
+            cursor.execute(statement, (page, userid, bookid,))
+            connection.commit()
+    except dbapi2.errors.InFailedSqlTransactions:
+        connection.rollback()
+    finally:
+        cursor.close()
     
-
+  
+    
 def print_book():
         book_list=[]
         with connection.cursor() as cursor:

@@ -1,7 +1,7 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
 import dbinit
 from tvseries import TV,print_tv,find_tv
-from books import Book, print_book, find_book
+from books import Book, print_book, find_book, updatepage
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager,login_user, current_user, logout_user, login_required
 from userdb import User, username_check, get
@@ -62,8 +62,10 @@ def tv(item):
 def bookpage():
     book_list=print_book()
     if request.method =='POST':
-        item=request.form['page']
-        print(item)
+        readed=request.form['page']
+        bookid=request.form['bookid']
+        print(readed,bookid,current_user.id)
+        updatepage(bookid, current_user.id, readed)
     return render_template("bookpage.html", book=book_list)
 
 @app.route("/book/<int:item>", methods=['GET', 'POST']) #dynamic pages
