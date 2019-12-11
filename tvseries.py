@@ -14,73 +14,64 @@ class Episode:
         self.episode_n=episode_n
 
     def watching(self,userid):
-
-        try:
-            with connection.cursor() as cursor:
-                    statement = """INSERT INTO tv_list (userid, tvid, watching_list)  VALUES (%s, %s, %s) RETURNING id;"""
-                    cursor.execute(statement,(userid, self.tv, "TRUE",))
-            cursor.close()
-           
-        try:
-            with connection.cursor() as cursor:
-                statement = """INSERT INTO tv_trace (userid, episodeid, watched)  VALUES (%s, %s, %s) RETURNING id;"""
-                cursor.execute(statement,(userid, self.id, "TRUE",))
-            cursor.close()
+        with connection.cursor() as cursor:
+                statement = """INSERT INTO tv_list (userid, tvid, watching_list)  VALUES (%s, %s, %s) RETURNING id;"""
+                cursor.execute(statement,(userid, self.tv, "TRUE",))
+        cursor.close()
+        with connection.cursor() as cursor:
+            statement = """INSERT INTO tv_trace (userid, episodeid, watched)  VALUES (%s, %s, %s) RETURNING id;"""
+            cursor.execute(statement,(userid, self.id, "TRUE",))
+        cursor.close()
 
     def watched(self,userid):
-
-        try:
-            with connection.cursor() as cursor:
-                    statement = """INSERT INTO tv_list (userid, tvid, watched_list)  VALUES (%s, %s, %s) RETURNING id;"""
-                    cursor.execute(statement,(userid, self.tv, "TRUE",))
-                    statement = """UPDATE tv_list SET watching_list= (%s) WHERE userid = (%s) AND tvid = (%s);"""
-                    cursor.execute(statement,("FALSE",userid, self.tv,))
-            cursor.close()
-
-        
-
+        with connection.cursor() as cursor:
+                statement = """INSERT INTO tv_list (userid, tvid, watched_list)  VALUES (%s, %s, %s) RETURNING id;"""
+                cursor.execute(statement,(userid, self.tv, "TRUE",))
+                statement = """UPDATE tv_list SET watching_list= (%s) WHERE userid = (%s) AND tvid = (%s);"""
+                cursor.execute(statement,("FALSE",userid, self.tv,))
+        cursor.close()
 
 class TV:
-    def __init__(self, id=None,title=None,language=None,year=None,season=None,genre=None,channel=None,vote=None,score= None):
-        self.id=id
-        self.title=title
-        self.language=language
-        self.year=year
-        self.season=season
-        self.genre=genre
-        self.channel=channel
-        self.vote=vote
-        self.score=score
+        def __init__(self, id=None,title=None,language=None,year=None,season=None,genre=None,channel=None,vote=None,score= None):
+            self.id=id
+            self.title=title
+            self.language=language
+            self.year=year
+            self.season=season
+            self.genre=genre
+            self.channel=channel
+            self.vote=vote
+            self.score=score
 
-    def print(self):
-        print(self.title,self.channel,self.year,self.genre,self.season,self.language,self.vote,self.score)
+        def print(self):
+            print(self.title,self.channel,self.year,self.genre,self.season,self.language,self.vote,self.score)
 
-    def print_episode(self,se_number):
-        ep_list=[]
-        with connection.cursor() as cursor:
-                    statement = """SELECT ID, name, number FROM episode
-                                    WHERE tvid = (%s) AND season_n = (%s); """
-                    cursor.execute(statement,(self.id,se_number,))
-                    for id, name,ep_number in cursor:
-                        episode = Episode(id,self.id,name,se_number,ep_number)
-                        ep_list.append(episode)
-        cursor.close()
-        return ep_list
-
-    def addtv(self):
-  
-        try:
+        def print_episode(self,se_number):
+            ep_list=[]
             with connection.cursor() as cursor:
-                            statement = """INSERT INTO tvseries (TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE)
-                                        VALUES (%s, %s, %s, %s, %s, %s)
-                                    RETURNING id;"""                
-                            cursor.execute(statement,(self.title,self.channel,self.language,self.year,self.season,self.genre,))
-                            connection.commit()
-                            self.id = cursor.fetchone()[0]
-        except dbapi2.DatabaseError:
-            connection.rollback()
-        finally:
-            cursor.close()  
+                        statement = """SELECT ID, name, number FROM episode
+                                        WHERE tvid = (%s) AND season_n = (%s); """
+                        cursor.execute(statement,(self.id,se_number,))
+                        for id, name,ep_number in cursor:
+                            episode = Episode(id,self.id,name,se_number,ep_number)
+                            ep_list.append(episode)
+            cursor.close()
+            return ep_list
+
+        def addtv(self):
+    
+            try:
+                with connection.cursor() as cursor:
+                                statement = """INSERT INTO tvseries (TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE)
+                                            VALUES (%s, %s, %s, %s, %s, %s)
+                                        RETURNING id;"""                
+                                cursor.execute(statement,(self.title,self.channel,self.language,self.year,self.season,self.genre,))
+                                connection.commit()
+                                self.id = cursor.fetchone()[0]
+            except dbapi2.DatabaseError:
+                connection.rollback()
+            finally:
+                cursor.close()  
 
     
 
