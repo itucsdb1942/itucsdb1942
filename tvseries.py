@@ -153,16 +153,13 @@ class TV:
                 checkw=0
                 episodeid=[]
                 with connection.cursor() as cursor:
-                        statement = """SELECT episode.id FROM tvseries,episode
-                                        WHERE episode.tvid = tvseries.id; """
-                        cursor.execute(statement,)
-                        for all in cursor:
-                            checkall=checkall+1
-                        
                         statement="""SELECT episode.id FROM episode WHERE episode.tvid = (%s)"""
                         cursor.execute(statement,(self.id,))
                         for item in cursor:
+                            checkall=checkall+1
                             episodeid.append(item)
+                        if checkall==0:
+                            return 0
                         for a in episodeid:
                             statement = """SELECT tv_trace.id FROM tv_trace
                                             WHERE tv_trace.episodeid = (%s) AND userid = (%s); """
@@ -171,6 +168,31 @@ class TV:
                                 checkw=checkw+1
                                 
                         connection.commit()
+                
+                return checkw*100/checkall
+
+        def season_percent(self,userid,season_n):
+                checkall=0
+                checkw=0
+                episodeid=[]
+                with connection.cursor() as cursor:
+                        statement = """SELECT episode.id FROM tvseries,episode
+                                        WHERE episode.tvid = tvseries.id AND episode.season_n=(%s); """
+                        cursor.execute(statement,(season_n,))
+                        for all in cursor:
+                            checkall=checkall+1
+                            episodeid.append(all)
+                        if (checkall==0):
+                            return 0
+                        for a in episodeid:
+                            statement = """SELECT tv_trace.id FROM tv_trace
+                                            WHERE tv_trace.episodeid = (%s) AND userid = (%s); """
+                            cursor.execute(statement,(a,userid,))
+                            for watched in cursor:
+                                checkw=checkw+1
+                                
+                        connection.commit()
+                print(checkall,checkw)
                 
                 return checkw*100/checkall
 
