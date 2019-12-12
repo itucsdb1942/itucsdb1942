@@ -27,49 +27,54 @@
                             {% for season in range(1, tv.season+1) %} {% if season == 1 %}
                             <div class="tab-pane container p-4 active" id="season{{season}}">
                                 {% for episode in tv.print_episode(season)%}
-                                <div>E{{episode.episode_n}}: {{episode.name}}
-                                    <a href="#" class="btn btn-icon btn-dark btn-link" role="button"><i class="ion-ios-eye-off"></i></a></div> {% endfor %}
-                            </div>
-                            {% else %}
+                                <form action="" method="POST">
+                                    <div>E{{episode.episode_n}}: {{episode.name}} {% if episode.checkEpisodeWatched(current_user.id,season)== True %}
+                                        <button name="watched" class="btn btn-icon btn-primary btn-link"><i class="ion-ios-eye"></i></button> {% elif episode.checkEpisodeWatched(current_user.id,season)== False%}
+                                        <button name="watched" class="btn btn-icon btn-dark btn-link"><i class="ion-ios-eye"></i></button> {% endif %}
+                                        <input type="hidden" name="episodeid" value="{{episode.id}}" />
+                                    </div>
+                                </form>{% endfor %}
+                            </div> {% else %}
                             <div class="tab-pane container p-4 fade" id="season{{season}}">
                                 {% for episode in tv.print_episode(season)%}
-                                <div>E{{episode.episode_n}}: {{episode.name}}
-                                    <a href="#" class="btn btn-icon btn-dark btn-link" role="button"><i class="ion-ios-eye-off"></i></a></div> {% endfor %}
-                            </div>
-                            {% endif %} {% endfor %}
+                                <form action="" method="POST">
+                                    <div>E{{episode.episode_n}}: {{episode.name}} {% if episode.checkEpisodeWatched(current_user.id,season)== True %}
+                                        <button name="watched" class="btn btn-icon btn-primary btn-link"><i class="ion-ios-eye"></i></button> {% elif episode.checkEpisodeWatched(current_user.id,season)== False%}
+                                        <button name="watched" class="btn btn-icon btn-dark btn-link"><i class="ion-ios-eye"></i></button> {% endif %}
+                                        <input type="hidden" name="episodeid" value="{{episode.id}}" />
+                                    </div>
+                                </form>{% endfor %}
+                            </div> {% endif %}{% endfor %}
+
                         </div>
                     </div>
 
                 </div>
-            </div>
 
-            <div hidden id="slider-2" class="no-uicustom mb-4"></div>
-            <div hidden id="slider" class="no-uicustom"></div>
-            <div class="col-md-2 progress-circle">
-                <div class="col-md-4 mb-md-0 mb-4 ftco-animate">
-                    <div class="">
+                <div hidden id="slider-2" class="no-uicustom mb-4"></div>
+                <div hidden id="slider" class="no-uicustom"></div>
+                <div class="col-md-2 progress-circle">
+                    <div class="col-md-4 mb-md-0 mb-4 ftco-animate">
+                        <div class="">
 
-                        <!-- Progress bar 1 -->
-                        <div class="progress mx-auto" data-value='90'>
-                            <span class="progress-left">
+                            <!-- Progress bar 1 -->
+                            <div class="progress mx-auto" data-value='{{tv.tv_percent(current_user.id)}}'>
+                                <span class="progress-left">
                   <span class="progress-bar border-primary"></span>
-                            </span>
-                            <span class="progress-right">
+                                </span>
+                                <span class="progress-right">
                   <span class="progress-bar border-primary"></span>
-                            </span>
-                            <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                                <div class="h5">90<sup class="small">%</sup></div>
+                                </span>
+                                <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                    <div class="h5">{{tv.tv_percent(current_user.id)}}<sup class="small">%</sup></div>
+                                </div>
                             </div>
+                            <!-- END -->
                         </div>
-                        <!-- END -->
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-
-        </div>
-
     </div>
 </section>
 

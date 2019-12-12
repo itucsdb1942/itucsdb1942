@@ -13,23 +13,74 @@ class Episode:
         self.season_n=season_n
         self.episode_n=episode_n
 
-    def watching(self,userid):
+    def checkEpisodeWatched(self,userid,season):
+            check=0
+            with connection.cursor() as cursor:
+                        statement = """SELECT watched FROM tv_trace
+                                        WHERE episodeid = (%s) AND userid = (%s); """
+                        cursor.execute(statement,(self.id,userid,))
+                        for watched in cursor:
+                            if watched[0]==True:
+                                check=check+1
+                        connection.commit()
+
+            if check>0:
+                return True
+            else:
+                return False
+                    
+    
+def episodewatched(userid,episodeid):
+    try:
         with connection.cursor() as cursor:
-                statement = """INSERT INTO tv_list (userid, tvid, watching_list)  VALUES (%s, %s, %s) RETURNING id;"""
-                cursor.execute(statement,(userid, self.tv, "TRUE",))
-        cursor.close()
+            statement = """INSERT INTO tv_trace (userid, episodeid, watched)
+                        VALUES ( %s, %s, %s)
+                    RETURNING id;"""
+            cursor.execute(statement,(userid,episodeid,"TRUE"))
+            connection.commit()
+    except dbapi2.errors.UniqueViolation:
+        connection.rollback()
         with connection.cursor() as cursor:
-            statement = """INSERT INTO tv_trace (userid, episodeid, watched)  VALUES (%s, %s, %s) RETURNING id;"""
-            cursor.execute(statement,(userid, self.id, "TRUE",))
+            statement = """ DELETE FROM tv_trace 
+                         WHERE userid = %s AND episodeid = %s"""
+            cursor.execute(statement, ( userid, episodeid,))
+            connection.commit()
+    except dbapi2.errors.InFailedSqlTransactions:
+        connection.rollback()
+    finally:
         cursor.close()
 
-    def watched(self,userid):
-        with connection.cursor() as cursor:
-                statement = """INSERT INTO tv_list (userid, tvid, watched_list)  VALUES (%s, %s, %s) RETURNING id;"""
-                cursor.execute(statement,(userid, self.tv, "TRUE",))
-                statement = """UPDATE tv_list SET watching_list= (%s) WHERE userid = (%s) AND tvid = (%s);"""
-                cursor.execute(statement,("FALSE",userid, self.tv,))
-        cursor.close()
+def seasonwatched(userid,tvid,season):
+    episodeids=[]
+    with connection.cursor() as cursor:
+            statement = """SELECT ID FROM episode
+                             WHERE tvid = (%s) AND season_n = (%s); """
+            cursor.execute(statement,(tvid,season,))
+            for id in cursor:
+                episodeids.append(id)
+            connection.commit()
+    
+    for item in episodeids:
+        try:
+            with connection.cursor() as cursor:
+                statement = """INSERT INTO tv_trace (userid, episodeid, watched)
+                                    VALUES ( (%s), (%s), (%s))
+                                RETURNING id;"""
+                cursor.execute(statement,(userid,item,"TRUE"))
+                connection.commit()
+
+        except dbapi2.errors.UniqueViolation:
+                connection.rollback()
+                with connection.cursor() as cursor:
+                    statement = """ DELETE from tv_trace 
+                                        WHERE userid = (%s) AND episodeid =(%s);"""
+                    cursor.execute(statement, ( userid, item,))
+                    connection.commit()
+        
+        
+    cursor.close()
+
+
 
 class TV:
         def __init__(self, id=None,title=None,language=None,year=None,season=None,genre=None,channel=None,vote=None,score= None):
@@ -73,8 +124,55 @@ class TV:
             finally:
                 cursor.close()  
 
-    
+        def checkSeasonWatched(self,userid,season):
+            episodeids=[]
+            with connection.cursor() as cursor:
+                    statement = """SELECT ID FROM episode
+                                    WHERE tvid = (%s) AND season_n = (%s); """
+                    cursor.execute(statement,(self.id,season,))
+                    for id in cursor:
+                        episodeids.append(id)
+                    connection.commit()
+            check=0
+            for item in episodeids:
+                with connection.cursor() as cursor:
+                        statement = """SELECT watched FROM tv_trace
+                                        WHERE episodeid = (%s) AND userid = (%s); """
+                        cursor.execute(statement,(item,userid,))
+                        for watched in cursor:
+                            check=check+1
+                        connection.commit()
 
+            if check>0:
+                return True
+            else:
+                return False
+
+        def tv_percent(self,userid):
+                checkall=0
+                checkw=0
+                episodeid=[]
+                with connection.cursor() as cursor:
+                        statement = """SELECT episode.id FROM tvseries,episode
+                                        WHERE episode.tvid = tvseries.id; """
+                        cursor.execute(statement,)
+                        for all in cursor:
+                            checkall=checkall+1
+                        
+                        statement="""SELECT episode.id FROM episode WHERE episode.tvid = (%s)"""
+                        cursor.execute(statement,(self.id,))
+                        for item in cursor:
+                            episodeid.append(item)
+                        for a in episodeid:
+                            statement = """SELECT tv_trace.id FROM tv_trace
+                                            WHERE tv_trace.episodeid = (%s) AND userid = (%s); """
+                            cursor.execute(statement,(a,userid,))
+                            for watched in cursor:
+                                checkw=checkw+1
+                                
+                        connection.commit()
+                
+                return checkw*100/checkall
 
 tv_data = [
 

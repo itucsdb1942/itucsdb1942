@@ -69,7 +69,8 @@ INIT_STATEMENTS = [
             ID SERIAL PRIMARY KEY,
             userid INTEGER REFERENCES users(id),
             episodeid INTEGER REFERENCES episode(id),
-            watched BOOL DEFAULT FALSE
+            watched BOOL DEFAULT FALSE,
+            UNIQUE(userid, episodeid)
             );""",
 
        """CREATE TABLE writer(
