@@ -49,4 +49,3 @@ class bookForm(FlaskForm):
     genre = StringField('Genre',validators=[DataRequired()])
     submit = SubmitField('Add Book')
  
-

@@ -40,7 +40,7 @@ INIT_STATEMENTS = [
             content VARCHAR(200),
             LIKE_N INTEGER DEFAULT 0,
             DISLIKE_N INTEGER DEFAULT 0,
-            date DATE
+            date TIMESTAMP
             );""", 
 
         """ CREATE TABLE episode (

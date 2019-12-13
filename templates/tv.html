@@ -2,7 +2,7 @@
 <section class="ftco-section ftco-section-2" id="navigationTabs">
 
     <div class="container mt-4">
-        <div class="row">
+        <div class="row mb-5">
             <div class="col-lg-7 mb-5 mb-md-0">
                 <h1 class="heading-section mb-3"><i class="ion-ios-film mr-2"></i>{{tv.title}}<br></h1>
 
@@ -29,7 +29,7 @@
                                 {% for episode in tv.print_episode(season)%}
                                 <form action="" method="POST">
                                     <div>E{{episode.episode_n}}: {{episode.name}} {% if episode.checkEpisodeWatched(current_user.id,season)== True %}
-                                        <button name="watched" class="btn btn-icon btn-primary btn-link"><i class="ion-ios-eye"></i></button> {% elif episode.checkEpisodeWatched(current_user.id,season)== False%}
+                                        <button name="watched" class="btn btn-icon btn-primary btn-link"><i class="ion-ios-eye"></i></button> {% else %}
                                         <button name="watched" class="btn btn-icon btn-dark btn-link"><i class="ion-ios-eye"></i></button> {% endif %}
                                         <input type="hidden" name="episodeid" value="{{episode.id}}" />
                                     </div>
@@ -39,7 +39,7 @@
                                 {% for episode in tv.print_episode(season)%}
                                 <form action="" method="POST">
                                     <div>E{{episode.episode_n}}: {{episode.name}} {% if episode.checkEpisodeWatched(current_user.id,season)== True %}
-                                        <button name="watched" class="btn btn-icon btn-primary btn-link"><i class="ion-ios-eye"></i></button> {% elif episode.checkEpisodeWatched(current_user.id,season)== False%}
+                                        <button name="watched" class="btn btn-icon btn-primary btn-link"><i class="ion-ios-eye"></i></button> {% else %}
                                         <button name="watched" class="btn btn-icon btn-dark btn-link"><i class="ion-ios-eye"></i></button> {% endif %}
                                         <input type="hidden" name="episodeid" value="{{episode.id}}" />
                                     </div>
@@ -48,34 +48,65 @@
 
                         </div>
                     </div>
-
-                </div>
-
-                <div hidden id="slider-2" class="no-uicustom mb-4"></div>
-                <div hidden id="slider" class="no-uicustom"></div>
-                <div class="col-md-2 progress-circle">
-                    <div class="col-md-4 mb-md-0 mb-4 ftco-animate">
-                        <div class="">
-
-                            <!-- Progress bar 1 -->
-                            <div class="progress mx-auto" data-value='{{tv.tv_percent(current_user.id)}}'>
-                                <span class="progress-left">
-                  <span class="progress-bar border-primary"></span>
-                                </span>
-                                <span class="progress-right">
-                  <span class="progress-bar border-primary"></span>
-                                </span>
-                                <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                                    <div class="h5">{{tv.tv_percent(current_user.id)}}<sup class="small">%</sup></div>
-                                </div>
-                            </div>
-                            <!-- END -->
-                        </div>
-                    </div>
                 </div>
             </div>
+
+            <div hidden id="slider-2" class="no-uicustom mb-4"></div>
+            <div hidden id="slider" class="no-uicustom"></div>
+            <div class="col-md-5 progress-circle">
+                <div class="row">
+                    <div class="col-md-4 mb-md-0 mb-4 ftco-animate">
+
+
+                        <!-- Progress bar 1 -->
+                        <div class="progress mx-auto" data-value='{{tv.tv_percent(current_user.id)}}'>
+                            <span class="progress-left">
+                  <span class="progress-bar border-primary"></span>
+                            </span>
+                            <span class="progress-right">
+                  <span class="progress-bar border-primary"></span>
+                            </span>
+                            <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                <div class="h5">{{tv.tv_percent(current_user.id)}}<sup class="small">%</sup></div>
+                            </div>
+                        </div>
+                        <!-- END -->
+
+                    </div>
+                </div>
+
+
+            </div>
         </div>
+        <div class="row">
+            <div class="col-md-5">
+                <h2 class="heading-section mb-4"><i class="icon-comment mr-2"></i>Add Commit</h2>
+                <form action="" method="POST">
+                    <input hidden type="text" name="tvidforcommit" class="form-control" value={{tv.id}}>
+                    <div class="form-group has-default">
+                        <input type="text" name="header" class="form-control" placeholder="Header">
+                    </div>
+                    <div class="form-group has-default">
+
+                        <input type="text" name="content" class="form-control" placeholder="Commit">
+
+                    </div>
+                    <div class="col-md-5 mb-5">
+                        <button name="submitcommit" value='1' class="btn btn-primary btn-lg btn-block">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-8">
+                <div class="container-fluid mt-4">
+
+                </div>
+            </div>
+
+        </div>
+
+
     </div>
 </section>
+
 
 {% endblock content %}

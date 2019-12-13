@@ -1,6 +1,6 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
 import dbinit
-from tvseries import TV,print_tv,find_tv,seasonwatched,episodewatched
+from tvseries import TV,print_tv,find_tv,seasonwatched,episodewatched, submit_commit, print_commit
 from books import Book, print_book, find_book, updatepage
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager,login_user, current_user, logout_user, login_required
@@ -61,8 +61,17 @@ def tvpage():
 def tv(item):
     tv=find_tv(item)
     if request.method =='POST':
-        episodeid=request.form['episodeid']
-        episodewatched(current_user.id,episodeid)
+        try:
+            if request.form["submitcommit"]=='1':
+                tvid=request.form['tvidforcommit']
+                commith=request.form['header']
+                commitc=request.form['content']
+                submit_commit(tvid,current_user.id,commith,commitc)
+                print_commit(tvid,current_user.id)
+        except:
+            episodeid=request.form['episodeid']
+            episodewatched(current_user.id,episodeid)
+
     return render_template("tv.html", tv=tv)
 
 
