@@ -1,1 +1,30 @@
-{% extends "layout.html" %} {% block content %} {% endblock content %}
+{% extends "layout.html" %} 
+{% block content  %}
+     <section class="ftco-section" id="inputs">
+    <div class="row">
+        <div class = "media">
+            <!--<image class = "rounded-circle account-img" src="userimage.jpg">-->
+            <div class = "media-body">
+            <h2 class = "account-heading">{{current_user.username}}</h2>
+            <p class = "text-secondary">{{current_user.email}}</p>
+            </div>
+        </div>
+        <!-- Form HERE -->
+        <!-- self.name=name
+        self.surname=surname
+        self.username=username
+        self.mail=mail
+        self.gender=gender
+        self.date=date
+        self.password=password -->
+
+
+
+
+
+    </div>
+
+</section>
+{% endblock content %}
+
+
