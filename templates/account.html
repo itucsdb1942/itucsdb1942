@@ -2,13 +2,29 @@
 <div class="main-section">
     <section class="ftco-section" id="inputs">
         <div class="container">
-            <div class="row mt-5">
-
-                <h2>{{current_user.username}}</h2>
-                <p>{{current_user.email}}</p>
-
-
+        <div class="col-md-5">
+        <div class="tabulation-2 mt-5">
+                
+                    <div class="tab-content rounded mt-2">
+                        <div class="tab-pane container p-4 active">
+                            <h3>{{current_user.username}}</h3>
+                            <p>{{current_user.mail}}</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
+
+        <div class="col-md-5">
+            <div class="tabulation-2 mt-5">
+                    <div class="tab-content rounded mt-2">
+                        <div class="tab-pane container p-4 active">
+                            <h3>{{current_user.username}}</h3>
+                            <p>{{current_user.mail}}</p>
+                        </div>
+                    </div>
+            </div>
+        </div>
         </div>
     </section>
 </div>

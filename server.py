@@ -5,7 +5,7 @@ from books import Book, print_book, find_book, updatepage
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager,login_user, current_user, logout_user, login_required
 from userdb import User, username_check, get
-from forms import registirationForm, loginForm, tvForm, bookForm
+from forms import registirationForm, loginForm, tvForm, bookForm, UpdateForm
 
 app = Flask(__name__)
 
@@ -144,8 +144,8 @@ def logout():
 @app.route("/account")
 @login_required
 def account():
-    #image_file = url_for('static', filename='profile_pics'/ + current_user.image_file)
-     return render_template("account.html", current_user= current_user)
+    form = UpdateForm()
+    return render_template("account.html", current_user= current_user, form = form)
 
 if __name__ == "__main__":
     app.run()
