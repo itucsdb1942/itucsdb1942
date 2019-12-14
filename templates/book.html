@@ -3,54 +3,51 @@
 
     <div class="container mt-4">
         <div class="row">
-            <div class="col-lg-7 mb-5 mb-md-0">
-                <h1 class="heading-section mb-3"><i class="ion-ios-film mr-2"></i>{{tv.title}}<br></h1>
-
-                <div class="row no-gutters tabulation">
-                    <div class="col-md-3">
-                        <ul class="nav nav-pills nav-fill d-md-flex d-block">
-                            {% for season in range(1, tv.season+1) %} {% if season==1 %}
-                            <li class="nav-item text-left">
-                                <a class="nav-link active py-3" data-toggle="tab" href="#season{{season}}"><span class="ion-ios-information-circle mr-2"></span>Season {{season}}</a>
-                            </li>
-                            {% else %}
-                            <li class="nav-item text-left">
-                                <a class="nav-link  py-3" data-toggle="tab" href="#season{{season}}"><span class="ion-ios-information-circle mr-2"></span>Season {{season}}</a>
-                            </li>
-                            {% endif %} {% endfor %}
-                        </ul>
-                    </div>
-
-                    <div class="col-md-8">
-                        <div class="tab-content rounded">
-
-                            {% for season in range(1, tv.season+1) %} {% if season == 1 %}
-                            <div class="tab-pane container p-4 active" id="season{{season}}">
-                                {% for episode in tv.print_episode(season)%}
-                                <div>E{{episode.episode_n}}: {{episode.name}}
-                                    <a href="#" class="btn btn-icon btn-dark btn-link" role="button"><i class="ion-ios-eye-off"></i></a></div> {% endfor %}
-                            </div>
-                            {% else %}
-                            <div class="tab-pane container p-4 fade" id="season{{season}}">
-                                {% for episode in tv.print_episode(season)%}
-                                <div>E{{episode.episode_n}}: {{episode.name}}
-                                    <a href="#" class="btn btn-icon btn-dark btn-link" role="button"><i class="ion-ios-eye-off"></i></a></div> {% endfor %}
-                            </div>
-                            {% endif %} {% endfor %}
-                        </div>
-                    </div>
-
+            <h1 class="heading-section mb-3"><i class="ion-ios-book mr-2"></i>{{book.name}}<br></h1>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <form action="" method="POST">
+                    <div class="row">
+                        {% if book.check_fav(current_user.id) == True %}
+                        <button name="fav" value='1' class="btn btn-icon btn-primary btn-lg btn-link"><h1 span style="color:Red" class="heading-section mb-3"><i class="ion-ios-heart" ></i></h1></button> {% else %}
+                        <button name="fav" value='1' class="btn btn-icon btn-primary btn-lg btn-link"><h1 class="heading-section mb-3"><i class="ion-ios-heart" ></i></h1</button>{% endif %}</div>
+                </form>
+                <div class="row">
+                    <button class="btn btn-icon btn-primary btn-lg btn-link"><h1 class="heading-section mb-3"><i class="ion-ios-heart-dislike"></i></h1></button></div>
+                <div class="row">
+                    <button class="btn btn-icon btn-primary  btn-lg btn-link"><h1 class="heading-section mb-3"><i class="ion-ios-checkmark-circle"></i></h1></button></div>
+                <div class="row">
+                    <button class="btn btn-icon btn-primary btn-lg btn-link"><h1 class="heading-section mb-3"><i class="ion-ios-save"></i></button></h1>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="tabulation-2">
 
-            <div hidden id="slider-2" class="no-uicustom mb-4"></div>
+                    <div class="tab-content rounded mt-2">
+                        <div class="tab-pane container p-3 active">
+                            <p>Author: {{book.writer}}</p>
+                            <p>Genre: {{book.genre}}</p>
+                            <P>Year: {{book.year_pub}}</P>
+                            <p>Publisher: {{book.publisher}}</p>
+                            <p>Language: {{book.language}}</p>
+                            <p>Vote: {{book.vote}}</p>
+                            <p>Score: {{book.score}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+            <div hidden id="slider-2" class="no-uicustom"></div>
             <div hidden id="slider" class="no-uicustom"></div>
-            <div class="col-md-2 progress-circle">
-                <div class="col-md-4 mb-md-0 mb-4 ftco-animate">
-                    <div class="">
+            <div class="col-md-5 progress-circle">
+                <div class="row mb-5"></div>
+                <div class="row">
+                    <div class="col-md-4 mb-md-0 mb-4 ftco-animate">
+
 
                         <!-- Progress bar 1 -->
-                        <div class="progress mx-auto" data-value='90'>
+                        <div class="progress mx-auto" data-value='{{book.book_percent(current_user.id)}}'>
                             <span class="progress-left">
                   <span class="progress-bar border-primary"></span>
                             </span>
@@ -58,15 +55,79 @@
                   <span class="progress-bar border-primary"></span>
                             </span>
                             <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                                <div class="h5">90<sup class="small">%</sup></div>
+                                <div class="h5">{{book.book_percent(current_user.id)}}<sup class="small">%</sup></div>
                             </div>
                         </div>
                         <!-- END -->
+
                     </div>
                 </div>
+
+
             </div>
         </div>
         <div class="row">
+            <div class="col-md-5">
+                <h2 class="heading-section mb-4"><i class="icon-comment mr-2"></i>Add Commit</h2>
+                <form action="" method="POST">
+                    <input hidden type="text" name="bookidforcommit" class="form-control" value={{book.id}}>
+                    <div class="form-group has-default">
+                        <input type="text" name="header" class="form-control" placeholder="Header">
+                    </div>
+                    <div class="form-group has-default">
+
+                        <input type="text" name="content" class="form-control" placeholder="Commit">
+
+                    </div>
+                    <div class="col-md-5 mb-5">
+                        <button name="submitcommit" value='1' class="btn btn-primary btn-lg btn-block">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-6">
+                {% for com in commit %}
+                <div class="tabulation-2">
+                    <ul class="nav nav-pills nav-fill d-md-flex d-block">
+                        <li class="nav-item">
+                            <div class="nav-link py-3"><span class="ion-ios-person mr-2"></span>{{com.username}}</div>
+                        </li>
+
+                        <li class="nav-item">
+                            <form action="" method="POST">
+                                <div class="nav-link py-2">
+                                    {{com.com_like_numberb(current_user.id)}}
+
+                                    <button name="like_update" value='1' class="btn btn-icon btn-primary btn-link"><i class="ion-ios-thumbs-up"></i></button>
+
+                                    <button name="dislike_update" value='1' class="btn btn-icon btn-primary btn-link"><i class="ion-ios-thumbs-down"></i></button>
+                                    <input hidden type="text" name="commitid" class="form-control" value="{{com.id}}" /> {{com.com_dislike_numberb(current_user.id)}}
+
+                                </div>
+                            </form>
+                        </li>
+
+
+                    </ul>
+                    <div class="tab-content rounded">
+                        <div class="tab-pane container p-1 active ml-2">
+                            <h4> {{com.header}} </h4>
+
+                        </div>
+                    </div>
+                    <div class="tab-content rounded">
+                        <div class="tab-pane container p-3 active">
+                            <p>{{com.content}}</p>
+                        </div>
+                    </div>
+                    <ul class="nav nav-pills nav-fill d-md-flex d-block">
+                        <li class="nav-item mb-2">
+                            <a class="nav-link py-2"><span class="ion-ios-calendar mr-2"></span>{{com.date.year}}/{{com.date.month}}/{{com.date.day}}  {{com.date.hour}}:{{com.date.minute}}</a>
+                        </li>
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
 
         </div>
 

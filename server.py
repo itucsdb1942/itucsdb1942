@@ -1,7 +1,7 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
 import dbinit
-from tvseries import TV,print_tv,find_tv,seasonwatched,episodewatched, submit_commit, print_commit
-from books import Book, print_book, find_book, updatepage
+from tvseries import TV,print_tv,find_tv,seasonwatched,episodewatched, submit_commit, print_commit, com_like, com_dislike
+from books import Book, print_book, find_book, updatepage,check_tpage, submit_commit_book,print_commit_book,com_like_book, com_dislike_book,fav_addb
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager,login_user, current_user, logout_user, login_required
 from userdb import User, username_check, get
@@ -45,6 +45,7 @@ def home():
 @login_required
 def tvpage():
     tv_list=print_tv()
+    
     if request.method =='POST':
         try:
             item=request.form['form_id']
@@ -60,37 +61,98 @@ def tvpage():
 @login_required
 def tv(item):
     tv=find_tv(item)
+    commit_list=print_commit(item,current_user.id)
     if request.method =='POST':
-        try:
-            if request.form["submitcommit"]=='1':
-                tvid=request.form['tvidforcommit']
-                commith=request.form['header']
-                commitc=request.form['content']
-                submit_commit(tvid,current_user.id,commith,commitc)
-                print_commit(tvid,current_user.id)
-        except:
-            episodeid=request.form['episodeid']
-            episodewatched(current_user.id,episodeid)
-
-    return render_template("tv.html", tv=tv)
+            try:
+                if request.form["like_update"]=='1':
+                    commitid=request.form['commitid']
+                    com_like(commitid)
+                    return redirect(url_for('tv',item=item))
+            except:
+                print("ksf")
+            try:
+                if request.form["submitcommit"]=='1':
+                    tvid=request.form['tvidforcommit']
+                    commith=request.form['header']
+                    commitc=request.form['content']
+                    submit_commit(tvid,current_user.id,commith,commitc)
+                    return redirect(url_for('tv',item=item))
+            except:
+                print("ksf")
+           
+            try:
+                if request.form["dislike_update"]=='1':
+                    commitid=request.form['commitid']
+                    com_dislike(commitid)
+                    return redirect(url_for('tv',item=item))
+            except:
+                print("ksf")
+        
+            try:
+                episodeid=request.form['episodeid']
+                episodewatched(current_user.id,episodeid)
+            except:
+                print("ksf")
+    return render_template("tv.html", tv=tv, commit=commit_list)
 
 
 @app.route("/bookpage", methods=['GET', 'POST'])
 @login_required
 def bookpage():
-    book_list=print_book()
+    book_list=print_book() # BÜTÜN BOOK OBJELERİNİN ARRRAYİ
     if request.method =='POST':
-        readed=request.form['page']
-        bookid=request.form['bookid']
-        print(readed,bookid,current_user.id)
-        updatepage(bookid, current_user.id, readed)
-    return render_template("bookpage.html", book=book_list)
+        try:
+            item=request.form['form_id']
+            return redirect(url_for('book',item=item))
+        except:
+            readed=int(request.form['page'])
+            bookid=request.form['bookid']
+            if check_tpage(readed,bookid,current_user.id)==True:
+                updatepage(bookid, current_user.id, readed)
+            else:
+                flash(f'Invalid Page Number!', 'danger')
+
+    return render_template("bookpage.html", book=book_list) #book listi book adındA HTML E GÖNDERİYOR.
 
 @app.route("/book/<int:item>", methods=['GET', 'POST']) #dynamic pages
 @login_required
 def book(item):
-    book = find_book()
-    return render_template("book.html")
+    book = find_book(item)
+    commit_list=print_commit_book(item,current_user.id)
+    if request.method =='POST':
+        try:
+                if request.form["like_update"]=='1':
+                    commitid=request.form['commitid']
+                    com_like_book(commitid)
+                    return redirect(url_for('book',item=item))
+        except:
+                print("ksf")
+                 
+        try:
+                if request.form["dislike_update"]=='1':
+                    commitid=request.form['commitid']
+                    com_dislike_book(commitid)
+                    return redirect(url_for('book',item=item))
+        except:
+                print("ksf")
+        
+        try:
+            if request.form["submitcommit"]=='1':
+                    bookid=request.form['bookidforcommit']
+                    commith=request.form['header']
+                    commitc=request.form['content']
+                    submit_commit_book(bookid,current_user.id,commith,commitc)
+                    return redirect(url_for('book',item=item))
+        except:
+            print("jjj")
+        try: 
+            if request.form["fav"]=='1':
+                    print("bebek")
+                    fav_addb(current_user.id,item)
+                    return redirect(url_for('book',item=item))
+        except:
+            print("jjj")
+    return render_template("book.html", book=book, commit=commit_list)
 
 
 

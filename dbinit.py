@@ -60,9 +60,11 @@ INIT_STATEMENTS = [
             userid INTEGER REFERENCES users(id),
             tvid INTEGER REFERENCES tvseries(id),
             fav_list BOOL DEFAULT FALSE,
+            hate_list BOOL DEFAULT FALSE,
             wish_list BOOL DEFAULT FALSE,
             watched_list BOOL DEFAULT FALSE,
-            watching_list BOOL DEFAULT FALSE
+            watching_list BOOL DEFAULT FALSE,
+            UNIQUE(userid,bookid)
             );""",
 
      """ CREATE TABLE tv_trace(
@@ -91,27 +93,16 @@ INIT_STATEMENTS = [
             SCORE SCORES DEFAULT 0,
             VOTE INTEGER DEFAULT 0);""",
 
-        """CREATE TABLE collbook(
-            ID SERIAL PRIMARY KEY,
-            userid INTEGER REFERENCES users(id),
-            bookid INTEGER REFERENCES books(id),
-            coll_name VARCHAR(50) NOT NULL,
-            numberofbook INTEGER DEFAULT 0,
-            like INTEGER DEFAULT 0,
-            dislike INTEGER DEFAULT 0,
-            date DATE,
-            UNIQUE(userid, coll_name)
-        );""",
-
         """CREATE TABLE book_list(
             ID SERIAL PRIMARY KEY,
             userid INTEGER REFERENCES users(id),
             bookid INTEGER REFERENCES books(id),
             fav_b BOOL DEFAULT FALSE,
+            hate_b BOOL DEFAULT FALSE,
             wish_b BOOL DEFAULT FALSE,
             readed BOOL DEFAULT FALSE,
             reading BOOL DEFAULT FALSE,
-            collid INTEGER REFERENCES collbook(id)
+            UNIQUE(userid,bookid)
         );""",
 
         """CREATE TABLE book_trace(
@@ -128,9 +119,9 @@ INIT_STATEMENTS = [
             bookid INTEGER REFERENCES books(id),
             headerb VARCHAR(30),
             contentb VARCHAR(250),
-            like INTEGER DEFAULT 0,
-            dislike INTEGER DEFAULT 0,
-            date DATE
+            likeb INTEGER DEFAULT 0,
+            dislikeb INTEGER DEFAULT 0,
+            date TIMESTAMP
         );"""
  
 ]
@@ -143,7 +134,6 @@ def initialize(url):
             cursor = connection.cursor()
             cursor.execute(statement)
             connection.commit()
-            cursor.close()
         except dbapi2.DatabaseError:
             connection.rollback()
 

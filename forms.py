@@ -3,6 +3,7 @@ from flask_login import current_user
 from wtforms import StringField,PasswordField,SubmitField,RadioField,DateField,BooleanField, DecimalField
 from wtforms.validators import DataRequired, Length, Email,EqualTo, ValidationError
 from userdb import username_check, mail_check
+from books import check_tpage
 
 class registirationForm(FlaskForm):
     name=StringField('Name', validators=[DataRequired(), Length(min=2, max=20)])
@@ -68,3 +69,4 @@ class UpdateForm(FlaskForm):
             user = mail_check(mail.data)
             if user: 
                 raise ValidationError('That e-mail is taken!')
+
