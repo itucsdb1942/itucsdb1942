@@ -1,7 +1,7 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
 import dbinit
-from tvseries import TV,print_tv,find_tv,seasonwatched,episodewatched, submit_commit, print_commit, com_like, com_dislike
-from books import Book, print_book, find_book, updatepage,check_tpage, submit_commit_book,print_commit_book,com_like_book, com_dislike_book,fav_addb
+from tvseries import TV,print_tv,find_tv,seasonwatched,episodewatched, submit_commit, print_commit, com_like, com_dislike,fav_add,hate_add,wish_add,print_watching
+from books import Book, print_book, find_book, updatepage,check_tpage, submit_commit_book,print_commit_book,com_like_book, com_dislike_book,fav_addb,hate_addb,wish_addb
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager,login_user, current_user, logout_user, login_required
 from userdb import User, username_check, get
@@ -39,7 +39,11 @@ def login_page():
 @app.route("/home", methods=['GET', 'POST'])
 @login_required
 def home():
-    return render_template("home.html")    
+    watching_list=print_watching()
+    if request.method =='POST':
+        item=request.form['tv_id']
+        return redirect(url_for('tv',item=item))
+    return render_template("home.html",watching=watching_list)    
 
 @app.route("/tv", methods=['GET', 'POST'])
 @login_required
@@ -63,6 +67,29 @@ def tv(item):
     tv=find_tv(item)
     commit_list=print_commit(item,current_user.id)
     if request.method =='POST':
+            try: 
+                if request.form["fav"]=='1':
+                        fav_add(current_user.id,item)
+                        return redirect(url_for('tv',item=item))
+            except:
+                print("jjj")
+            try: 
+                if request.form["hate"]=='1':
+                        hate_add(current_user.id,item)
+                        return redirect(url_for('tv',item=item))
+            except:
+                print("jjj")
+            try: 
+                if request.form["wish"]=='1':
+                        wish_add(current_user.id,item)
+                        return redirect(url_for('tv',item=item))
+            except:
+                print("jjj")
+            try:
+                episodeid=request.form['episodeid']
+                episodewatched(current_user.id,episodeid)
+            except:
+                print("ksf")
             try:
                 if request.form["like_update"]=='1':
                     commitid=request.form['commitid']
@@ -152,6 +179,18 @@ def book(item):
                     return redirect(url_for('book',item=item))
         except:
             print("jjj")
+        try: 
+            if request.form["hate"]=='1':
+                    hate_addb(current_user.id,item)
+                    return redirect(url_for('book',item=item))
+        except:
+            print("jjj")
+        try: 
+                if request.form["wish"]=='1':
+                        wish_addb(current_user.id,item)
+                        return redirect(url_for('book',item=item))
+        except:
+                print("jjj")
     return render_template("book.html", book=book, commit=commit_list)
 
 

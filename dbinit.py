@@ -64,7 +64,7 @@ INIT_STATEMENTS = [
             wish_list BOOL DEFAULT FALSE,
             watched_list BOOL DEFAULT FALSE,
             watching_list BOOL DEFAULT FALSE,
-            UNIQUE(userid,bookid)
+            UNIQUE(userid,tvid)
             );""",
 
      """ CREATE TABLE tv_trace(

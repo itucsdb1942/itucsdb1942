@@ -188,7 +188,11 @@ class TV:
                                 checkw=checkw+1
                                 
                         connection.commit()
-                
+                        percent=checkw*100/checkall
+                        if(percent==100.0):
+                            watched_add(userid,self.id)
+                        if(percent>0.0):
+                            watching_add(userid,self.id)
                         return checkw*100/checkall
 
         def season_percent(self,userid,season_n):
@@ -213,6 +217,49 @@ class TV:
                         connection.commit()
                 
                         return checkw*100/checkall
+
+        def check_fav(self,userid):
+                connection.rollback()
+                try:
+                    with connection.cursor() as cursor:
+                        statement = """ SELECT fav_list FROM tv_list
+                                    WHERE userid = %s AND tvid = %s;"""
+                        cursor.execute(statement, ( userid, self.id,))
+                        connection.commit()
+                        check=cursor.fetchone()[0]
+                        if check==False:
+                            return False
+                        return True
+                except:
+                    return False
+        def check_hate(self,userid):
+                connection.rollback()
+                try:
+                    with connection.cursor() as cursor:
+                        statement = """ SELECT hate_list FROM tv_list
+                                    WHERE userid = %s AND tvid = %s;"""
+                        cursor.execute(statement, ( userid, self.id,))
+                        connection.commit()
+                        check=cursor.fetchone()[0]
+                        if check==False:
+                            return False
+                        return True
+                except:
+                    return False
+        def check_wish(self,userid):
+                connection.rollback()
+                try:
+                    with connection.cursor() as cursor:
+                        statement = """ SELECT wish_list FROM tv_list
+                                    WHERE userid = %s AND tvid = %s;"""
+                        cursor.execute(statement, ( userid, self.id,))
+                        connection.commit()
+                        check=cursor.fetchone()[0]
+                        if check==False:
+                            return False
+                        return True
+                except:
+                    return False
         
 def submit_commit(tvid,userid,header,context):
             now = datetime.now()
@@ -248,8 +295,164 @@ def print_commit(tvid,userid):
                 cursor=connection.cursor()
                   
             return commits
+def print_watching():
+    tvs={}
+    try:
+        with connection.cursor() as cursor:
+                                statement = """SELECT tvid FROM tv_list
+                                             WHERE watching_list=TRUE;"""                
+                                cursor.execute(statement,)
+                                for tvid in cursor:
+                                    print("hhhh")
+                                    statement = """SELECT title FROM tvseries
+                                                WHERE id=(%s);"""                
+                                    cursor.execute(statement,(tvid))
+                                    for tvname in cursor:
+                                        tvs[tvid]=tvname
+                                    connection.commit()
+                                return tvs
+    except dbapi2.DatabaseError:
+                connection.rollback()
+                cursor=connection.cursor()
+                  
 
-                     
+def fav_add(userid, tvid):
+        try:
+            with connection.cursor() as cursor:
+                statement = """INSERT INTO tv_list (userid, tvid, fav_list)
+                            VALUES ( %s, %s, %s)
+                        RETURNING id;"""
+                cursor.execute(statement,(userid,tvid,"TRUE"))
+                connection.commit()
+                
+        except dbapi2.errors.UniqueViolation:
+            connection.rollback()
+            
+            a="FALSE"
+            with connection.cursor() as cursor:    
+                statement = """ SELECT fav_list FROM tv_list
+                            WHERE userid = %s AND tvid = %s;"""
+                cursor.execute(statement, ( userid, tvid,))
+                print("except")
+                check=cursor.fetchone()[0]
+                print("ddd")
+                if check == False:
+                    a="TRUE"
+                statement = """ UPDATE tv_list 
+                            SET fav_list = %s WHERE userid = %s AND tvid = %s"""
+                cursor.execute(statement, (a, userid, tvid,))
+                connection.commit()
+        except dbapi2.errors.InFailedSqlTransactions:
+            print("hata")
+            connection.rollback()
+            cursor=connection.cursor()     
+
+def hate_add(userid, tvid):
+        try:
+            with connection.cursor() as cursor:
+                statement = """INSERT INTO tv_list (userid, tvid, hate_list)
+                            VALUES ( %s, %s, %s)
+                        RETURNING id;"""
+                cursor.execute(statement,(userid,tvid,"TRUE"))
+                connection.commit()
+                
+        except dbapi2.errors.UniqueViolation:
+            connection.rollback()
+            
+            a="FALSE"
+            with connection.cursor() as cursor:    
+                statement = """ SELECT hate_list FROM tv_list
+                            WHERE userid = %s AND tvid = %s;"""
+                cursor.execute(statement, ( userid, tvid,))
+                print("except")
+                check=cursor.fetchone()[0]
+                print("ddd")
+                if check == False:
+                    a="TRUE"
+                statement = """ UPDATE tv_list 
+                            SET hate_list = %s WHERE userid = %s AND tvid = %s"""
+                cursor.execute(statement, (a, userid, tvid,))
+                connection.commit()
+        except dbapi2.errors.InFailedSqlTransactions:
+            print("hata")
+            connection.rollback()
+            cursor=connection.cursor()    
+
+def wish_add(userid, tvid):
+        try:
+            with connection.cursor() as cursor:
+                statement = """INSERT INTO tv_list (userid, tvid, wish_list)
+                            VALUES ( %s, %s, %s)
+                        RETURNING id;"""
+                cursor.execute(statement,(userid,tvid,"TRUE"))
+                connection.commit()
+                
+        except dbapi2.errors.UniqueViolation:
+            connection.rollback()
+            
+            a="FALSE"
+            with connection.cursor() as cursor:    
+                statement = """ SELECT wish_list FROM tv_list
+                            WHERE userid = %s AND tvid = %s;"""
+                cursor.execute(statement, ( userid, tvid,))
+                print("except")
+                check=cursor.fetchone()[0]
+                print("ddd")
+                if check == False:
+                    a="TRUE"
+                statement = """ UPDATE tv_list 
+                            SET wish_list = %s WHERE userid = %s AND tvid = %s"""
+                cursor.execute(statement, (a, userid, tvid,))
+                connection.commit()
+        except dbapi2.errors.InFailedSqlTransactions:
+            print("hata")
+            connection.rollback()
+            cursor=connection.cursor()  
+
+def watched_add(userid, tvid):
+        try:
+            with connection.cursor() as cursor:
+                statement = """INSERT INTO tv_list (userid, tvid, watched_list)
+                            VALUES ( %s, %s, %s)
+                        RETURNING id;"""
+                cursor.execute(statement,(userid,tvid,"TRUE"))
+                connection.commit()
+                
+        except dbapi2.errors.UniqueViolation:
+            connection.rollback()
+            
+            with connection.cursor() as cursor:    
+              
+                statement = """ UPDATE tv_list 
+                            SET watched_list = %s,  watching_list = %s WHERE userid = %s AND tvid = %s"""
+                cursor.execute(statement, ("TRUE","FALSE", userid, tvid,))
+                connection.commit()
+        except dbapi2.errors.InFailedSqlTransactions:
+            print("hata")
+            connection.rollback()
+            cursor=connection.cursor()          
+
+def watching_add(userid, tvid):
+        try:
+            with connection.cursor() as cursor:
+                statement = """INSERT INTO tv_list (userid, tvid, watching_list)
+                            VALUES ( %s, %s, %s)
+                        RETURNING id;"""
+                cursor.execute(statement,(userid,tvid,"TRUE"))
+                connection.commit()
+                
+        except dbapi2.errors.UniqueViolation:
+            connection.rollback()
+            
+            with connection.cursor() as cursor:    
+                statement = """ UPDATE tv_list 
+                            SET watched_list = %s,  watching_list = %s WHERE userid = %s AND tvid = %s"""
+                cursor.execute(statement, ("FALSE","TRUE", userid, tvid,))
+                connection.commit()
+        except dbapi2.errors.InFailedSqlTransactions:
+            print("hata")
+            connection.rollback()
+            cursor=connection.cursor()  
 tv_data = [
 
      {'title': "Game of Thrones",
@@ -402,5 +605,4 @@ def find_tv(idno):
                 cursor.execute(statement,(idno,))
                 for id, title, channel, lang, year, season, genre, vote, score in cursor:
                     tv =TV(id,title,lang,year,season,genre,channel,vote,score)
-        
                 return tv

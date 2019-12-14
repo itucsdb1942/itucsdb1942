@@ -32,7 +32,16 @@
             <div class="col-lg-6 mb-5 mb-md-0">
                 <form id="tv-form{{item.id}}" action="" method="POST">
                     <input type="hidden" name="form_id" value="{{item.id}}" />
-                    <h2 class="heading-section mb-3"> <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('tv-form{{item.id}}').submit();"><i class="ion-ios-film mr-2"></i>{{item.title}}<br></a></h2>
+                    <h2 class="heading-section mb-3"> <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('tv-form{{item.id}}').submit();">
+                        {% if item.tv_percent(current_user.id) == 100.0 %}
+                        <i span style="color:green" class="ion-ios-film mr-2"></i>
+                        {% elif item.tv_percent(current_user.id)== 0.0 %}
+                        <i span style="color:red"  class="ion-ios-film mr-2"></i>
+                        {% else %}<i span style="color:yellow"  class="ion-ios-film mr-2"></i>
+                        {% endif %}
+                        {{item.title}}
+                        <br></a></h2>
+
                 </form>
 
                 <div class="row no-gutters tabulation">

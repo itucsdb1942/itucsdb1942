@@ -32,7 +32,12 @@
             <div class="col-lg-6 mb-5 mb-md-0">
                 <form id="book-form{{item.id}}" action="" method="POST">
                     <input type="hidden" name="form_id" value="{{item.id}}" />
-                    <h2 class="heading-section mb-3"> <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('book-form{{item.id}}').submit();"><i class="ion-ios-book mr-2"></i>{{item.name}}<br></a></h2>
+                    <h2 class="heading-section mb-3"> <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('book-form{{item.id}}').submit();">{% if item.book_percent(current_user.id) == 100.0 %}
+                        <i span style="color:green" class="ion-ios-bookmark mr-2"></i>
+                        {% elif item.book_percent(current_user.id)== 0.0 %}
+                        <i span style="color:red"  class="ion-ios-bookmark mr-2"></i>
+                        {% else %}<i span style="color:yellow"  class="ion-ios-bookmark mr-2"></i>
+                        {% endif %}{{item.name}}<br></a></h2>
                 </form>
 
                 <div class="row no-gutters tabulation">

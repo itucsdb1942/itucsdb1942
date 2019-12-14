@@ -78,7 +78,67 @@ def fav_addb(userid,bookid):
             connection.rollback()
             cursor=connection.cursor()
 
+def hate_addb(userid,bookid):
+        try:
+            with connection.cursor() as cursor:
+                statement = """INSERT INTO book_list (userid, bookid, hate_b)
+                            VALUES ( %s, %s, %s)
+                        RETURNING id;"""
+                cursor.execute(statement,(userid,bookid,"TRUE"))
+                connection.commit()
+                
+        except dbapi2.errors.UniqueViolation:
+            connection.rollback()
+            
+            a="FALSE"
+            with connection.cursor() as cursor:    
+                statement = """ SELECT hate_b FROM book_list
+                            WHERE userid = %s AND bookid = %s;"""
+                cursor.execute(statement, ( userid, bookid,))
+                print("except")
+                check=cursor.fetchone()[0]
+                print("ddd")
+                if check == False:
+                    a="TRUE"
+                statement = """ UPDATE book_list 
+                            SET hate_b = %s WHERE userid = %s AND bookid = %s"""
+                cursor.execute(statement, (a, userid, bookid,))
+                connection.commit()
+        except dbapi2.errors.InFailedSqlTransactions:
+            print("hata")
+            connection.rollback()
+            cursor=connection.cursor()
 
+def wish_addb(userid,bookid):
+        try:
+            with connection.cursor() as cursor:
+                statement = """INSERT INTO book_list (userid, bookid, wish_b)
+                            VALUES ( %s, %s, %s)
+                        RETURNING id;"""
+                cursor.execute(statement,(userid,bookid,"TRUE"))
+                connection.commit()
+                
+        except dbapi2.errors.UniqueViolation:
+            connection.rollback()
+            
+            a="FALSE"
+            with connection.cursor() as cursor:    
+                statement = """ SELECT wish_b FROM book_list
+                            WHERE userid = %s AND bookid = %s;"""
+                cursor.execute(statement, ( userid, bookid,))
+                print("except")
+                check=cursor.fetchone()[0]
+                print("ddd")
+                if check == False:
+                    a="TRUE"
+                statement = """ UPDATE book_list 
+                            SET wish_b = %s WHERE userid = %s AND bookid = %s"""
+                cursor.execute(statement, (a, userid, bookid,))
+                connection.commit()
+        except dbapi2.errors.InFailedSqlTransactions:
+            print("hata")
+            connection.rollback()
+            cursor=connection.cursor()
             
             
 class Book:
@@ -163,18 +223,47 @@ class Book:
                         return per
 
     def check_fav(self,userid):
-                a=0
                 connection.rollback()
-                with connection.cursor() as cursor:
-                    statement = """ SELECT fav_b FROM book_list
-                                WHERE userid = %s AND bookid = %s;"""
-                    cursor.execute(statement, ( userid, self.id,))
-                    connection.commit()
-                    for check in cursor:
-                        a=check
-                    if a[0]==False:
-                        return False
-                    return True
+                try:
+                    with connection.cursor() as cursor:
+                        statement = """ SELECT fav_b FROM book_list
+                                    WHERE userid = %s AND bookid = %s;"""
+                        cursor.execute(statement, ( userid, self.id,))
+                        connection.commit()
+                        check=cursor.fetchone()[0]
+                        if check==False:
+                            return False
+                        return True
+                except:
+                    return False
+    def check_hate(self,userid):
+                connection.rollback()
+                try:
+                    with connection.cursor() as cursor:
+                        statement = """ SELECT hate_b FROM book_list
+                                    WHERE userid = %s AND bookid = %s;"""
+                        cursor.execute(statement, ( userid, self.id,))
+                        connection.commit()
+                        check=cursor.fetchone()[0]
+                        if check==False:
+                            return False
+                        return True
+                except:
+                    return False
+    def check_wish(self,userid):
+                connection.rollback()
+                try:
+                    with connection.cursor() as cursor:
+                        statement = """ SELECT wish_b FROM book_list
+                                    WHERE userid = %s AND bookid = %s;"""
+                        cursor.execute(statement, ( userid, self.id,))
+                        connection.commit()
+                        check=cursor.fetchone()[0]
+                        if check==False:
+                            return False
+                        return True
+                except:
+                    return False
 
 def submit_commit_book(bookid,userid,header,context):
             print("fksdf")
