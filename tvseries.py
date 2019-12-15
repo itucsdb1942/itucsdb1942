@@ -307,13 +307,13 @@ def print_commit(tvid,userid):
                 cursor=connection.cursor()
                   
             return commits
-def print_watching():
+def print_watching(idno):
     tvs={}
     try:
         with connection.cursor() as cursor:
                                 statement = """SELECT tv_list.tvid, tvseries.title FROM tv_list,tvseries
-                                             WHERE tv_list.watching_list=TRUE AND tvseries.id=tv_list.tvid;"""                
-                                cursor.execute(statement,)
+                                             WHERE tv_list.watching_list=TRUE AND tvseries.id=tv_list.tvid AND userid=%s;"""                
+                                cursor.execute(statement,(idno,))
                                 for tvid, tvname in cursor:
                                     tvs[tvid]=tvname
                                     connection.commit()
@@ -322,13 +322,13 @@ def print_watching():
                 connection.rollback()
                 cursor=connection.cursor()
 
-def print_watched():
+def print_watched(idno):
     tvs={}
     try:
         with connection.cursor() as cursor:
                                 statement = """SELECT tv_list.tvid, tvseries.title FROM tv_list,tvseries
-                                             WHERE tv_list.watched_list=TRUE AND tvseries.id=tv_list.tvid;"""                
-                                cursor.execute(statement,)
+                                             WHERE tv_list.watched_list=TRUE AND tvseries.id=tv_list.tvid AND userid=%s;"""                
+                                cursor.execute(statement,(idno,))
                                 for tvid, tvname in cursor:
                                     tvs[tvid]=tvname
                                     connection.commit()
@@ -337,13 +337,13 @@ def print_watched():
                 connection.rollback()
                 cursor=connection.cursor()    
 
-def print_wish():
+def print_wish(idno):
     tvs={}
     try:
         with connection.cursor() as cursor:
                                 statement = """SELECT tv_list.tvid, tvseries.title FROM tv_list,tvseries
-                                             WHERE tv_list.wish_list=TRUE AND tvseries.id=tv_list.tvid;"""                
-                                cursor.execute(statement,)
+                                             WHERE tv_list.wish_list=TRUE AND tvseries.id=tv_list.tvid AND userid=%s;"""                
+                                cursor.execute(statement,(idno,))
                                 for tvid, tvname in cursor:
                                     tvs[tvid]=tvname
                                     connection.commit()
@@ -352,13 +352,13 @@ def print_wish():
                 connection.rollback()
                 cursor=connection.cursor()   
 
-def print_fav():
+def print_fav(idno):
     tvs={}
     try:
         with connection.cursor() as cursor:
                                 statement = """SELECT tv_list.tvid, tvseries.title FROM tv_list,tvseries
-                                             WHERE tv_list.fav_list=TRUE AND tvseries.id=tv_list.tvid;"""                
-                                cursor.execute(statement,)
+                                             WHERE tv_list.fav_list=TRUE AND tvseries.id=tv_list.tvid AND userid=%s;"""                
+                                cursor.execute(statement,(idno,))
                                 for tvid, tvname in cursor:
                                     tvs[tvid]=tvname
                                     connection.commit()
@@ -367,13 +367,13 @@ def print_fav():
                 connection.rollback()
                 cursor=connection.cursor()    
 
-def print_hate():
+def print_hate(idno):
     tvs={}
     try:
         with connection.cursor() as cursor:
                                 statement = """SELECT tv_list.tvid, tvseries.title FROM tv_list,tvseries
-                                             WHERE tv_list.hate_list=TRUE AND tvseries.id=tv_list.tvid;"""                
-                                cursor.execute(statement,)
+                                             WHERE tv_list.hate_list=TRUE AND tvseries.id=tv_list.tvid AND userid=%s;"""                
+                                cursor.execute(statement,(idno,))
                                 for tvid, tvname in cursor:
                                     tvs[tvid]=tvname
                                     connection.commit()

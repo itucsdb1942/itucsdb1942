@@ -421,26 +421,26 @@ def find_book(idno):
                     book =Book(id,name,wri_name,year,page,gen,pub,lang,vote,sc)
                 return book
 
-def print_reading():
+def print_reading(idno):
     books={}
     try:
         with connection.cursor() as cursor:
                                 statement = """SELECT book_list.bookid, books.name FROM book_list,books
-                                             WHERE book_list.reading=TRUE AND book_list.bookid=books.id;"""                
-                                cursor.execute(statement,)
+                                             WHERE book_list.reading=TRUE AND book_list.bookid=books.id AND userid=%s;"""                
+                                cursor.execute(statement,(idno,))
                                 for bookid, bookname in cursor:
                                     books[bookid]=bookname
                                 return books
     except dbapi2.DatabaseError:
                 connection.rollback()
                 cursor=connection.cursor()
-def print_readed():
+def print_readed(idno):
     books={}
     try:
         with connection.cursor() as cursor:
                                 statement = """SELECT book_list.bookid, books.name FROM book_list,books
-                                             WHERE book_list.readed=TRUE AND book_list.bookid=books.id;"""                
-                                cursor.execute(statement,)
+                                             WHERE book_list.readed=TRUE AND book_list.bookid=books.id AND userid=%s;"""                
+                                cursor.execute(statement,(idno,))
                                 for bookid, bookname in cursor:
                                     books[bookid]=bookname
                                 return books
@@ -448,39 +448,39 @@ def print_readed():
                 connection.rollback()
                 cursor=connection.cursor()          
 
-def print_wishb():
+def print_wishb(idno):
     books={}
     try:
         with connection.cursor() as cursor:
                                 statement = """SELECT book_list.bookid, books.name FROM book_list,books
-                                             WHERE book_list.wish_b=TRUE AND book_list.bookid=books.id;"""                
-                                cursor.execute(statement,)
+                                             WHERE book_list.wish_b=TRUE AND book_list.bookid=books.id AND userid=%s;"""                
+                                cursor.execute(statement,(idno,))
                                 for bookid, bookname in cursor:
                                     books[bookid]=bookname
                                 return books
     except dbapi2.DatabaseError:
                 connection.rollback()
                 cursor=connection.cursor()       
-def print_favb():
+def print_favb(idno):
     books={}
     try:
         with connection.cursor() as cursor:
                                 statement = """SELECT book_list.bookid, books.name FROM book_list,books
-                                             WHERE book_list.fav_b=TRUE AND book_list.bookid=books.id;"""                
-                                cursor.execute(statement,)
+                                             WHERE book_list.fav_b=TRUE AND book_list.bookid=books.id AND userid=%s;"""                
+                                cursor.execute(statement,(idno,))
                                 for bookid, bookname in cursor:
                                     books[bookid]=bookname
                                 return books
     except dbapi2.DatabaseError:
                 connection.rollback()
                 cursor=connection.cursor()       
-def print_hateb():
+def print_hateb(idno):
     books={}
     try:
         with connection.cursor() as cursor:
                                 statement = """SELECT book_list.bookid, books.name FROM book_list,books
-                                             WHERE book_list.hate_b=TRUE AND book_list.bookid=books.id;"""                
-                                cursor.execute(statement,)
+                                             WHERE book_list.hate_b=TRUE AND book_list.bookid=books.id AND userid=%s;"""                
+                                cursor.execute(statement,(idno,))
                                 for bookid, bookname in cursor:
                                     books[bookid]=bookname
                                 return books

@@ -39,16 +39,16 @@ def login_page():
 @app.route("/home", methods=['GET', 'POST'])
 @login_required
 def home():
-    watching_list=print_watching()
-    watched_list=print_watched()
-    wish_list=print_wish()
-    fav_list=print_fav()
-    hate_list=print_hate()
-    reading_list=print_reading()
-    readed_list=print_readed()
-    wishb_list=print_wishb()
-    favb_list=print_favb()
-    hateb_list=print_hateb()
+    watching_list=print_watching(current_user.id)
+    watched_list=print_watched(current_user.id)
+    wish_list=print_wish(current_user.id)
+    fav_list=print_fav(current_user.id)
+    hate_list=print_hate(current_user.id)
+    reading_list=print_reading(current_user.id)
+    readed_list=print_readed(current_user.id)
+    wishb_list=print_wishb(current_user.id)
+    favb_list=print_favb(current_user.id)
+    hateb_list=print_hateb(current_user.id)
     if request.method =='POST':
         try:
             item=request.form['tv_id']
