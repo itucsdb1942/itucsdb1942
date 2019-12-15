@@ -321,7 +321,66 @@ def print_watching():
     except dbapi2.DatabaseError:
                 connection.rollback()
                 cursor=connection.cursor()
-                  
+
+def print_watched():
+    tvs={}
+    try:
+        with connection.cursor() as cursor:
+                                statement = """SELECT tv_list.tvid, tvseries.title FROM tv_list,tvseries
+                                             WHERE tv_list.watched_list=TRUE AND tvseries.id=tv_list.tvid;"""                
+                                cursor.execute(statement,)
+                                for tvid, tvname in cursor:
+                                    tvs[tvid]=tvname
+                                    connection.commit()
+                                return tvs
+    except dbapi2.DatabaseError:
+                connection.rollback()
+                cursor=connection.cursor()    
+
+def print_wish():
+    tvs={}
+    try:
+        with connection.cursor() as cursor:
+                                statement = """SELECT tv_list.tvid, tvseries.title FROM tv_list,tvseries
+                                             WHERE tv_list.wish_list=TRUE AND tvseries.id=tv_list.tvid;"""                
+                                cursor.execute(statement,)
+                                for tvid, tvname in cursor:
+                                    tvs[tvid]=tvname
+                                    connection.commit()
+                                return tvs
+    except dbapi2.DatabaseError:
+                connection.rollback()
+                cursor=connection.cursor()   
+
+def print_fav():
+    tvs={}
+    try:
+        with connection.cursor() as cursor:
+                                statement = """SELECT tv_list.tvid, tvseries.title FROM tv_list,tvseries
+                                             WHERE tv_list.fav_list=TRUE AND tvseries.id=tv_list.tvid;"""                
+                                cursor.execute(statement,)
+                                for tvid, tvname in cursor:
+                                    tvs[tvid]=tvname
+                                    connection.commit()
+                                return tvs
+    except dbapi2.DatabaseError:
+                connection.rollback()
+                cursor=connection.cursor()    
+
+def print_hate():
+    tvs={}
+    try:
+        with connection.cursor() as cursor:
+                                statement = """SELECT tv_list.tvid, tvseries.title FROM tv_list,tvseries
+                                             WHERE tv_list.hate_list=TRUE AND tvseries.id=tv_list.tvid;"""                
+                                cursor.execute(statement,)
+                                for tvid, tvname in cursor:
+                                    tvs[tvid]=tvname
+                                    connection.commit()
+                                return tvs
+    except dbapi2.DatabaseError:
+                connection.rollback()
+                cursor=connection.cursor()                 
 
 def fav_add(userid, tvid):
         try:

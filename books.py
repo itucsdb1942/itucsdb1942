@@ -434,6 +434,59 @@ def print_reading():
     except dbapi2.DatabaseError:
                 connection.rollback()
                 cursor=connection.cursor()
+def print_readed():
+    books={}
+    try:
+        with connection.cursor() as cursor:
+                                statement = """SELECT book_list.bookid, books.name FROM book_list,books
+                                             WHERE book_list.readed=TRUE AND book_list.bookid=books.id;"""                
+                                cursor.execute(statement,)
+                                for bookid, bookname in cursor:
+                                    books[bookid]=bookname
+                                return books
+    except dbapi2.DatabaseError:
+                connection.rollback()
+                cursor=connection.cursor()          
+
+def print_wishb():
+    books={}
+    try:
+        with connection.cursor() as cursor:
+                                statement = """SELECT book_list.bookid, books.name FROM book_list,books
+                                             WHERE book_list.wish_b=TRUE AND book_list.bookid=books.id;"""                
+                                cursor.execute(statement,)
+                                for bookid, bookname in cursor:
+                                    books[bookid]=bookname
+                                return books
+    except dbapi2.DatabaseError:
+                connection.rollback()
+                cursor=connection.cursor()       
+def print_favb():
+    books={}
+    try:
+        with connection.cursor() as cursor:
+                                statement = """SELECT book_list.bookid, books.name FROM book_list,books
+                                             WHERE book_list.fav_b=TRUE AND book_list.bookid=books.id;"""                
+                                cursor.execute(statement,)
+                                for bookid, bookname in cursor:
+                                    books[bookid]=bookname
+                                return books
+    except dbapi2.DatabaseError:
+                connection.rollback()
+                cursor=connection.cursor()       
+def print_hateb():
+    books={}
+    try:
+        with connection.cursor() as cursor:
+                                statement = """SELECT book_list.bookid, books.name FROM book_list,books
+                                             WHERE book_list.hate_b=TRUE AND book_list.bookid=books.id;"""                
+                                cursor.execute(statement,)
+                                for bookid, bookname in cursor:
+                                    books[bookid]=bookname
+                                return books
+    except dbapi2.DatabaseError:
+                connection.rollback()
+                cursor=connection.cursor()           
 def initial_book():
                 book_data = [
                     {'title': "Harry Potter and the Philosopher's Stone",

@@ -1,7 +1,7 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
 import dbinit
-from tvseries import TV,print_tv,find_tv,seasonwatched,episodewatched, submit_commit, print_commit, com_like, com_dislike,fav_add,hate_add,wish_add,print_watching,add_scoret
-from books import Book, print_book, find_book, updatepage,check_tpage, submit_commit_book,print_commit_book,com_like_book, com_dislike_book,fav_addb,hate_addb,wish_addb,print_reading,add_score
+from tvseries import TV,print_tv,find_tv,seasonwatched,episodewatched, submit_commit, print_commit, com_like, com_dislike,fav_add,hate_add,wish_add,print_watching,add_scoret,print_watched,print_wish,print_fav,print_hate
+from books import Book, print_book, find_book, updatepage,check_tpage, submit_commit_book,print_commit_book,com_like_book, com_dislike_book,fav_addb,hate_addb,wish_addb,print_reading,add_score,print_favb,print_hateb,print_wishb,print_readed
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager,login_user, current_user, logout_user, login_required
 from userdb import User, username_check, get, update_user, delete_user
@@ -40,7 +40,15 @@ def login_page():
 @login_required
 def home():
     watching_list=print_watching()
+    watched_list=print_watched()
+    wish_list=print_wish()
+    fav_list=print_fav()
+    hate_list=print_hate()
     reading_list=print_reading()
+    readed_list=print_readed()
+    wishb_list=print_wishb()
+    favb_list=print_favb()
+    hateb_list=print_hateb()
     if request.method =='POST':
         try:
             item=request.form['tv_id']
@@ -48,7 +56,7 @@ def home():
         except:
             item=request.form['book_id']
             return redirect(url_for('book',item=item))
-    return render_template("home.html",watching=watching_list,reading=reading_list)    
+    return render_template("home.html",watching=watching_list,watched=watched_list,fav=fav_list,hate=hate_list,wish=wish_list,reading=reading_list,readed=readed_list,favb=favb_list,hateb=hateb_list,wishb=wishb_list)    
 
 @app.route("/tv", methods=['GET', 'POST'])
 @login_required

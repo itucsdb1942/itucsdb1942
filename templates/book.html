@@ -34,7 +34,7 @@
                 <form action="" method="POST">
                     <div class="row">
                         {% if book.check_hate(current_user.id) == True %}
-                        <button name="hate" value='1' class="btn btn-icon btn-primary btn-lg btn-link"><h1 span style="color:black" class="heading-section mb-3"><i class="ion-ios-heart-dislike" ></i></h1></button> {% else %}
+                        <button name="hate" value='1' class="btn btn-icon btn-primary btn-lg btn-link"><h1 span style="color:gray" class="heading-section mb-3"><i class="ion-ios-heart-dislike" ></i></h1></button> {% else %}
                         <button name="hate" value='1' class="btn btn-icon btn-primary btn-lg btn-link"><h1 class="heading-section mb-3"><i class="ion-ios-heart-dislike"></i></h1</button>{% endif %}</div>
                 </form>
                 <form action="" method="POST">
