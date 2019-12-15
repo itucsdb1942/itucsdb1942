@@ -62,6 +62,7 @@ class Episode:
                         statement = """SELECT watched FROM tv_trace
                                         WHERE episodeid = (%s) AND userid = (%s); """
                         cursor.execute(statement,(self.id,userid,))
+                        
                         for watched in cursor:
                             if watched[0]==True:
                                 check=check+1
@@ -75,12 +76,15 @@ class Episode:
 
 
 def episodewatched(userid,episodeid):
+        connection.rollback()
         try:
+            print(episodeid,userid)
             with connection.cursor() as cursor:
                 statement = """INSERT INTO tv_trace (userid, episodeid, watched)
                             VALUES ( %s, %s, %s)
                         RETURNING id;"""
                 cursor.execute(statement,(userid,episodeid,"TRUE"))
+                print("tt1")
                 connection.commit()
         except dbapi2.errors.UniqueViolation:
             connection.rollback()
@@ -88,6 +92,7 @@ def episodewatched(userid,episodeid):
                 statement = """ DELETE FROM tv_trace 
                             WHERE userid = %s AND episodeid = %s"""
                 cursor.execute(statement, ( userid, episodeid,))
+                print("tt")
                 connection.commit()
         except dbapi2.errors.InFailedSqlTransactions:
             connection.rollback()
@@ -95,6 +100,7 @@ def episodewatched(userid,episodeid):
         
 
 def seasonwatched(userid,tvid,season):
+            connection.rollback()
             episodeids=[]
             with connection.cursor() as cursor:
                 statement = """SELECT ID FROM episode
@@ -191,8 +197,10 @@ class TV:
                         percent=checkw*100/checkall
                         if(percent==100.0):
                             watched_add(userid,self.id)
-                        if(percent>0.0):
+                        elif(percent>0.0):
                             watching_add(userid,self.id)
+                        elif(percent==0.0):
+                            notwatch_add(userid,self.id)
                         return checkw*100/checkall
 
         def season_percent(self,userid,season_n):
@@ -260,7 +268,15 @@ class TV:
                         return True
                 except:
                     return False
-        
+
+def add_scoret(tvid,score):
+        with connection.cursor() as cursor:
+            statement = """ UPDATE tvseries
+                                    SET SCORE = (SCORE*VOTE+%s)/(VOTE+1),VOTE=VOTE+1 WHERE id = %s;"""
+            cursor.execute(statement, (score, tvid,))
+            connection.commit()   
+        cursor.close()
+
 def submit_commit(tvid,userid,header,context):
             now = datetime.now()
             try:
@@ -279,14 +295,10 @@ def print_commit(tvid,userid):
             commits=[]
             try:
                 with connection.cursor() as cursor:
-                                statement = """SELECT username FROM users
-                                             WHERE id=(%s);"""                
-                                cursor.execute(statement,(userid,))
-                                username=cursor.fetchone()[0]
-                                statement = """SELECT id,header,content,date FROM tv_commit
-                                             WHERE userid=(%s) AND tvid=(%s) ORDER BY date DESC;"""                
+                                statement = """SELECT tv_commit.id, tv_commit.header,tv_commit.content,tv_commit.date, users.username FROM tv_commit,users
+                                             WHERE users.id=(%s) AND tv_commit.tvid=(%s) AND tv_commit.userid=users.id ORDER BY date DESC;"""                
                                 cursor.execute(statement,(userid,tvid))
-                                for id,head,cont,date in cursor:
+                                for id,head,cont,date,username in cursor:
                                     com=commit(id=id, username=username,tvid=tvid,header=head,content=cont,date=date)
                                     commits.append(com)  
                                 connection.commit()
@@ -299,16 +311,11 @@ def print_watching():
     tvs={}
     try:
         with connection.cursor() as cursor:
-                                statement = """SELECT tvid FROM tv_list
-                                             WHERE watching_list=TRUE;"""                
+                                statement = """SELECT tv_list.tvid, tvseries.title FROM tv_list,tvseries
+                                             WHERE tv_list.watching_list=TRUE AND tvseries.id=tv_list.tvid;"""                
                                 cursor.execute(statement,)
-                                for tvid in cursor:
-                                    print("hhhh")
-                                    statement = """SELECT title FROM tvseries
-                                                WHERE id=(%s);"""                
-                                    cursor.execute(statement,(tvid))
-                                    for tvname in cursor:
-                                        tvs[tvid]=tvname
+                                for tvid, tvname in cursor:
+                                    tvs[tvid]=tvname
                                     connection.commit()
                                 return tvs
     except dbapi2.DatabaseError:
@@ -333,9 +340,7 @@ def fav_add(userid, tvid):
                 statement = """ SELECT fav_list FROM tv_list
                             WHERE userid = %s AND tvid = %s;"""
                 cursor.execute(statement, ( userid, tvid,))
-                print("except")
                 check=cursor.fetchone()[0]
-                print("ddd")
                 if check == False:
                     a="TRUE"
                 statement = """ UPDATE tv_list 
@@ -424,7 +429,7 @@ def watched_add(userid, tvid):
             with connection.cursor() as cursor:    
               
                 statement = """ UPDATE tv_list 
-                            SET watched_list = %s,  watching_list = %s WHERE userid = %s AND tvid = %s"""
+                            SET watched_list = %s,  watching_list = %s WHERE userid = %s AND tvid = %s;"""
                 cursor.execute(statement, ("TRUE","FALSE", userid, tvid,))
                 connection.commit()
         except dbapi2.errors.InFailedSqlTransactions:
@@ -446,13 +451,22 @@ def watching_add(userid, tvid):
             
             with connection.cursor() as cursor:    
                 statement = """ UPDATE tv_list 
-                            SET watched_list = %s,  watching_list = %s WHERE userid = %s AND tvid = %s"""
+                            SET watched_list = %s,  watching_list = %s WHERE userid = %s AND tvid = %s;"""
                 cursor.execute(statement, ("FALSE","TRUE", userid, tvid,))
                 connection.commit()
         except dbapi2.errors.InFailedSqlTransactions:
-            print("hata")
             connection.rollback()
             cursor=connection.cursor()  
+def notwatch_add(userid, tvid):
+        try:
+            with connection.cursor() as cursor:    
+                statement = """ UPDATE tv_list 
+                            SET watched_list = %s,  watching_list = %s WHERE userid = %s AND tvid = %s;"""
+                cursor.execute(statement, ("FALSE","FALSE", userid, tvid,))
+                connection.commit()
+                
+        except dbapi2.errors.UniqueViolation:
+            connection.rollback()
 tv_data = [
 
      {'title': "Game of Thrones",
@@ -592,7 +606,7 @@ except dbapi2.DatabaseError:
 def print_tv():
                 tv_list=[]
     
-                statement = """SELECT ID, TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE, VOTE, SCORE FROM tvseries; """
+                statement = """SELECT ID, TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE, VOTE, SCORE FROM tvseries ORDER BY id; """
                 cursor.execute(statement)
                 for id, title, channel, lang, year, season, genre, vote, score in cursor:
                     tv =TV(id,title,lang,year,season,genre,channel,vote,score)

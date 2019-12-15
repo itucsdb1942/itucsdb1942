@@ -1,7 +1,7 @@
 {% extends "layout.html" %} {% block content %}
 
 
-<section class="hero-wrap" style="background-image: url(/static/images/book.jpeg);" data-stellar-background-ratio="0.5">
+<section class="hero-wrap" style="background-image: url(/static/images/background.png);" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row description align-items-center justify-content-center">
@@ -30,10 +30,10 @@
                 <h2 class="heading-section mb-4">Watching List</h2>
                 {% if watching != None %} {% for item in watching %}
                 <form id='tv-form{{item[0]}}' action="" method="POST">
-                    <input type="hidden" name="tv_id" value="{{item[0]}}" />
+                    <input type="hidden" name="tv_id" value="{{item}}" />
                     <h2 class="heading-section mb-3">
                         <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('tv-form{{item[0]}}').submit();">
-                            <i span style="color:yellow" class="ion-ios-film mr-2"></i> {{watching[item][0]}}
+                            <i span style="color:yellow" class="ion-ios-film mr-2"></i> {{watching[item]}}
                             <br></a>
                     </h2>
 
@@ -42,7 +42,21 @@
                 {% endfor %}{% endif %}
             </div>
 
+            <div class="col-lg-6 mb-5 mb-md-0">
+                <h2 class="heading-section mb-4">Reading List</h2>
+                {% if reading != None %} {% for item in reading %}
+                <form id='book-form{{item[0]}}' action="" method="POST">
+                    <input type="hidden" name="book_id" value="{{item}}" />
+                    <h2 class="heading-section mb-3">
+                        <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('book-form{{item[0]}}').submit();">
+                            <i span style="color:yellow" class="ion-ios-bookmark mr-2"></i> {{reading[item]}}
+                            <br></a>
+                    </h2>
 
+                </form>
+
+                {% endfor %}{% endif %}
+            </div>
 
 
         </div>

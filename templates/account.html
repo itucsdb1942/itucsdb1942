@@ -2,14 +2,17 @@
 <div class="main-section">
     <section class="ftco-section" id="inputs">
         <div class="container">
-            <div class="row">
+            <div class="row mt-5">
                 <div class="col-md-6">
                     <div class="tabulation-2 mt-5">
 
                         <div class="tab-content rounded mt-2">
                             <div class="tab-pane container p-4 active">
                                 <h3>{{current_user.username}}</h3>
-                                <p>{{current_user.mail}}</p>
+                                <p>{{current_user.mail}} </p>
+                                <form method="POST" action="">
+                                    <button name="delete" value='1' class="btn btn-primary btn-sm ml-3">Delete</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -18,8 +21,52 @@
                     <div class="tabulation-2 mt-5">
                         <div class="tab-content rounded mt-2">
                             <div class="tab-pane container p-4 active">
-                                <h3>{{current_user.username}}</h3>
-                                <p>{{current_user.mail}}</p>
+
+                                <form class="form-login" method="POST" action="">
+                                    {{form.hidden_tag()}}
+                                    <div class="card-header card-header-primary text-center">
+                                        <h1 class="card-title mb-4">Update</h1>
+                                    </div>
+                                    <div class="card-body pb-4 pt-8">
+
+
+
+                                        <div class="input-group mb-4">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                                    <i class="ion-ios-contact"></i>
+                                                                </span>
+                                            </div>
+                                            {% if form.mail.errors %} {{form.mail(type="text" , class="form-control is-invalid" , placeholder="E-mail")}}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.mail.errors %}
+                                                <span>{{ error }}</span> {% endfor %}
+                                            </div>
+                                            {% else %} {{form.mail(type="text" , class="form-control" , placeholder="E-mail")}} {% endif%}
+
+                                        </div>
+                                        <div class="input-group mb-4">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                                <i class="ion-ios-contact"></i>
+                                                            </span>
+                                            </div>
+                                            {% if form.username.errors %} {{form.username(type="text" , class="form-control is-invalid" , placeholder="Username")}}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.username.errors %}
+                                                <span>{{ error }}</span> {% endfor %}
+                                            </div>
+                                            {% else %} {{form.username(type="text" , class="form-control" , placeholder="Username" )}}{% endif%}
+                                        </div>
+
+
+                                    </div>
+                                    <div class="footer text-center mb-2">
+                                        {{form.submit(class="btn btn-primary btn-round px-5")}}
+                                    </div>
+
+                                </form>
+
                             </div>
                         </div>
                     </div>

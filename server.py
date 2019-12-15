@@ -1,10 +1,10 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
 import dbinit
-from tvseries import TV,print_tv,find_tv,seasonwatched,episodewatched, submit_commit, print_commit, com_like, com_dislike,fav_add,hate_add,wish_add,print_watching
-from books import Book, print_book, find_book, updatepage,check_tpage, submit_commit_book,print_commit_book,com_like_book, com_dislike_book,fav_addb,hate_addb,wish_addb
+from tvseries import TV,print_tv,find_tv,seasonwatched,episodewatched, submit_commit, print_commit, com_like, com_dislike,fav_add,hate_add,wish_add,print_watching,add_scoret
+from books import Book, print_book, find_book, updatepage,check_tpage, submit_commit_book,print_commit_book,com_like_book, com_dislike_book,fav_addb,hate_addb,wish_addb,print_reading,add_score
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager,login_user, current_user, logout_user, login_required
-from userdb import User, username_check, get
+from userdb import User, username_check, get, update_user, delete_user
 from forms import registirationForm, loginForm, tvForm, bookForm, UpdateForm
 
 app = Flask(__name__)
@@ -40,10 +40,15 @@ def login_page():
 @login_required
 def home():
     watching_list=print_watching()
+    reading_list=print_reading()
     if request.method =='POST':
-        item=request.form['tv_id']
-        return redirect(url_for('tv',item=item))
-    return render_template("home.html",watching=watching_list)    
+        try:
+            item=request.form['tv_id']
+            return redirect(url_for('tv',item=item))
+        except:
+            item=request.form['book_id']
+            return redirect(url_for('book',item=item))
+    return render_template("home.html",watching=watching_list,reading=reading_list)    
 
 @app.route("/tv", methods=['GET', 'POST'])
 @login_required
@@ -116,10 +121,13 @@ def tv(item):
                 print("ksf")
         
             try:
-                episodeid=request.form['episodeid']
-                episodewatched(current_user.id,episodeid)
+                score=int(request.form['rate'])*2
+                print("rate",score)
+                add_scoret(item,score)
+                return redirect(url_for('tv',item=item))
             except:
-                print("ksf")
+                print("dlf")
+
     return render_template("tv.html", tv=tv, commit=commit_list)
 
 
@@ -132,12 +140,17 @@ def bookpage():
             item=request.form['form_id']
             return redirect(url_for('book',item=item))
         except:
+            print("hh")
+        try:
             readed=int(request.form['page'])
             bookid=request.form['bookid']
             if check_tpage(readed,bookid,current_user.id)==True:
                 updatepage(bookid, current_user.id, readed)
             else:
                 flash(f'Invalid Page Number!', 'danger')
+        except:
+            print("dlf")
+        
 
     return render_template("bookpage.html", book=book_list) #book listi book adındA HTML E GÖNDERİYOR.
 
@@ -191,6 +204,14 @@ def book(item):
                         return redirect(url_for('book',item=item))
         except:
                 print("jjj")
+        try:
+            score=int(request.form['rate'])*2
+            print("rate",score)
+            add_score(item,score)
+            return redirect(url_for('book',item=item))
+        except:
+            print("dlf")
+
     return render_template("book.html", book=book, commit=commit_list)
 
 
@@ -230,7 +251,6 @@ def bookForm_page():
     form=bookForm()
     if request.method =='POST':
         if form.validate_on_submit:
-            print(form.name.data,form.writer.data)
             book = Book(name=form.name.data,writer=form.writer.data, year_pub=form.year_pub.data,tpage=form.tpage.data,publisher=form.publisher.data,language=form.language.data,genre=form.genre.data)
             book.addbook()
             flash(f'{form.name.data} is created!', 'success')
@@ -242,10 +262,23 @@ def logout():
     logout_user()
     return redirect(url_for('login_page'))
 
-@app.route("/account")
+@app.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
     form = UpdateForm()
+    if request.method =='POST':
+        if request.form['delete']=='1':
+            delete_user(current_user.id)
+            logout_user()
+            return redirect(url_for('login_page'))
+        else:
+            if form.validate_on_submit():
+                update_user(form.username.data,form.mail.data,current_user.id)
+                flash(f'Updated Account: {form.username.data}, {form.mail.data}!', 'success')
+                return redirect(url_for('account'))
+            else:
+                flash(f'Failed to Update Account to {form.username.data}, {form.mail.data}!', 'danger')
+
     return render_template("account.html", current_user= current_user, form = form)
 
 if __name__ == "__main__":

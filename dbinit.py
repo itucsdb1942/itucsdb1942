@@ -7,7 +7,8 @@ url="postgres://dneperyi:l94XrLU-lOV2MOaQOPBnoYqVdKreucNZ@manny.db.elephantsql.c
 INIT_STATEMENTS = [
 
     """ CREATE DOMAIN SCORES AS FLOAT
-            CHECK((VALUE>=0.0) AND (VALUE<=10.0)) DEFAULT 0.0;""",
+            DEFAULT 0.0
+            CHECK((VALUE>=0.0) AND (VALUE<=10.0)); """,
 
         """ CREATE TABLE users(
             ID SERIAL PRIMARY KEY,
@@ -34,7 +35,7 @@ INIT_STATEMENTS = [
 
          """ CREATE TABLE tv_commit(
             ID SERIAL PRIMARY KEY,
-            userid INTEGER REFERENCES users(id),
+            userid INTEGER REFERENCES users(id) on delete cascade,
             tvid INTEGER REFERENCES tvseries(id),
             header VARCHAR(20),
             content VARCHAR(200),
@@ -49,15 +50,12 @@ INIT_STATEMENTS = [
             season_n INTEGER,
             number INTEGER,
             name VARCHAR(80),
-            year INTEGER,
-            VOTE INTEGER DEFAULT 0,
-            SCORE SCORES,
             UNIQUE(tvid,season_n,number)
         );""",
 
     """ CREATE TABLE tv_list(
             ID SERIAL PRIMARY KEY,
-            userid INTEGER REFERENCES users(id),
+            userid INTEGER REFERENCES users(id) on delete cascade,
             tvid INTEGER REFERENCES tvseries(id),
             fav_list BOOL DEFAULT FALSE,
             hate_list BOOL DEFAULT FALSE,
@@ -69,7 +67,7 @@ INIT_STATEMENTS = [
 
      """ CREATE TABLE tv_trace(
             ID SERIAL PRIMARY KEY,
-            userid INTEGER REFERENCES users(id),
+            userid INTEGER REFERENCES users(id) on delete cascade,
             episodeid INTEGER REFERENCES episode(id),
             watched BOOL DEFAULT FALSE,
             UNIQUE(userid, episodeid)
@@ -90,12 +88,12 @@ INIT_STATEMENTS = [
             PUBLISHER VARCHAR(50),
             LANGUAGE VARCHAR(80),
             GENRE VARCHAR(50),
-            SCORE SCORES DEFAULT 0,
+            SCORE SCORES,
             VOTE INTEGER DEFAULT 0);""",
 
         """CREATE TABLE book_list(
             ID SERIAL PRIMARY KEY,
-            userid INTEGER REFERENCES users(id),
+            userid INTEGER REFERENCES users(id) on delete cascade,
             bookid INTEGER REFERENCES books(id),
             fav_b BOOL DEFAULT FALSE,
             hate_b BOOL DEFAULT FALSE,
@@ -107,7 +105,7 @@ INIT_STATEMENTS = [
 
         """CREATE TABLE book_trace(
             ID SERIAL PRIMARY KEY,
-            userid INTEGER REFERENCES users(id),
+            userid INTEGER REFERENCES users(id) on delete cascade,
             bookid INTEGER REFERENCES books(id),
             readpage INTEGER DEFAULT 0,
             UNIQUE(userid, bookid)
@@ -115,7 +113,7 @@ INIT_STATEMENTS = [
 
         """CREATE TABLE comment_b(
             ID SERIAL PRIMARY KEY,
-            userid INTEGER REFERENCES users(id),
+            userid INTEGER REFERENCES users(id) on delete cascade,
             bookid INTEGER REFERENCES books(id),
             headerb VARCHAR(30),
             contentb VARCHAR(250),
@@ -125,6 +123,7 @@ INIT_STATEMENTS = [
         );"""
  
 ]
+
 connection = dbapi2.connect(url)
 
 

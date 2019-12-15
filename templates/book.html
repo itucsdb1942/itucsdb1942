@@ -3,7 +3,25 @@
 
     <div class="container mt-4">
         <div class="row">
-            <h1 class="heading-section mb-3"><i class="ion-ios-book mr-2"></i>{{book.name}}<br></h1>
+            <h1 class="heading-section mb-3"><i class="ion-ios-book mr-2"></i>{{book.name}}<br>
+                <div class="row">
+                    <form id='ratef' action="" method="POST">
+                        <div class="rate">
+                            <input type="radio" id="star5" name="rate" value="5" onclick="document.getElementById('ratef').submit();" />
+                            <label for="star5" title="text">5 stars</label>
+                            <input type="radio" id="star4" name="rate" value="4" onclick="document.getElementById('ratef').submit();" />
+                            <label for="star4" title="text">4 stars</label>
+                            <input type="radio" id="star3" name="rate" value="3" onclick="document.getElementById('ratef').submit();" />
+                            <label for="star3" title="text">3 stars</label>
+                            <input type="radio" id="star2" name="rate" value="2" onclick="document.getElementById('ratef').submit();" />
+                            <label for="star2" title="text">2 stars</label>
+                            <input type="radio" id="star1" name="rate" value="1" onclick="document.getElementById('ratef').submit();" />
+                            <label for="star1" title="text">1 star</label>
+
+                        </div>
+                    </form>
+                </div>
+            </h1>
         </div>
         <div class="row">
             <div class="col-md-1">

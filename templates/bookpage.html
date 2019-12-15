@@ -1,7 +1,7 @@
 {% extends "layout.html" %} {% block content %}
 
 
-<section class="hero-wrap" style="background-image: url(/static/images/book.jpeg);" data-stellar-background-ratio="0.5">
+<section class="hero-wrap" style="background-image: url(/static/images/background.png);" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row description align-items-center justify-content-center">
@@ -31,14 +31,17 @@
             {% for item in book %}
             <div class="col-lg-6 mb-5 mb-md-0">
                 <form id="book-form{{item.id}}" action="" method="POST">
-                    <input type="hidden" name="form_id" value="{{item.id}}" />
-                    <h2 class="heading-section mb-3"> <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('book-form{{item.id}}').submit();">{% if item.book_percent(current_user.id) == 100.0 %}
+                    <input type="hidden" name="form_id" value="{{item.id}}" /> {% with progress = item.book_percent(current_user.id)%}
+                    <h2 class="heading-section mb-3"> <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('book-form{{item.id}}').submit();">{% if progress == 100.0 %}
                         <i span style="color:green" class="ion-ios-bookmark mr-2"></i>
-                        {% elif item.book_percent(current_user.id)== 0.0 %}
+                        {% elif progress== 0.0 %}
                         <i span style="color:red"  class="ion-ios-bookmark mr-2"></i>
                         {% else %}<i span style="color:yellow"  class="ion-ios-bookmark mr-2"></i>
-                        {% endif %}{{item.name}}<br></a></h2>
+                        {% endif %}{{item.name}}<br> 
+                    </a></h2>
                 </form>
+
+
 
                 <div class="row no-gutters tabulation">
                     <div class="col-md-4">
@@ -66,7 +69,7 @@
                                 <p>Score: {{item.score}}</p>
                             </div>
                             <div class="tab-pane container p-4 fade" id="trace{{item.id}}">
-                                {% with progress = item.book_percent(current_user.id)%}
+
                                 <div class="progress mb-2" style="height: 15px;">
                                     <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
                                         {% with readed = item.page_readed(current_user.id)%}

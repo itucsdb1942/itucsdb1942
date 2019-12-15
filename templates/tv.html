@@ -24,7 +24,24 @@
                 </form>
             </div>
             <div class="col-lg-7 mb-5 mb-md-0">
-                <h1 class="heading-section mb-3"><i class="ion-ios-film mr-2"></i>{{tv.title}}<br></h1>
+                <h1 class="heading-section mb-3"><i class="ion-ios-film mr-2"></i>{{tv.title}}
+
+                    <form id='ratef' action="" method="POST">
+                        <div class="rate">
+                            <input type="radio" id="star5" name="rate" value="5" onclick="document.getElementById('ratef').submit();" />
+                            <label for="star5" title="text">5 stars</label>
+                            <input type="radio" id="star4" name="rate" value="4" onclick="document.getElementById('ratef').submit();" />
+                            <label for="star4" title="text">4 stars</label>
+                            <input type="radio" id="star3" name="rate" value="3" onclick="document.getElementById('ratef').submit();" />
+                            <label for="star3" title="text">3 stars</label>
+                            <input type="radio" id="star2" name="rate" value="2" onclick="document.getElementById('ratef').submit();" />
+                            <label for="star2" title="text">2 stars</label>
+                            <input type="radio" id="star1" name="rate" value="1" onclick="document.getElementById('ratef').submit();" />
+                            <label for="star1" title="text">1 star</label>
+
+                        </div>
+                    </form>
+                    <br></h1>
 
                 <div class="row no-gutters tabulation">
                     <div class="col-md-3">
@@ -83,7 +100,8 @@
 
 
                         <!-- Progress bar 1 -->
-                        <div class="progress mx-auto" data-value='{{tv.tv_percent(current_user.id)}}'>
+                        {% with process = tv.tv_percent(current_user.id) %}
+                        <div class="progress mx-auto" data-value='{{process}}'>
                             <span class="progress-left">
                   <span class="progress-bar border-primary"></span>
                             </span>
@@ -91,9 +109,10 @@
                   <span class="progress-bar border-primary"></span>
                             </span>
                             <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                                <div class="h5">{{tv.tv_percent(current_user.id)}}<sup class="small">%</sup></div>
+                                <div class="h5">{{process}}<sup class="small">%</sup></div>
                             </div>
                         </div>
+                        {% endwith %}
                         <!-- END -->
 
                     </div>

@@ -54,18 +54,14 @@ class bookForm(FlaskForm):
 class UpdateForm(FlaskForm):
     username=StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     mail =StringField('Mail', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirmpassword = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Update')
 
     def validate_username(self, username):
-        if username.data  != current_user.username:
             user = username_check(username.data)
             if user: 
                 raise ValidationError('That username is taken!')
 
     def validate_mail(self, mail):
-        if username.data != current_user.username:
             user = mail_check(mail.data)
             if user: 
                 raise ValidationError('That e-mail is taken!')

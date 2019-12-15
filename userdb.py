@@ -37,8 +37,7 @@ class User(UserMixin):
                             user_id = cursor.fetchone()[0]
         except dbapi2.DatabaseError:
             connection.rollback() 
-        finally:
-            cursor.close()   
+        
 
     
 def get(user_id):
@@ -51,19 +50,20 @@ def get(user_id):
                         user= User(id=i, name=n, surname=s, username=u,
                         mail=m, gender=g, date=b, password=p)
                     return user
-            cursor.close()
+            
 
 def username_check(username):
             with connection.cursor() as cursor:
                     statement = """SELECT id, name, surname, username, mail, gender, birth, password FROM users 
                                         WHERE username = (%s); """
                     cursor.execute(statement,(username,))
+                    print("kdfkd")
                     user= False
                     for i, n, s, u, m, g, b, p  in cursor:
                         user= User(id=i, name=n, surname=s, username=u,
                         mail=m, gender=g, date=b, password=p)
                     return user
-            cursor.close()
+            
     
 def mail_check(mail):
             with connection.cursor() as cursor:
@@ -75,6 +75,21 @@ def mail_check(mail):
                         user= User(id=i, name=n, surname=s, username=u,
                         mail=m, gender=g, date=b, password=p)
                     return user
-            cursor.close()
-
-
+            
+def update_user(username,mail,id):
+    with connection.cursor() as cursor:
+                    statement = """UPDATE users SET mail = (%s), username=(%s) WHERE id=(%s); """
+                    cursor.execute(statement,(mail,username,id))
+                    
+def delete_user(idno):
+    with connection.cursor() as cursor:
+                    statement = """DELETE FROM tv_list WHERE userid=(%s) ;
+                                    DELETE FROM tv_trace WHERE userid=(%s) ;
+                                    DELETE FROM tv_commit WHERE userid=(%s) ;
+                                    DELETE FROM book_list WHERE userid=(%s) ;
+                                    DELETE FROM book_trace WHERE userid=(%s) ;
+                                    DELETE FROM comment_b WHERE userid=(%s) ;
+                                    DELETE FROM users WHERE id=(%s) ;
+                                         """
+                    cursor.execute(statement,(idno,idno,idno,idno,idno,idno,idno,))
+                    print("hhhhh")
