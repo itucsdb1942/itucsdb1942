@@ -36,7 +36,7 @@ INIT_STATEMENTS = [
          """ CREATE TABLE tv_commit(
             ID SERIAL PRIMARY KEY,
             userid INTEGER REFERENCES users(id) on delete cascade,
-            tvid INTEGER REFERENCES tvseries(id),
+            tvid INTEGER REFERENCES tvseries(id) on delete cascade,
             header VARCHAR(20),
             content VARCHAR(200),
             LIKE_N INTEGER DEFAULT 0,
@@ -46,7 +46,7 @@ INIT_STATEMENTS = [
 
         """ CREATE TABLE episode (
             ID SERIAL PRIMARY KEY,
-            tvid INTEGER REFERENCES tvseries(id),
+            tvid INTEGER REFERENCES tvseries(id) on delete cascade,
             season_n INTEGER,
             number INTEGER,
             name VARCHAR(80),
@@ -56,7 +56,7 @@ INIT_STATEMENTS = [
     """ CREATE TABLE tv_list(
             ID SERIAL PRIMARY KEY,
             userid INTEGER REFERENCES users(id) on delete cascade,
-            tvid INTEGER REFERENCES tvseries(id),
+            tvid INTEGER REFERENCES tvseries(id) on delete cascade,
             fav_list BOOL DEFAULT FALSE,
             hate_list BOOL DEFAULT FALSE,
             wish_list BOOL DEFAULT FALSE,
@@ -94,7 +94,7 @@ INIT_STATEMENTS = [
         """CREATE TABLE book_list(
             ID SERIAL PRIMARY KEY,
             userid INTEGER REFERENCES users(id) on delete cascade,
-            bookid INTEGER REFERENCES books(id),
+            bookid INTEGER REFERENCES books(id) on delete cascade,
             fav_b BOOL DEFAULT FALSE,
             hate_b BOOL DEFAULT FALSE,
             wish_b BOOL DEFAULT FALSE,
@@ -106,7 +106,7 @@ INIT_STATEMENTS = [
         """CREATE TABLE book_trace(
             ID SERIAL PRIMARY KEY,
             userid INTEGER REFERENCES users(id) on delete cascade,
-            bookid INTEGER REFERENCES books(id),
+            bookid INTEGER REFERENCES books(id) on delete cascade,
             readpage INTEGER DEFAULT 0,
             UNIQUE(userid, bookid)
         );""",
@@ -114,7 +114,7 @@ INIT_STATEMENTS = [
         """CREATE TABLE comment_b(
             ID SERIAL PRIMARY KEY,
             userid INTEGER REFERENCES users(id) on delete cascade,
-            bookid INTEGER REFERENCES books(id),
+            bookid INTEGER REFERENCES books(id) on delete cascade,
             headerb VARCHAR(30),
             contentb VARCHAR(250),
             likeb INTEGER DEFAULT 0,
@@ -137,8 +137,3 @@ def initialize(url):
             connection.rollback()
 
 initialize(url)
-
-
-
-
-

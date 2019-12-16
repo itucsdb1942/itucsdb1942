@@ -85,6 +85,13 @@
 
                     </div>
                 </div>
+                {%if current_user.username=="neslihancekic"%}
+                <div class="row">
+                    <form action="" method="POST">
+                        <button name="deletebook" value="1" class="btn btn-link btn-danger"><i class="ion-ios-book mr-2"></i>Delete {{book.name}}</button>
+                    </form>
+                </div>
+                {%endif%}
 
 
             </div>

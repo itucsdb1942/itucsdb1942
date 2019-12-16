@@ -448,6 +448,17 @@ def find_book(idno):
                     book =Book(id,name,wri_name,year,page,gen,pub,lang,vote,sc)
                 return book
 
+
+def delete_book(idno):
+            try:
+                with connection.cursor() as cursor:
+                                statement = """DELETE FROM books WHERE id=%s;"""                
+                                cursor.execute(statement,(idno,))
+                                connection.commit()
+            except dbapi2.DatabaseError:
+                connection.rollback()
+                cursor=connection.cursor()
+
 def print_reading(idno):
     books={}
     try:

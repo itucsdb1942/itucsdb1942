@@ -315,6 +315,16 @@ class TV:
                 except:
                     return False
 
+def delete_tv(idno):
+            try:
+                with connection.cursor() as cursor:
+                                statement = """DELETE FROM tvseries WHERE id=%s;"""                
+                                cursor.execute(statement,(idno,))
+                                connection.commit()
+            except dbapi2.DatabaseError:
+                connection.rollback()
+                cursor=connection.cursor()
+                
 def add_scoret(tvid,score):
         with connection.cursor() as cursor:
             statement = """ UPDATE tvseries

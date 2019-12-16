@@ -1,12 +1,12 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
 
 #Neslihan Çekiç - TV operations
-from tvseries import TV,find_tv,seasonwatched,episodewatched,season_check,add_episode,episode_check,add_scoret
+from tvseries import TV,find_tv,seasonwatched,episodewatched,season_check,add_episode,episode_check,add_scoret,delete_tv
 from tvseries import submit_commit, print_commit, com_like, com_dislike,delete_commit #commit operations
 from tvseries import fav_add,hate_add,wish_add,print_watching,print_watched,print_wish,print_fav,print_hate #list operations
 from tvseries import print_tv,print_tv_by_az,print_tv_by_score,print_tv_by_year #sort operations
 #Mürüvvet Bozkurt - Book operations
-from books import Book, find_book, updatepage,check_tpage,add_score
+from books import Book, find_book, updatepage,check_tpage,add_score,delete_book
 from books import print_book,print_book_by_az,print_book_by_score,print_book_by_year #sort operations
 from books import submit_commit_book,print_commit_book,com_like_book, com_dislike_book, delete_commitb #commit operations
 from books import print_favb,print_hateb,print_wishb,print_readed,print_reading,fav_addb,hate_addb,wish_addb #list operations
@@ -168,6 +168,12 @@ def tv(item):
                 return redirect(url_for('tv',item=item))
             except:
                 pass
+            try:
+                if request.form['deletetv'] =='1':
+                    delete_tv(item)
+                    return redirect(url_for('tvpage',sort="sortbydefault"))
+            except:
+                pass
 
     return render_template("tv.html", tv=tv, commit=commit_list)
 
@@ -285,6 +291,12 @@ def book(item):
             return redirect(url_for('book',item=item))
         except:
             pass
+        try:
+                if request.form['deletebook'] =='1':
+                    delete_book(item)
+                    return redirect(url_for('bookpage',sort="sortbydefault"))
+        except:
+                pass
 
     return render_template("book.html", book=book, commit=commit_list)
 

@@ -119,6 +119,13 @@
                 <div class="row">
                     <p><a href="/addepisode/{{tv.id}}" class="btn btn-outline-primary px-5 py-4 mb-2"><i class="ion-ios-film mr-2"></i>Add Episode</a></p>
                 </div>
+                {%if current_user.username=="neslihancekic"%}
+                <div class="row">
+                    <form action="" method="POST">
+                        <button name="deletetv" value="1" class="btn btn-link btn-danger"><i class="ion-ios-film mr-2"></i>Delete {{tv.title}}</button>
+                    </form>
+                </div>
+                {%endif%}
 
             </div>
         </div>
