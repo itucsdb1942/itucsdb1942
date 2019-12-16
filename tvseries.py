@@ -142,7 +142,6 @@ def episodewatched(userid,episodeid):
                             VALUES ( %s, %s, %s)
                         RETURNING id;"""
                 cursor.execute(statement,(userid,episodeid,"TRUE"))
-                print("tt1")
                 connection.commit()
         except dbapi2.errors.UniqueViolation:
             connection.rollback()
@@ -150,7 +149,6 @@ def episodewatched(userid,episodeid):
                 statement = """ DELETE FROM tv_trace 
                             WHERE userid = %s AND episodeid = %s"""
                 cursor.execute(statement, ( userid, episodeid,))
-                print("tt")
                 connection.commit()
         except dbapi2.errors.InFailedSqlTransactions:
             connection.rollback()
@@ -247,7 +245,6 @@ class TV:
                         cursor.execute(statement,(self.id,userid,))
                         checkw=cursor.fetchone()[0]
                         connection.commit()
-                        print(checkall,checkw)
                         percent=checkw*100/checkall
                         if(percent==100.0):
                             watched_add(userid,self.id)
@@ -272,7 +269,6 @@ class TV:
                         cursor.execute(statement,(self.id,userid,season_n))
                         checkw=cursor.fetchone()[0]
                         connection.commit()
-                        print("season",checkall,checkw)
                 
                         return checkw*100/checkall
 
@@ -428,7 +424,6 @@ def fav_add(userid, tvid):
                 cursor.execute(statement, (a, userid, tvid,))
                 connection.commit()
         except dbapi2.errors.InFailedSqlTransactions:
-            print("hata")
             connection.rollback()
             cursor=connection.cursor()     
 
@@ -449,9 +444,7 @@ def hate_add(userid, tvid):
                 statement = """ SELECT hate_list FROM tv_list
                             WHERE userid = %s AND tvid = %s;"""
                 cursor.execute(statement, ( userid, tvid,))
-                print("except")
                 check=cursor.fetchone()[0]
-                print("ddd")
                 if check == False:
                     a="TRUE"
                 statement = """ UPDATE tv_list 
@@ -459,7 +452,6 @@ def hate_add(userid, tvid):
                 cursor.execute(statement, (a, userid, tvid,))
                 connection.commit()
         except dbapi2.errors.InFailedSqlTransactions:
-            print("hata")
             connection.rollback()
             cursor=connection.cursor()    
 
@@ -480,9 +472,7 @@ def wish_add(userid, tvid):
                 statement = """ SELECT wish_list FROM tv_list
                             WHERE userid = %s AND tvid = %s;"""
                 cursor.execute(statement, ( userid, tvid,))
-                print("except")
                 check=cursor.fetchone()[0]
-                print("ddd")
                 if check == False:
                     a="TRUE"
                 statement = """ UPDATE tv_list 
@@ -490,7 +480,6 @@ def wish_add(userid, tvid):
                 cursor.execute(statement, (a, userid, tvid,))
                 connection.commit()
         except dbapi2.errors.InFailedSqlTransactions:
-            print("hata")
             connection.rollback()
             cursor=connection.cursor()  
 
@@ -513,7 +502,6 @@ def watched_add(userid, tvid):
                 cursor.execute(statement, ("TRUE","FALSE", userid, tvid,))
                 connection.commit()
         except dbapi2.errors.InFailedSqlTransactions:
-            print("hata")
             connection.rollback()
             cursor=connection.cursor()          
 
@@ -669,7 +657,6 @@ with connection.cursor() as cursor:
 try:
         with connection.cursor() as cursor:
                 for item in got_data:
-                    print("lol")
                     statement = """INSERT INTO episode (tvid, name, number, season_n)
                                 VALUES (%(tvid)s, %(title)s, %(episode)s, %(season)s)
                             RETURNING id;"""                

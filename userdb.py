@@ -57,7 +57,6 @@ def username_check(username):
                     statement = """SELECT id, name, surname, username, mail, gender, birth, password FROM users 
                                         WHERE username = (%s); """
                     cursor.execute(statement,(username,))
-                    print("kdfkd")
                     user= False
                     for i, n, s, u, m, g, b, p  in cursor:
                         user= User(id=i, name=n, surname=s, username=u,
@@ -92,4 +91,3 @@ def delete_user(idno):
                                     DELETE FROM users WHERE id=(%s) ;
                                          """
                     cursor.execute(statement,(idno,idno,idno,idno,idno,idno,idno,))
-                    print("hhhhh")

@@ -47,32 +47,29 @@
                 <div class="row no-gutters tabulation">
                     <div class="col-md-3">
                         <ul class="nav nav-pills nav-fill d-md-flex d-block">
-                            {% for season in range(1, tv.season+1) %} {% if season==1 %}
+
                             <li class="nav-item text-left">
-                                <a class="nav-link active py-3" data-toggle="tab" href="#season{{season}}"><span class="ion-ios-information-circle mr-2"></span>Season {{season}}</a>
+                                <a class="nav-link active py-3" data-toggle="tab" href="#info"><span class="ion-ios-information-circle mr-2"></span>Information</a>
                             </li>
-                            {% else %}
+                            {% for season in range(1, tv.season+1) %}
                             <li class="nav-item text-left">
-                                <a class="nav-link  py-3" data-toggle="tab" href="#season{{season}}"><span class="ion-ios-information-circle mr-2"></span>Season {{season}}</a>
+                                <a class="nav-link  py-3" data-toggle="tab" href="#season{{season}}"><span class="ion-ios-list-box mr-2"></span>Season {{season}}</a>
                             </li>
-                            {% endif %} {% endfor %}
+                            {% endfor %}
                         </ul>
                     </div>
 
                     <div class="col-md-7">
                         <div class="tab-content rounded">
-
-                            {% for season in range(1, tv.season+1) %} {% if season == 1 %}
-                            <div class="tab-pane container p-4 active" id="season{{season}}">
-                                {% for episode in tv.print_episode(season)%}
-                                <form action="" method="POST">
-                                    <div>E{{episode.episode_n}}: {{episode.name}} {% if episode.checkEpisodeWatched(current_user.id,season)== True %}
-                                        <button name="watched" class="btn btn-icon btn-primary btn-link"><i class="ion-ios-eye"></i></button> {% else %}
-                                        <button name="watched" class="btn btn-icon btn-dark btn-link"><i class="ion-ios-eye"></i></button> {% endif %}
-                                        <input type="hidden" name="episodeid" value="{{episode.id}}" />
-                                    </div>
-                                </form>{% endfor %}
-                            </div> {% else %}
+                            <div class="tab-pane container p-4 active" id="info">
+                                <p>Release Date: {{tv.year}}</p>
+                                <p>Genre: {{tv.genre}}</p>
+                                <p>Channel: {{tv.channel}}</p>
+                                <p>Language: {{tv.language}}</p>
+                                <p>Vote: {{tv.vote}}</p>
+                                <p>Score: {{tv.score}}</p>
+                            </div>
+                            {% for season in range(1, tv.season+1) %}
                             <div class="tab-pane container p-4 fade" id="season{{season}}">
                                 {% for episode in tv.print_episode(season)%}
                                 <form action="" method="POST">
@@ -82,7 +79,7 @@
                                         <input type="hidden" name="episodeid" value="{{episode.id}}" />
                                     </div>
                                 </form>{% endfor %}
-                            </div> {% endif %}{% endfor %}
+                            </div> {% endfor %}
 
                         </div>
                     </div>

@@ -1,9 +1,13 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
 import dbinit
-from tvseries import TV,find_tv,seasonwatched,episodewatched, submit_commit, print_commit, com_like, com_dislike,fav_add,hate_add,wish_add,print_watching,add_scoret,print_watched,print_wish,print_fav,print_hate,delete_commit,season_check,add_episode,episode_check
-from tvseries import print_tv,print_tv_by_az,print_tv_by_score,print_tv_by_year
-from books import Book, find_book, updatepage,check_tpage, submit_commit_book,print_commit_book,com_like_book, com_dislike_book,fav_addb,hate_addb,wish_addb,print_reading,add_score,print_favb,print_hateb,print_wishb,print_readed,delete_commitb
-from books import print_book,print_book_by_az,print_book_by_score,print_book_by_year
+from tvseries import TV,find_tv,seasonwatched,episodewatched,season_check,add_episode,episode_check,add_scoret
+from tvseries import submit_commit, print_commit, com_like, com_dislike,delete_commit #commit operations
+from tvseries import fav_add,hate_add,wish_add,print_watching,print_watched,print_wish,print_fav,print_hate #list operations
+from tvseries import print_tv,print_tv_by_az,print_tv_by_score,print_tv_by_year #sort operations
+from books import Book, find_book, updatepage,check_tpage,add_score
+from books import print_book,print_book_by_az,print_book_by_score,print_book_by_year #sort operations
+from books import submit_commit_book,print_commit_book,com_like_book, com_dislike_book, delete_commitb #commit operations
+from books import print_favb,print_hateb,print_wishb,print_readed,print_reading,fav_addb,hate_addb,wish_addb #list operations
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager,login_user, current_user, logout_user, login_required
 from userdb import User, username_check, get, update_user, delete_user
@@ -58,7 +62,6 @@ def home():
     if request.method =='POST':
         try:
             item=request.form['tv_id']
-            print(item)
             return redirect(url_for('tv',item=item))
         except:
             item=request.form['book_id']
@@ -84,13 +87,13 @@ def tvpage(sort):
             item=request.form['form_id']
             return redirect(url_for('tv',item=item))
         except:
-            print("ff")
+            pass
         try:
             tvid=request.form['tvid']
             season=request.form['sezon']
             seasonwatched(current_user.id,tvid,season)
         except:
-            print("hh")
+            pass
         
     return render_template("tvpage.html", tv=tvs)
     
@@ -105,31 +108,31 @@ def tv(item):
                         fav_add(current_user.id,item)
                         return redirect(url_for('tv',item=item))
             except:
-                print("jjj")
+                pass
             try: 
                 if request.form["hate"]=='1':
                         hate_add(current_user.id,item)
                         return redirect(url_for('tv',item=item))
             except:
-                print("jjj")
+                pass
             try: 
                 if request.form["wish"]=='1':
                         wish_add(current_user.id,item)
                         return redirect(url_for('tv',item=item))
             except:
-                print("jjj")
+                pass
             try:
                 episodeid=request.form['episodeid']
                 episodewatched(current_user.id,episodeid)
             except:
-                print("ksf")
+                pass
             try:
                 if request.form["like_update"]=='1':
                     commitid=request.form['commitid']
                     com_like(commitid)
                     return redirect(url_for('tv',item=item))
             except:
-                print("ksf")
+                pass
             try:
                 if request.form["submitcommit"]=='1':
                     tvid=request.form['tvidforcommit']
@@ -138,7 +141,7 @@ def tv(item):
                     submit_commit(tvid,current_user.id,commith,commitc)
                     return redirect(url_for('tv',item=item))
             except:
-                print("ksf")
+                pass
            
             try:
                 if request.form["dislike_update"]=='1':
@@ -146,22 +149,21 @@ def tv(item):
                     com_dislike(commitid)
                     return redirect(url_for('tv',item=item))
             except:
-                print("ksf")
+                pass
         
             try:
                 score=int(request.form['rate'])*2
-                print("rate",score)
                 add_scoret(item,score)
                 return redirect(url_for('tv',item=item))
             except:
-                print("dlf")
+                pass
 
             try:
                 deletecommit=request.form['delete']
                 delete_commit(deletecommit,current_user.id)
                 return redirect(url_for('tv',item=item))
             except:
-                print("dlf")
+                pass
 
     return render_template("tv.html", tv=tv, commit=commit_list)
 
@@ -204,7 +206,7 @@ def bookpage(sort):
             item=request.form['form_id']
             return redirect(url_for('book',item=item))
         except:
-            print("hh")
+            pass
         try:
             readed=int(request.form['page'])
             bookid=request.form['bookid']
@@ -213,7 +215,7 @@ def bookpage(sort):
             else:
                 flash(f'Invalid Page Number!', 'danger')
         except:
-            print("dlf")
+            pass
         
 
     return render_template("bookpage.html", book=books) #book listi book adındA HTML E GÖNDERİYOR.
@@ -230,7 +232,7 @@ def book(item):
                     com_like_book(commitid)
                     return redirect(url_for('book',item=item))
         except:
-                print("ksf")
+                pass
                  
         try:
                 if request.form["dislike_update"]=='1':
@@ -238,7 +240,7 @@ def book(item):
                     com_dislike_book(commitid)
                     return redirect(url_for('book',item=item))
         except:
-                print("ksf")
+                pass
         
         try:
             if request.form["submitcommit"]=='1':
@@ -248,39 +250,37 @@ def book(item):
                     submit_commit_book(bookid,current_user.id,commith,commitc)
                     return redirect(url_for('book',item=item))
         except:
-            print("jjj")
+            pass
         try: 
             if request.form["fav"]=='1':
-                    print("bebek")
                     fav_addb(current_user.id,item)
                     return redirect(url_for('book',item=item))
         except:
-            print("jjj")
+            pass
         try: 
             if request.form["hate"]=='1':
                     hate_addb(current_user.id,item)
                     return redirect(url_for('book',item=item))
         except:
-            print("jjj")
+            pass
         try: 
                 if request.form["wish"]=='1':
                         wish_addb(current_user.id,item)
                         return redirect(url_for('book',item=item))
         except:
-                print("jjj")
+                pass
         try:
             score=int(request.form['rate'])*2
             add_score(item,score)
             return redirect(url_for('book',item=item))
         except:
-            print("dlf")
+            pass
         try:
             deletecommit=request.form['delete']
             delete_commitb(deletecommit,current_user.id)
-            print(deletecommit)
             return redirect(url_for('book',item=item))
         except:
-            print("dlf")
+            pass
 
     return render_template("book.html", book=book, commit=commit_list)
 

@@ -72,7 +72,6 @@ def fav_addb(userid,bookid):
                 cursor.execute(statement, (a, userid, bookid,))
                 connection.commit()
         except dbapi2.errors.InFailedSqlTransactions:
-            print("hata")
             connection.rollback()
             cursor=connection.cursor()
 
@@ -93,9 +92,7 @@ def hate_addb(userid,bookid):
                 statement = """ SELECT hate_b FROM book_list
                             WHERE userid = %s AND bookid = %s;"""
                 cursor.execute(statement, ( userid, bookid,))
-                print("except")
                 check=cursor.fetchone()[0]
-                print("ddd")
                 if check == False:
                     a="TRUE"
                 statement = """ UPDATE book_list 
@@ -103,7 +100,6 @@ def hate_addb(userid,bookid):
                 cursor.execute(statement, (a, userid, bookid,))
                 connection.commit()
         except dbapi2.errors.InFailedSqlTransactions:
-            print("hata")
             connection.rollback()
             cursor=connection.cursor()
 
@@ -124,9 +120,7 @@ def wish_addb(userid,bookid):
                 statement = """ SELECT wish_b FROM book_list
                             WHERE userid = %s AND bookid = %s;"""
                 cursor.execute(statement, ( userid, bookid,))
-                print("except")
                 check=cursor.fetchone()[0]
-                print("ddd")
                 if check == False:
                     a="TRUE"
                 statement = """ UPDATE book_list 
@@ -134,7 +128,6 @@ def wish_addb(userid,bookid):
                 cursor.execute(statement, (a, userid, bookid,))
                 connection.commit()
         except dbapi2.errors.InFailedSqlTransactions:
-            print("hata")
             connection.rollback()
             cursor=connection.cursor()
             
@@ -293,7 +286,6 @@ def readed_add(userid, bookid):
                 statement = """ UPDATE book_list 
                             SET readed = %s,  reading = %s WHERE userid = %s AND bookid = %s;"""
                 cursor.execute(statement, ("TRUE","FALSE", userid, bookid,))
-                print("hüloo",userid,bookid)
                 connection.commit()
         except dbapi2.errors.InFailedSqlTransactions:
             connection.rollback()
@@ -314,7 +306,6 @@ def reading_add(userid, bookid):
                 statement = """ UPDATE book_list 
                             SET readed = %s,  reading = %s WHERE userid = %s AND bookid = %s;"""
                 cursor.execute(statement, ("FALSE","TRUE", userid, bookid,))
-                print("hgggg",userid,bookid)
                 connection.commit()
 
 def notread_add(userid, bookid):
@@ -323,7 +314,6 @@ def notread_add(userid, bookid):
                 statement = """ UPDATE book_list 
                             SET readed = %s,  reading = %s WHERE userid = %s AND bookid = %s;"""
                 cursor.execute(statement, ("FALSE","FALSE", userid, bookid,))
-                print("hgggg",userid,bookid)
                 connection.commit()
                 
         except dbapi2.errors.UniqueViolation:
@@ -591,7 +581,6 @@ def initial_book():
                     for id, name in cursor:
                         writer_book[name] = id
                     connection.commit()
-                    print(writer_book)
 
     
                 for item in book_data:
