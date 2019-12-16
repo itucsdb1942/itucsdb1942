@@ -208,7 +208,7 @@ class TV:
         def print_episode(self,se_number):
                         ep_list=[]
                         statement = """SELECT ID, name, number FROM episode
-                                        WHERE tvid = (%s) AND season_n = (%s); """
+                                        WHERE tvid = (%s) AND season_n = (%s) ORDER BY number; """
                         cursor.execute(statement,(self.id,se_number,))
                         for id, name,ep_number in cursor:
                             episode = Episode(id,self.id,name,se_number,ep_number)

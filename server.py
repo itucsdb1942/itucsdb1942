@@ -180,7 +180,7 @@ def addepisode(item):
         if form.validate_on_submit:
             check=season_check(form.season.data,item)
             check2=episode_check(form.season.data,form.episode.data,item)
-            if check2:
+            if check2==0:
                 if check == True:
                     add_episode(item,form.title.data,form.episode.data,form.season.data)
                     flash(f'S{form.season.data}E{form.episode.data}:{form.title.data} added to {tv.title}!', 'success')
