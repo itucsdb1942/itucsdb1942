@@ -1,12 +1,12 @@
 Welcome to itucsdb1942's documentation!
 =====================================
 
-:Team: Team Name
+:Team: Trace
 
 :Members:
 
-   * Neslihan Çekiç
-   * Mürüvvet Bozkurt
+   * Neslihan CekiC
+   * Muruvvet Bozkurt
 
 **project description goes here (a few paragraphs)**
 
