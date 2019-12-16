@@ -339,8 +339,8 @@ def print_commit_book(bookid):
             try:
                 with connection.cursor() as cursor:
                                 statement = """SELECT comment_b.id, comment_b.headerb,comment_b.contentb,comment_b.date, users.username FROM comment_b,users
-                                             WHERE comment_b.userid=users.id ORDER BY date DESC;"""                
-                                cursor.execute(statement,)
+                                             WHERE comment_b.bookid=(%s) AND comment_b.userid=users.id ORDER BY date DESC;"""                
+                                cursor.execute(statement,(bookid,))
                                 for id,head,cont,date,username in cursor:
                                     com=commitb(id=id, username=username,bookid=bookid,header=head,content=cont,date=date)
                                     commits.append(com)  
