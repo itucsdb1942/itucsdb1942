@@ -127,7 +127,7 @@ def add_episode(tvid,name,number,season_n):
 def episode_check(seas,ep,idno):
     a=0
     statement = """SELECT season_n,number,tvid FROM episode WHERE tvid=%s AND season_n=%s AND number=%s; """
-    cursor.execute(statement,(idno, seas,idno))
+    cursor.execute(statement,(idno, seas,ep))
     for check in cursor:
         a=a+1
     if a==0:
