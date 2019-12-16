@@ -1,7 +1,9 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
 import dbinit
-from tvseries import TV,print_tv,find_tv,seasonwatched,episodewatched, submit_commit, print_commit, com_like, com_dislike,fav_add,hate_add,wish_add,print_watching,add_scoret,print_watched,print_wish,print_fav,print_hate,delete_commit,season_check,add_episode,episode_check
-from books import Book, print_book, find_book, updatepage,check_tpage, submit_commit_book,print_commit_book,com_like_book, com_dislike_book,fav_addb,hate_addb,wish_addb,print_reading,add_score,print_favb,print_hateb,print_wishb,print_readed,delete_commitb
+from tvseries import TV,find_tv,seasonwatched,episodewatched, submit_commit, print_commit, com_like, com_dislike,fav_add,hate_add,wish_add,print_watching,add_scoret,print_watched,print_wish,print_fav,print_hate,delete_commit,season_check,add_episode,episode_check
+from tvseries import print_tv,print_tv_by_az,print_tv_by_score,print_tv_by_year
+from books import Book, find_book, updatepage,check_tpage, submit_commit_book,print_commit_book,com_like_book, com_dislike_book,fav_addb,hate_addb,wish_addb,print_reading,add_score,print_favb,print_hateb,print_wishb,print_readed,delete_commitb
+from books import print_book,print_book_by_az,print_book_by_score,print_book_by_year
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager,login_user, current_user, logout_user, login_required
 from userdb import User, username_check, get, update_user, delete_user
@@ -13,6 +15,7 @@ app.config['SECRET_KEY'] = '41d1a759fd2a316f650e89fdb03e21d0'
 app.config['DATABASE_URL'] = 'postgres://dneperyi:l94XrLU-lOV2MOaQOPBnoYqVdKreucNZ@manny.db.elephantsql.com:5432/dneperyi'
 
 bcrypt = Bcrypt(app)
+
 login_manager= LoginManager(app)
 login_manager.login_view='login_page'
 login_manager.login_message_category='info'
@@ -24,6 +27,8 @@ def load_user(user_id):
 
 @app.route("/", methods=['GET', 'POST'])
 def login_page():
+    if current_user.is_authenticated:
+         return redirect(url_for('home'))
     form=loginForm()
     if request.method =='POST':
         if form.validate_on_submit:
@@ -60,21 +65,34 @@ def home():
             return redirect(url_for('book',item=item))
     return render_template("home.html",watching=watching_list,watched=watched_list,fav=fav_list,hate=hate_list,wish=wish_list,reading=reading_list,readed=readed_list,favb=favb_list,hateb=hateb_list,wishb=wishb_list)    
 
-@app.route("/tv", methods=['GET', 'POST'])
+
+@app.route("/tv/<string:sort>", methods=['GET', 'POST'])
 @login_required
-def tvpage():
-    tv_list=print_tv()
+
+def tvpage(sort):
+    if sort=="sortbyaz":
+        tvs=print_tv_by_az()
+    elif sort=="sortbyscore":
+        tvs=print_tv_by_score()
+    elif sort=="sortbyyear":
+        tvs=print_tv_by_year()
+    elif sort=="sortbydefault":
+        tvs=print_tv()
     
     if request.method =='POST':
         try:
             item=request.form['form_id']
             return redirect(url_for('tv',item=item))
         except:
+            print("ff")
+        try:
             tvid=request.form['tvid']
             season=request.form['sezon']
             seasonwatched(current_user.id,tvid,season)
-
-    return render_template("tvpage.html", tv=tv_list)
+        except:
+            print("hh")
+        
+    return render_template("tvpage.html", tv=tvs)
     
 @app.route("/tv/<int:item>", methods=['GET', 'POST']) #dynamic pages
 @login_required
@@ -169,10 +187,18 @@ def addepisode(item):
 
     return render_template("addepisode.html", form=form, tv=tv)
 
-@app.route("/bookpage", methods=['GET', 'POST'])
+@app.route("/bookpage/<string:sort>", methods=['GET', 'POST'])
 @login_required
-def bookpage():
+def bookpage(sort):
     book_list=print_book() # BÜTÜN BOOK OBJELERİNİN ARRRAYİ
+    if sort=="sortbyaz":
+        books=print_book_by_az()
+    elif sort=="sortbyscore":
+        books=print_book_by_score()
+    elif sort=="sortbyyear":
+        books=print_book_by_year()
+    elif sort=="sortbydefault":
+        books=print_book()
     if request.method =='POST':
         try:
             item=request.form['form_id']
@@ -190,7 +216,7 @@ def bookpage():
             print("dlf")
         
 
-    return render_template("bookpage.html", book=book_list) #book listi book adındA HTML E GÖNDERİYOR.
+    return render_template("bookpage.html", book=books) #book listi book adındA HTML E GÖNDERİYOR.
 
 @app.route("/book/<int:item>", methods=['GET', 'POST']) #dynamic pages
 @login_required

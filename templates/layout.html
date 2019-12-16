@@ -47,10 +47,10 @@
           </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-link icon d-flex align-items-center"><a href="{{ url_for('bookpage') }}" class="nav-link icon d-flex align-items-center"><i class="ion-ios-book mr-2"></i> Books</a></li>
-                    <li class="nav-link icon d-flex align-items-center"><a href="{{ url_for('tvpage') }}" class="nav-link icon d-flex align-items-center"><i class="ion-ios-film mr-2"></i> TV Series</a></li>
-                    <li class="nav-link icon d-flex align-items-center"><a href="{{ url_for('account') }}" class="nav-link icon d-flex align-items-center"><i class="ion-ios-contact mr-2"></i> Profile</a></li>
-                    <li class="nav-link icon d-flex align-items-center"><a href="{{ url_for('logout') }}" class="nav-link icon d-flex align-items-center"><i class="ion-ios-log-out mr-2"></i> Log out</a></li>
+                    <li class="nav-link icon d-flex align-items-center"><a href="/bookpage/sortbydefault" class="nav-link icon d-flex align-items-center"><i class="ion-ios-book mr-2"></i> Books</a></li>
+                    <li class="nav-link icon d-flex align-items-center"><a href="/tv/sortbydefault" class=" nav-link icon d-flex align-items-center "><i class="ion-ios-film mr-2 "></i> TV Series</a></li>
+                    <li class="nav-link icon d-flex align-items-center "><a href="{{ url_for( 'account') }} " class="nav-link icon d-flex align-items-center "><i class="ion-ios-contact mr-2 "></i> Profile</a></li>
+                    <li class="nav-link icon d-flex align-items-center "><a href="{{ url_for( 'logout') }} " class="nav-link icon d-flex align-items-center "><i class="ion-ios-log-out mr-2 "></i> Log out</a></li>
 
                 </ul>
             </div>
@@ -58,36 +58,36 @@
     </nav>
 
     {% endif %}
-    <div class="main-section">
+    <div class="main-section ">
         {% with messages= get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
-        <div class="alert alert-{{category}}">
-            <div class="overlay"></div>
-            <div class="container">
-                <div class="d-flex">
+        <div class="alert alert-{{category}} ">
+            <div class="overlay "></div>
+            <div class="container ">
+                <div class="d-flex ">
                     {% if category == 'success' %}
-                    <div class="alert-icon">
-                        <i class="ion-ios-checkmark-circle"></i>
+                    <div class="alert-icon ">
+                        <i class="ion-ios-checkmark-circle "></i>
                     </div>
-                    <p class="mb-0 ml-2"><b>Success Alert:</b> Yeey! {{message}}</p>
+                    <p class="mb-0 ml-2 "><b>Success Alert:</b> Yeey! {{message}}</p>
                     {% endif %} {% if category == 'danger' %}
-                    <div class="alert-icon">
-                        <i class="ion-ios-information-circle-outline"></i>
+                    <div class="alert-icon ">
+                        <i class="ion-ios-information-circle-outline "></i>
                     </div>
-                    <p class="mb-0 ml-2"><b>Error Alert:</b> Upps! {{message}}</p>
+                    <p class="mb-0 ml-2 "><b>Error Alert:</b> Upps! {{message}}</p>
                     {% endif %} {% if category == 'warning' %}
-                    <div class="alert-icon">
-                        <i class="ion-ios-warning"></i>
+                    <div class="alert-icon ">
+                        <i class="ion-ios-warning "></i>
                     </div>
-                    <p class="mb-0 ml-2"><b>Warning Alert:</b> Hey, {{message}}</p>
+                    <p class="mb-0 ml-2 "><b>Warning Alert:</b> Hey, {{message}}</p>
                     {% endif %}{% if category == 'info' %}
-                    <div class="alert-icon">
-                        <i class="ion-ios-information-circle"></i>
+                    <div class="alert-icon ">
+                        <i class="ion-ios-information-circle "></i>
                     </div>
-                    <p class="mb-0 ml-2"><b>Information Alert:</b> Hey, {{message}}</p>
+                    <p class="mb-0 ml-2 "><b>Information Alert:</b> Hey, {{message}}</p>
                     {% endif %}
                 </div>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true"><i class="ion-ios-close"></i></span>
+                <button type="button " class="close " data-dismiss="alert " aria-label="Close ">
+                                                    <span aria-hidden="true "><i class="ion-ios-close "></i></span>
                                                 </button>
             </div>
         </div>
@@ -97,21 +97,22 @@
 
     </div>
     <!-- loader -->
-    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-    <script src="/static/js/jquery.min.js"></script>
-    <script src="/static/js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="/static/js/popper.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
-    <script src="/static/js/jquery.easing.1.3.js"></script>
-    <script src="/static/js/jquery.waypoints.min.js"></script>
-    <script src="/static/js/jquery.stellar.min.js"></script>
-    <script src="/static/js/owl.carousel.min.js"></script>
-    <script src="/static/js/jquery.magnific-popup.min.js"></script>
-    <script src="/static/js/aos.js"></script>
-    <script src="/static/js/nouislider.min.js"></script>
-    <script src="/static/js/moment-with-locales.min.js"></script>
-    <script src="/static/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="/static/js/main.js"></script>
+    <div id="ftco-loader " class="show fullscreen "><svg class="circular " width="48px " height="48px "><circle class="path-bg " cx="24 " cy="24 " r="22 " fill="none " stroke-width="4 " stroke="#eeeeee "/><circle class="path " cx="24 " cy="24 " r="22
+                            " fill="none " stroke-width="4 " stroke-miterlimit="10 " stroke="#F96D00 "/></svg></div>
+    <script src="/static/js/jquery.min.js "></script>
+    <script src="/static/js/jquery-migrate-3.0.1.min.js "></script>
+    <script src="/static/js/popper.min.js "></script>
+    <script src="/static/js/bootstrap.min.js "></script>
+    <script src="/static/js/jquery.easing.1.3.js "></script>
+    <script src="/static/js/jquery.waypoints.min.js "></script>
+    <script src="/static/js/jquery.stellar.min.js "></script>
+    <script src="/static/js/owl.carousel.min.js "></script>
+    <script src="/static/js/jquery.magnific-popup.min.js "></script>
+    <script src="/static/js/aos.js "></script>
+    <script src="/static/js/nouislider.min.js "></script>
+    <script src="/static/js/moment-with-locales.min.js "></script>
+    <script src="/static/js/bootstrap-datetimepicker.min.js "></script>
+    <script src="/static/js/main.js "></script>
 
 </body>
 

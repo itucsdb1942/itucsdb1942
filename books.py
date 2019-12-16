@@ -415,7 +415,39 @@ def print_book():
                             book_list.append(book)
                     connection.commit()
                     return book_list
-
+def print_book_by_az():
+                with connection.cursor() as cursor:
+                    book_list=[]
+                    statement = """SELECT books.ID, books.NAME, writer.wr_name, books.PUB_YEAR, books.T_PAGE, books.PUBLISHER, 
+                    books.LANGUAGE, books.GENRE, books.SCORE, books.VOTE FROM BOOKS, writer WHERE books.writerid=writer.id ORDER BY books.name; """
+                    cursor.execute(statement)
+                    for id, name, wr_name, year, page, pub, lang, gen, sc, vote in cursor:
+                            book =Book(id,name,wr_name,year,page,gen,pub,lang,vote,sc)
+                            book_list.append(book)
+                    connection.commit()
+                    return book_list
+def print_book_by_score():
+                with connection.cursor() as cursor:
+                    book_list=[]
+                    statement = """SELECT books.ID, books.NAME, writer.wr_name, books.PUB_YEAR, books.T_PAGE, books.PUBLISHER, 
+                    books.LANGUAGE, books.GENRE, books.SCORE, books.VOTE FROM BOOKS, writer WHERE books.writerid=writer.id ORDER BY books.score DESC; """
+                    cursor.execute(statement)
+                    for id, name, wr_name, year, page, pub, lang, gen, sc, vote in cursor:
+                            book =Book(id,name,wr_name,year,page,gen,pub,lang,vote,sc)
+                            book_list.append(book)
+                    connection.commit()
+                    return book_list                    
+def print_book_by_year():
+                with connection.cursor() as cursor:
+                    book_list=[]
+                    statement = """SELECT books.ID, books.NAME, writer.wr_name, books.PUB_YEAR, books.T_PAGE, books.PUBLISHER, 
+                    books.LANGUAGE, books.GENRE, books.SCORE, books.VOTE FROM BOOKS, writer WHERE books.writerid=writer.id ORDER BY books.year DESC; """
+                    cursor.execute(statement)
+                    for id, name, wr_name, year, page, pub, lang, gen, sc, vote in cursor:
+                            book =Book(id,name,wr_name,year,page,gen,pub,lang,vote,sc)
+                            book_list.append(book)
+                    connection.commit()
+                    return book_list
 def find_book(idno):
         
                 statement = """SELECT books.ID, books.NAME, writer.wr_name, books.PUB_YEAR, books.T_PAGE, books.PUBLISHER, 

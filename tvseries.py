@@ -100,15 +100,11 @@ class Episode:
 
     def checkEpisodeWatched(self,userid,season):
                         check=0
-                        statement = """SELECT watched FROM tv_trace
+                        statement = """SELECT COUNT(id) FROM tv_trace
                                         WHERE episodeid = (%s) AND userid = (%s); """
                         cursor.execute(statement,(self.id,userid,))
-                        
-                        for watched in cursor:
-                            if watched[0]==True:
-                                check=check+1
+                        check=cursor.fetchone()[0]
                         connection.commit()
-
                         if check>0:
                             return True
                         else:
@@ -240,22 +236,18 @@ class TV:
         def tv_percent(self,userid):
                         checkall=0
                         checkw=0
-                        episodeid=[]
-                        statement="""SELECT episode.id FROM episode WHERE episode.tvid = (%s)"""
+                        statement="""SELECT COUNT(episode.id) FROM episode WHERE episode.tvid = (%s)"""
                         cursor.execute(statement,(self.id,))
-                        for item in cursor:
-                            checkall=checkall+1
-                            episodeid.append(item)
+                        checkall=cursor.fetchone()[0]
+                        
                         if checkall==0:
                             return 0
-                        for a in episodeid:
-                            statement = """SELECT tv_trace.id FROM tv_trace
-                                            WHERE tv_trace.episodeid = (%s) AND userid = (%s); """
-                            cursor.execute(statement,(a,userid,))
-                            for watched in cursor:
-                                checkw=checkw+1
-                                
+                        statement = """SELECT COUNT(tv_trace.id) FROM tv_trace,episode,tvseries
+                                            WHERE tvseries.id=%s AND tvseries.id= episode.tvid AND tv_trace.episodeid = episode.id AND userid = (%s); """
+                        cursor.execute(statement,(self.id,userid,))
+                        checkw=cursor.fetchone()[0]
                         connection.commit()
+                        print(checkall,checkw)
                         percent=checkw*100/checkall
                         if(percent==100.0):
                             watched_add(userid,self.id)
@@ -268,23 +260,19 @@ class TV:
         def season_percent(self,userid,season_n):
                         checkall=0
                         checkw=0
-                        episodeid=[]
 
-                        statement = """SELECT episode.id FROM tvseries,episode
+                        statement = """SELECT COUNT(episode.id) FROM episode
                                         WHERE episode.tvid = (%s) AND episode.season_n=(%s); """
                         cursor.execute(statement,(self.id,season_n,))
-                        for all in cursor:
-                            checkall=checkall+1
-                            episodeid.append(all)
+                        checkall=cursor.fetchone()[0]
                         if (checkall==0):
                             return 0
-                        for a in episodeid:
-                            statement = """SELECT tv_trace.id FROM tv_trace
-                                            WHERE tv_trace.episodeid = (%s) AND userid = (%s); """
-                            cursor.execute(statement,(a,userid,))
-                            for watched in cursor:
-                                checkw=checkw+1
+                        statement = """SELECT COUNT(tv_trace.id) FROM tv_trace,episode,tvseries
+                                            WHERE tvseries.id=%s AND tvseries.id= episode.tvid AND tv_trace.episodeid = episode.id AND userid = (%s) AND episode.season_n=(%s); """
+                        cursor.execute(statement,(self.id,userid,season_n))
+                        checkw=cursor.fetchone()[0]
                         connection.commit()
+                        print("season",checkall,checkw)
                 
                         return checkw*100/checkall
 
@@ -349,7 +337,7 @@ def print_watching(idno):
                                 cursor.execute(statement,(idno,))
                                 for tvid, tvname in cursor:
                                     tvs[tvid]=tvname
-                                    connection.commit()
+                                connection.commit()
                                 return tvs
     except dbapi2.DatabaseError:
                 connection.rollback()
@@ -364,7 +352,7 @@ def print_watched(idno):
                                 cursor.execute(statement,(idno,))
                                 for tvid, tvname in cursor:
                                     tvs[tvid]=tvname
-                                    connection.commit()
+                                connection.commit()
                                 return tvs
     except dbapi2.DatabaseError:
                 connection.rollback()
@@ -379,7 +367,7 @@ def print_wish(idno):
                                 cursor.execute(statement,(idno,))
                                 for tvid, tvname in cursor:
                                     tvs[tvid]=tvname
-                                    connection.commit()
+                                connection.commit()
                                 return tvs
     except dbapi2.DatabaseError:
                 connection.rollback()
@@ -394,7 +382,7 @@ def print_fav(idno):
                                 cursor.execute(statement,(idno,))
                                 for tvid, tvname in cursor:
                                     tvs[tvid]=tvname
-                                    connection.commit()
+                                connection.commit()
                                 return tvs
     except dbapi2.DatabaseError:
                 connection.rollback()
@@ -409,7 +397,7 @@ def print_hate(idno):
                                 cursor.execute(statement,(idno,))
                                 for tvid, tvname in cursor:
                                     tvs[tvid]=tvname
-                                    connection.commit()
+                                connection.commit()
                                 return tvs
     except dbapi2.DatabaseError:
                 connection.rollback()
@@ -699,6 +687,39 @@ def print_tv():
                 tv_list=[]
     
                 statement = """SELECT ID, TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE, VOTE, SCORE FROM tvseries ORDER BY id; """
+                cursor.execute(statement)
+                for id, title, channel, lang, year, season, genre, vote, score in cursor:
+                    tv =TV(id,title,lang,year,season,genre,channel,vote,score)
+                    tv_list.append(tv)
+    
+                return tv_list
+
+def print_tv_by_az():
+                tv_list=[]
+    
+                statement = """SELECT ID, TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE, VOTE, SCORE FROM tvseries ORDER BY title; """
+                cursor.execute(statement)
+                for id, title, channel, lang, year, season, genre, vote, score in cursor:
+                    tv =TV(id,title,lang,year,season,genre,channel,vote,score)
+                    tv_list.append(tv)
+    
+                return tv_list
+
+def print_tv_by_score():
+                tv_list=[]
+    
+                statement = """SELECT ID, TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE, VOTE, SCORE FROM tvseries ORDER BY score DESC; """
+                cursor.execute(statement)
+                for id, title, channel, lang, year, season, genre, vote, score in cursor:
+                    tv =TV(id,title,lang,year,season,genre,channel,vote,score)
+                    tv_list.append(tv)
+    
+                return tv_list
+
+def print_tv_by_year():
+                tv_list=[]
+    
+                statement = """SELECT ID, TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE, VOTE, SCORE FROM tvseries ORDER BY year DESC; """
                 cursor.execute(statement)
                 for id, title, channel, lang, year, season, genre, vote, score in cursor:
                     tv =TV(id,title,lang,year,season,genre,channel,vote,score)

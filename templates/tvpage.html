@@ -23,10 +23,29 @@
     </div>
 </section>
 
+
+
 <section class="ftco-section ftco-section-2" id="navigationTabs">
 
 
     <div class="container">
+        <div class="row">
+            <div class="col-md-10"></div>
+            <div class="col-md-2">
+                <form id='arrange' action="" method="GET">
+                    <div class="dropdown d-inline-block">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sorting
+                      </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" name="arrange" value="sortbyaz" href="/tv/sortbyaz">Sort by A-Z</a>
+                            <a class="dropdown-item" name="arrange" value="sortbyscore" href="/tv/sortbyscore">Sort by Score</a>
+                            <a class="dropdown-item" name="arrange" value="sortbyyear" href="/tv/sortbyyear">Sort by Year</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="row">
             {% for item in tv %}
             <div class="col-lg-6 mb-5 mb-md-0">
