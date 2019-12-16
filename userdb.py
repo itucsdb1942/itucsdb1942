@@ -82,12 +82,7 @@ def update_user(username,mail,id):
                     
 def delete_user(idno):
     with connection.cursor() as cursor:
-                    statement = """DELETE FROM tv_list WHERE userid=(%s) ;
-                                    DELETE FROM tv_trace WHERE userid=(%s) ;
-                                    DELETE FROM tv_commit WHERE userid=(%s) ;
-                                    DELETE FROM book_list WHERE userid=(%s) ;
-                                    DELETE FROM book_trace WHERE userid=(%s) ;
-                                    DELETE FROM comment_b WHERE userid=(%s) ;
-                                    DELETE FROM users WHERE id=(%s) ;
+                    statement = """DELETE FROM users WHERE id=(%s) ;
                                          """
-                    cursor.execute(statement,(idno,idno,idno,idno,idno,idno,idno,))
+                    cursor.execute(statement,(idno,))
+                    connection.commit()
