@@ -1,0 +1,79 @@
+{% extends "layout.html" %} {% block content %}
+
+<section class="hero-wrap" style="background-image: url(/static/images/book.jpeg);" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row description align-items-center justify-content-center">
+            <div class="col-md-8 text-center">
+
+                <div class="card card-login py-4">
+                    <form class="form-episode" method="POST" action="">
+                        {{form.hidden_tag()}}
+                        <div class="card-header card-header-primary text-center">
+                            <h1 class="card-title mb-4">Add Episode to {{tv.title}}</h1>
+                        </div>
+                        <div class="card-body pb-4 pt-8">
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                          <i class="ion-ios-contact"></i>
+                                      </span>
+                                </div>
+                                {% if form.title.errors %} {{form.title(type="text" , class="form-control is-invalid" , placeholder="Title")}}
+                                <div class="invalid-feedback">
+                                    {% for error in form.name.errors %}
+                                    <span>{{ error }}</span> {% endfor %}
+                                </div>
+                                {% else %} {{form.title(type="text" , class="form-control" , placeholder="Title" )}}{% endif%}
+                            </div>
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                          <i class="ion-ios-contact"></i>
+                                      </span>
+                                </div>
+                                {% if form.season.errors %} {{form.season(type="text" , class="form-control is-invalid" , placeholder="Season")}}
+                                <div class="invalid-feedback">
+                                    {% for error in form.name.errors %}
+                                    <span>{{ error }}</span> {% endfor %}
+                                </div>
+                                {% else %} {{form.season(type="text" , class="form-control" , placeholder="Season" )}}{% endif%}
+                            </div>
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                          <i class="ion-ios-contact"></i>
+                                      </span>
+                                </div>
+                                {% if form.episode.errors %} {{form.episode(type="text" , class="form-control is-invalid" , placeholder="Episode")}}
+                                <div class="invalid-feedback">
+                                    {% for error in form.name.errors %}
+                                    <span>{{ error }}</span> {% endfor %}
+                                </div>
+                                {% else %} {{form.episode(type="text" , class="form-control" , placeholder="Episode" )}}{% endif%}
+                            </div>
+                        </div>
+                        <div class="footer text-center mb-2">
+                            {{form.submit(class="btn btn-primary btn-round px-5")}}
+                        </div>
+                        <div class="footer text-center mb-2">
+                            <p><a href="/tv/{{tv.id}}" class="btn btn-outline-primary px-5 py-4 mb-2"><i class="ion-ios-film mr-2"></i>Go back {{tv.title}}</a></p>
+                        </div>
+
+                    </form>
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+    </div>
+
+</section>
+
+
+{% endblock content %}

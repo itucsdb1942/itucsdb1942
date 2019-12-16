@@ -1,11 +1,11 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
 import dbinit
-from tvseries import TV,print_tv,find_tv,seasonwatched,episodewatched, submit_commit, print_commit, com_like, com_dislike,fav_add,hate_add,wish_add,print_watching,add_scoret,print_watched,print_wish,print_fav,print_hate
-from books import Book, print_book, find_book, updatepage,check_tpage, submit_commit_book,print_commit_book,com_like_book, com_dislike_book,fav_addb,hate_addb,wish_addb,print_reading,add_score,print_favb,print_hateb,print_wishb,print_readed
+from tvseries import TV,print_tv,find_tv,seasonwatched,episodewatched, submit_commit, print_commit, com_like, com_dislike,fav_add,hate_add,wish_add,print_watching,add_scoret,print_watched,print_wish,print_fav,print_hate,delete_commit,season_check,add_episode,episode_check
+from books import Book, print_book, find_book, updatepage,check_tpage, submit_commit_book,print_commit_book,com_like_book, com_dislike_book,fav_addb,hate_addb,wish_addb,print_reading,add_score,print_favb,print_hateb,print_wishb,print_readed,delete_commitb
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager,login_user, current_user, logout_user, login_required
 from userdb import User, username_check, get, update_user, delete_user
-from forms import registirationForm, loginForm, tvForm, bookForm, UpdateForm
+from forms import registirationForm, loginForm, tvForm, bookForm, UpdateForm, episodeForm
 
 app = Flask(__name__)
 
@@ -48,10 +48,12 @@ def home():
     readed_list=print_readed(current_user.id)
     wishb_list=print_wishb(current_user.id)
     favb_list=print_favb(current_user.id)
-    hateb_list=print_hateb(current_user.id)
+    hateb_list=print_hateb(current_user.id
+    )
     if request.method =='POST':
         try:
             item=request.form['tv_id']
+            print(item)
             return redirect(url_for('tv',item=item))
         except:
             item=request.form['book_id']
@@ -78,7 +80,7 @@ def tvpage():
 @login_required
 def tv(item):
     tv=find_tv(item)
-    commit_list=print_commit(item,current_user.id)
+    commit_list=print_commit(item)
     if request.method =='POST':
             try: 
                 if request.form["fav"]=='1':
@@ -136,8 +138,36 @@ def tv(item):
             except:
                 print("dlf")
 
+            try:
+                deletecommit=request.form['delete']
+                delete_commit(deletecommit,current_user.id)
+                return redirect(url_for('tv',item=item))
+            except:
+                print("dlf")
+
     return render_template("tv.html", tv=tv, commit=commit_list)
 
+@app.route("/addepisode/<int:item>", methods=['GET', 'POST']) #dynamic pages
+@login_required
+def addepisode(item):
+    tv=find_tv(item)
+    form=episodeForm()
+    if request.method == 'POST':
+        if form.validate_on_submit:
+            check=season_check(form.season.data,item)
+            check2=episode_check(form.season.data,form.episode.data,item)
+            if check2:
+                if check == True:
+                    add_episode(item,form.title.data,form.episode.data,form.season.data)
+                    flash(f'S{form.season.data}E{form.episode.data}:{form.title.data} added to {tv.title}!', 'success')
+                    return redirect(url_for('addepisode',item=item))
+                else:
+                    flash(f'Invalid Season Number!', 'danger')
+            else:
+                flash(f'This episode already exist!', 'danger')
+                
+
+    return render_template("addepisode.html", form=form, tv=tv)
 
 @app.route("/bookpage", methods=['GET', 'POST'])
 @login_required
@@ -166,7 +196,7 @@ def bookpage():
 @login_required
 def book(item):
     book = find_book(item)
-    commit_list=print_commit_book(item,current_user.id)
+    commit_list=print_commit_book(item)
     if request.method =='POST':
         try:
                 if request.form["like_update"]=='1':
@@ -214,8 +244,14 @@ def book(item):
                 print("jjj")
         try:
             score=int(request.form['rate'])*2
-            print("rate",score)
             add_score(item,score)
+            return redirect(url_for('book',item=item))
+        except:
+            print("dlf")
+        try:
+            deletecommit=request.form['delete']
+            delete_commitb(deletecommit,current_user.id)
+            print(deletecommit)
             return redirect(url_for('book',item=item))
         except:
             print("dlf")

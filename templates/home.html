@@ -29,131 +29,120 @@
             <div class="col-lg-6 mb-5 mb-md-0">
                 <h2 class="heading-section mb-4">Watching List</h2>
                 {% if watching != None %} {% for item in watching %}
-                <form id='tv-form{{item[0]}}' action="" method="POST">
-                    <input type="hidden" name="tv_id" value="{{item}}" />
-                    <h2 class="heading-section mb-3">
-                        <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('tv-form{{item[0]}}').submit();">
-                            <i span style="color:yellow" class="ion-ios-film mr-2"></i> {{watching[item]}}
-                            <br></a>
-                    </h2>
 
-                </form>
-
+                <h2 class="heading-section mb-3">
+                    <a class="text-white-50" href="/tv/{{item}}">
+                        <i span style="color:yellow" class="ion-ios-film mr-2"></i> {{watching[item]}}
+                        <br></a>
+                </h2>
                 {% endfor %}{% endif %}
                 <h2 class="heading-section mb-4">Wish List</h2>
                 {% if wish != None %} {% for item in wish %}
-                <form id='tv-form{{item[0]}}' action="" method="POST">
-                    <input type="hidden" name="tv_id" value="{{item}}" />
-                    <h2 class="heading-section mb-3">
-                        <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('tv-form{{item[0]}}').submit();">
-                            <i span style="color:#fabbfb" class="ion-ios-film mr-2"></i> {{wish[item]}}
-                            <br></a>
-                    </h2>
 
-                </form>
-                {% endfor %}{% endif %}
+                <input hidden type="radio" id="tv{{item}}" name="tv_id" value="{{item}}" />
+
+                <h2 class="heading-section mb-3">
+                    <a class="text-white-50" href="/tv/{{item}}">
+                        <i span style="color:#fabbfb" class="ion-ios-film mr-2"></i> {{wish[item]}}
+                        <br></a>
+                </h2> {% endfor %}{% endif %}
                 <h2 class="heading-section mb-4">Watched List</h2>
                 {% if watched != None %} {% for item in watched %}
-                <form id='tv-form{{item[0]}}' action="" method="POST">
-                    <input type="hidden" name="tv_id" value="{{item}}" />
-                    <h2 class="heading-section mb-3">
-                        <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('tv-form{{item[0]}}').submit();">
-                            <i span style="color:green" class="ion-ios-film mr-2"></i> {{watched[item]}}
-                            <br></a>
-                    </h2>
 
-                </form>
-                {% endfor %}{% endif %}
+                <input hidden type="radio" id="tv{{item}}" name="tv_id" value="{{item}}" />
+
+                <h2 class="heading-section mb-3">
+                    <a class="text-white-50" href="/tv/{{item}}">
+                        <i span style="color:green" class="ion-ios-film mr-2"></i> {{watched[item]}}
+                        <br></a>
+                </h2> {% endfor %}{% endif %}
                 <h2 class="heading-section mb-4">Favorite List</h2>
                 {% if fav != None %} {% for item in fav %}
-                <form id='tv-form{{item[0]}}' action="" method="POST">
-                    <input type="hidden" name="tv_id" value="{{item}}" />
-                    <h2 class="heading-section mb-3">
-                        <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('tv-form{{item[0]}}').submit();">
-                            <i span style="color:red" class="ion-ios-heart mr-2"></i> {{fav[item]}}
-                            <br></a>
-                    </h2>
 
-                </form>
-                {% endfor %}{% endif %}
+                <input hidden type="radio" id="tv{{item}}" name="tv_id" value="{{item}}" />
+
+                <h2 class="heading-section mb-3">
+                    <a class="text-white-50" href="/tv/{{item}}">
+                        <i span style="color:red" class="ion-ios-heart mr-2"></i> {{fav[item]}}
+                        <br></a>
+                </h2> {% endfor %}{% endif %}
                 <h2 class="heading-section mb-4">Hate List</h2>
                 {% if hate != None %} {% for item in hate %}
-                <form id='tv-form{{item[0]}}' action="" method="POST">
-                    <input type="hidden" name="tv_id" value="{{item}}" />
-                    <h2 class="heading-section mb-3">
-                        <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('tv-form{{item[0]}}').submit();">
-                            <i span style="color:gray" class="ion-ios-heart-dislike mr-2"></i> {{hate[item]}}
-                            <br></a>
-                    </h2>
 
-                </form>
-                {% endfor %}{% endif %}
+                <input hidden type="radio" id="tv{{item}}" name="tv_id" value="{{item}}" />
+
+                <h2 class="heading-section mb-3">
+                    <a class="text-white-50" href="/tv/{{item}}">
+                        <i span style="color:gray" class="ion-ios-heart-dislike mr-2"></i> {{hate[item]}}
+                        <br></a>
+                </h2> {% endfor %}{% endif %}
+
             </div>
 
             <div class="col-lg-6 mb-5 mb-md-0">
                 <h2 class="heading-section mb-4">Reading List</h2>
                 {% if reading != None %} {% for item in reading %}
-                <form id='book-form{{item[0]}}' action="" method="POST">
-                    <input type="hidden" name="book_id" value="{{item}}" />
-                    <h2 class="heading-section mb-3">
-                        <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('book-form{{item[0]}}').submit();">
-                            <i span style="color:yellow" class="ion-ios-bookmark mr-2"></i> {{reading[item]}}
-                            <br></a>
-                    </h2>
 
-                </form>
+                <input type="hidden" name="book_id" value="{{item}}" />
+                <h2 class="heading-section mb-3">
+                    <a class="text-white-50" href="/book/{{item}}">
+                        <i span style="color:yellow" class="ion-ios-bookmark mr-2"></i> {{reading[item]}}
+                        <br></a>
+                </h2>
+
+
 
                 {% endfor %}{% endif %}
                 <h2 class="heading-section mb-4">Wish List</h2>
                 {% if wishb != None %} {% for item in wishb %}
-                <form id='book-form{{item[0]}}' action="" method="POST">
-                    <input type="hidden" name="book_id" value="{{item}}" />
-                    <h2 class="heading-section mb-3">
-                        <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('book-form{{item[0]}}').submit();">
-                            <i span style="color:#fabbfb" class="ion-ios-bookmark mr-2"></i> {{wishb[item]}}
-                            <br></a>
-                    </h2>
 
-                </form>
+                <input type="hidden" name="book_id" value="{{item}}" />
+                <h2 class="heading-section mb-3">
+                    <a class="text-white-50" href="/book/{{item}}">
+                        <i span style="color:#fabbfb" class="ion-ios-bookmark mr-2"></i> {{wishb[item]}}
+                        <br></a>
+                </h2>
+
+
 
                 {% endfor %}{% endif %}
                 <h2 class="heading-section mb-4">Read List</h2>
                 {% if readed != None %} {% for item in readed %}
-                <form id='book-form{{item[0]}}' action="" method="POST">
-                    <input type="hidden" name="book_id" value="{{item}}" />
-                    <h2 class="heading-section mb-3">
-                        <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('book-form{{item[0]}}').submit();">
-                            <i span style="color:green" class="ion-ios-bookmark mr-2"></i> {{readed[item]}}
-                            <br></a>
-                    </h2>
 
-                </form>
+                <input type="hidden" name="book_id" value="{{item}}" />
+                <h2 class="heading-section mb-3">
+                    <a class="text-white-50" href="/book/{{item}}">
+                        <i span style="color:green" class="ion-ios-bookmark mr-2"></i> {{readed[item]}}
+                        <br></a>
+                </h2>
+
+
 
                 {% endfor %}{% endif %}
                 <h2 class="heading-section mb-4">Favorite List</h2>
                 {% if favb != None %} {% for item in favb %}
-                <form id='book-form{{item[0]}}' action="" method="POST">
-                    <input type="hidden" name="book_id" value="{{item}}" />
-                    <h2 class="heading-section mb-3">
-                        <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('book-form{{item[0]}}').submit();">
-                            <i span style="color:red" class="ion-ios-heart mr-2"></i> {{favb[item]}}
-                            <br></a>
-                    </h2>
 
-                </form>
+                <input type="hidden" name="book_id" value="{{item}}" />
+                <h2 class="heading-section mb-3">
+                    <a class="text-white-50" href="/book/{{item}}">
+                        <i span style="color:red" class="ion-ios-heart mr-2"></i> {{favb[item]}}
+                        <br></a>
+                </h2>
+
+
 
                 {% endfor %}{% endif %}
                 <h2 class="heading-section mb-4">hate List</h2>
                 {% if hateb != None %} {% for item in hateb %}
-                <form id='book-form{{item[0]}}' action="" method="POST">
-                    <input type="hidden" name="book_id" value="{{item}}" />
-                    <h2 class="heading-section mb-3">
-                        <a class="text-white-50" href="javascript:{}" onclick="document.getElementById('book-form{{item[0]}}').submit();">
-                            <i span style="color:gray" class="ion-ios-heart-dislike mr-2"></i> {{hateb[item]}}
-                            <br></a>
-                    </h2>
 
-                </form>
+                <input type="hidden" name="book_id" value="{{item}}" />
+                <h2 class="heading-section mb-3">
+                    <a class="text-white-50" href="/book/{{item}}">
+                        <i span style="color:gray" class="ion-ios-heart-dislike mr-2"></i> {{hateb[item]}}
+                        <br></a>
+                </h2>
+
+
 
                 {% endfor %}{% endif %}
             </div>

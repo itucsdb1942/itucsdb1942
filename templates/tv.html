@@ -94,8 +94,8 @@
                 <div class="row mb-5"></div>
                 <div class="row mb-5"></div>
                 <div class="row mb-5"></div>
-                <div class="row mb-5"></div>
-                <div class="row">
+
+                <div class="row mb-5">
                     <div class="col-md-4 mb-md-0 mb-4 ftco-animate">
 
 
@@ -116,8 +116,11 @@
                         <!-- END -->
 
                     </div>
-                </div>
 
+                </div>
+                <div class="row">
+                    <p><a href="/addepisode/{{tv.id}}" class="btn btn-outline-primary px-5 py-4 mb-2"><i class="ion-ios-film mr-2"></i>Add Episode</a></p>
+                </div>
 
             </div>
         </div>
@@ -151,12 +154,12 @@
                         <li class="nav-item">
                             <form action="" method="POST">
                                 <div class="nav-link py-2">
-                                    {{com.com_like_number(current_user.id)}}
+                                    {{com.com_like_number()}}
 
                                     <button name="like_update" value='1' class="btn btn-icon btn-primary btn-link"><i class="ion-ios-thumbs-up"></i></button>
 
                                     <button name="dislike_update" value='1' class="btn btn-icon btn-primary btn-link"><i class="ion-ios-thumbs-down"></i></button>
-                                    <input hidden type="text" name="commitid" class="form-control" value="{{com.id}}" /> {{com.com_dislike_number(current_user.id)}}
+                                    <input hidden type="text" name="commitid" class="form-control" value="{{com.id}}" /> {{com.com_dislike_number()}}
 
                                 </div>
                             </form>
@@ -177,8 +180,18 @@
                     </div>
                     <ul class="nav nav-pills nav-fill d-md-flex d-block">
                         <li class="nav-item mb-2">
-                            <a class="nav-link py-2"><span class="ion-ios-calendar mr-2"></span>{{com.date.year}}/{{com.date.month}}/{{com.date.day}}  {{com.date.hour}}:{{com.date.minute}}</a>
+                            <a class="nav-link py-3"><span class="ion-ios-calendar mr-2"></span>{{com.date.year}}/{{com.date.month}}/{{com.date.day}}  {{com.date.hour}}:{{com.date.minute}}</a>
                         </li>
+                        {% if current_user.username == com.username %}
+                        <li class="nav-item mb-2">
+                            <form action="" method="POST">
+                                <div class="nav-link py-2">
+                                    <button name="delete" value='{{com.id}}' class="btn btn-icon btn-primary btn-link"><i class="ion-ios-trash"></i></button>
+
+                                </div>
+                            </form>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
                 {% endfor %}

@@ -18,18 +18,18 @@ class commitb:
         self.like=like
         self.dislike=dislike
 
-    def com_like_numberb(self,userid):
+    def com_like_numberb(self):
             statement = """ SELECT likeb FROM comment_b
-                        WHERE userid = %s AND id = %s;"""
-            cursor.execute(statement, ( userid, self.id,))
+                        WHERE id = %s;"""
+            cursor.execute(statement, (  self.id,))
             like_n=cursor.fetchone()[0]
             connection.commit()
             return like_n
 
-    def com_dislike_numberb(self,userid):
+    def com_dislike_numberb(self):
                 statement = """ SELECT dislikeb FROM comment_b
-                            WHERE userid = %s AND id = %s;"""
-                cursor.execute(statement, ( userid, self.id,))
+                            WHERE  id = %s;"""
+                cursor.execute(statement, (  self.id,))
                 dislike_n=cursor.fetchone()[0]
                 connection.commit()
                 return dislike_n
@@ -344,25 +344,22 @@ def submit_commit_book(bookid,userid,header,context):
                 cursor=connection.cursor()
             
 
-def print_commit_book(bookid,userid):
+def print_commit_book(bookid):
             commits=[]
             try:
                 with connection.cursor() as cursor:
-                                statement = """SELECT username FROM users
-                                             WHERE id=(%s);"""                
-                                cursor.execute(statement,(userid,))
-                                username=cursor.fetchone()[0]
-                                connection.commit()
-                                statement = """SELECT id, headerb,contentb,date FROM comment_b
-                                             WHERE userid=(%s) AND bookid=(%s) ORDER BY date DESC;"""                
-                                cursor.execute(statement,(userid,bookid))
-                                for id,head,cont,date in cursor:
-                                    com=commitb(id=id,username=username,bookid=bookid,header=head,content=cont,date=date)
-                                    commits.append(com)    
+                                statement = """SELECT comment_b.id, comment_b.headerb,comment_b.contentb,comment_b.date, users.username FROM comment_b,users
+                                             WHERE comment_b.userid=users.id ORDER BY date DESC;"""                
+                                cursor.execute(statement,)
+                                for id,head,cont,date,username in cursor:
+                                    com=commitb(id=id, username=username,bookid=bookid,header=head,content=cont,date=date)
+                                    commits.append(com)  
+                                
                                 connection.commit()
             except dbapi2.DatabaseError:
                 connection.rollback()
                 cursor=connection.cursor()
+                  
             return commits
 
 
@@ -396,8 +393,16 @@ def updatepage(bookid, userid, page):
         connection.rollback()
         cursor=connection.cursor()
     
-    
-  
+def  delete_commitb(idno, userid):
+    try:
+        with connection.cursor() as cursor:
+                    statement = """ DELETE FROM comment_b 
+                                WHERE userid = %s AND id = %s"""
+                    cursor.execute(statement, ( userid, idno,))
+                    connection.commit()
+    except:
+        connection.rollback()
+        cursor=connection.cursor()
     
 def print_book():
                 with connection.cursor() as cursor:

@@ -18,20 +18,18 @@ class commit:
         self.date=date
         self.dislike=dislike
     
-   
-
-    def com_like_number(self,userid):
+    def com_like_number(self):
             statement = """ SELECT LIKE_N FROM tv_commit
-                        WHERE userid = %s AND id = %s;"""
-            cursor.execute(statement, ( userid, self.id,))
+                        WHERE  id = %s;"""
+            cursor.execute(statement, (  self.id,))
             like_n=cursor.fetchone()[0]
             connection.commit()
             return like_n
 
-    def com_dislike_number(self,userid):
+    def com_dislike_number(self,):
             statement = """ SELECT DISLIKE_N FROM tv_commit
-                        WHERE userid = %s AND id = %s;"""
-            cursor.execute(statement, ( userid, self.id,))
+                        WHERE id = %s;"""
+            cursor.execute(statement, (  self.id,))
             dislike_n=cursor.fetchone()[0]
             connection.commit()
             return dislike_n
@@ -49,6 +47,49 @@ def com_dislike(commitid):
             cursor.execute(statement, (  commitid,))
             connection.commit()
 
+def  delete_commit(idno, userid):
+    try:
+        with connection.cursor() as cursor:
+                    statement = """ DELETE FROM tv_commit 
+                                WHERE userid = %s AND id = %s"""
+                    cursor.execute(statement, ( userid, idno,))
+                    connection.commit()
+    except:
+        connection.rollback()
+        cursor=connection.cursor()
+
+def submit_commit(tvid,userid,header,context):
+            now = datetime.now()
+            try:
+                with connection.cursor() as cursor:
+                                statement = """INSERT INTO tv_commit (userid, tvid, header, content,date)
+                                            VALUES (%s, %s, %s, %s, %s)
+                                        RETURNING id;"""                
+                                cursor.execute(statement,(userid,tvid,header,context,now))
+                                connection.commit()
+            except dbapi2.DatabaseError:
+                connection.rollback()
+                cursor=connection.cursor()
+                  
+
+def print_commit(tvid):
+            commits=[]
+            try:
+                with connection.cursor() as cursor:
+                                statement = """SELECT tv_commit.id, tv_commit.header,tv_commit.content,tv_commit.date, users.username FROM tv_commit,users
+                                             WHERE tv_commit.tvid=(%s) AND tv_commit.userid=users.id ORDER BY date DESC;"""                
+                                cursor.execute(statement,(tvid,))
+                                for id,head,cont,date,username in cursor:
+                                    com=commit(id=id, username=username,tvid=tvid,header=head,content=cont,date=date)
+                                    commits.append(com)  
+                                
+                                connection.commit()
+            except dbapi2.DatabaseError:
+                connection.rollback()
+                cursor=connection.cursor()
+                  
+            return commits
+    
 class Episode:
     def __init__(self, id,tv,name,season_n,episode_n):
         self.id=id
@@ -74,11 +115,32 @@ class Episode:
                             return False
                     
 
+def add_episode(tvid,name,number,season_n):
+    try:  
+        with connection.cursor() as cursor:
+            statement = """INSERT INTO episode (tvid, name, number, season_n)
+                                        VALUES (%s, %s, %s, %s)
+                                    RETURNING id;"""                
+            cursor.execute(statement,(tvid,name,number,season_n))
+            connection.commit()
+            episode_id = cursor.fetchone()[0]
+    except:
+        connection.rollback()
+        cursor=connection.cursor()
+
+def episode_check(seas,ep,idno):
+    a=0
+    statement = """SELECT season_n,number,tvid FROM episode WHERE tvid=%s AND season_n=%s AND number=%s; """
+    cursor.execute(statement,(idno, seas,idno))
+    for check in cursor:
+        a=a+1
+    if a==0:
+        return False
+    return True
 
 def episodewatched(userid,episodeid):
         connection.rollback()
         try:
-            print(episodeid,userid)
             with connection.cursor() as cursor:
                 statement = """INSERT INTO tv_trace (userid, episodeid, watched)
                             VALUES ( %s, %s, %s)
@@ -277,36 +339,7 @@ def add_scoret(tvid,score):
             connection.commit()   
         cursor.close()
 
-def submit_commit(tvid,userid,header,context):
-            now = datetime.now()
-            try:
-                with connection.cursor() as cursor:
-                                statement = """INSERT INTO tv_commit (userid, tvid, header, content,date)
-                                            VALUES (%s, %s, %s, %s, %s)
-                                        RETURNING id;"""                
-                                cursor.execute(statement,(userid,tvid,header,context,now))
-                                connection.commit()
-            except dbapi2.DatabaseError:
-                connection.rollback()
-                cursor=connection.cursor()
-                  
 
-def print_commit(tvid,userid):
-            commits=[]
-            try:
-                with connection.cursor() as cursor:
-                                statement = """SELECT tv_commit.id, tv_commit.header,tv_commit.content,tv_commit.date, users.username FROM tv_commit,users
-                                             WHERE users.id=(%s) AND tv_commit.tvid=(%s) AND tv_commit.userid=users.id ORDER BY date DESC;"""                
-                                cursor.execute(statement,(userid,tvid))
-                                for id,head,cont,date,username in cursor:
-                                    com=commit(id=id, username=username,tvid=tvid,header=head,content=cont,date=date)
-                                    commits.append(com)  
-                                connection.commit()
-            except dbapi2.DatabaseError:
-                connection.rollback()
-                cursor=connection.cursor()
-                  
-            return commits
 def print_watching(idno):
     tvs={}
     try:
@@ -679,3 +712,11 @@ def find_tv(idno):
                 for id, title, channel, lang, year, season, genre, vote, score in cursor:
                     tv =TV(id,title,lang,year,season,genre,channel,vote,score)
                 return tv
+
+def season_check(seas,idno):
+    statement = """SELECT season FROM tvseries WHERE id=%s; """
+    cursor.execute(statement,(idno,))
+    season=cursor.fetchone()[0]
+    if season>=seas:
+        return True
+    return False

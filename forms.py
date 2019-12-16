@@ -40,6 +40,14 @@ class tvForm(FlaskForm):
     genre= StringField('Genre',validators=[DataRequired()])
     channel= StringField('Channel',validators=[DataRequired()])
     submit = SubmitField('Add Tv Series')
+
+class episodeForm(FlaskForm):
+    title= StringField('Title',validators=[DataRequired()])
+    season= DecimalField('Language',validators=[DataRequired()])
+    episode= DecimalField('Year',validators=[DataRequired()])
+    submit = SubmitField('Add Episode')
+
+
     
 class bookForm(FlaskForm):
     name= StringField('Title',validators=[DataRequired()])

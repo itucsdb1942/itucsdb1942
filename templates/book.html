@@ -119,12 +119,12 @@
                         <li class="nav-item">
                             <form action="" method="POST">
                                 <div class="nav-link py-2">
-                                    {{com.com_like_numberb(current_user.id)}}
+                                    {{com.com_like_numberb()}}
 
                                     <button name="like_update" value='1' class="btn btn-icon btn-primary btn-link"><i class="ion-ios-thumbs-up"></i></button>
 
                                     <button name="dislike_update" value='1' class="btn btn-icon btn-primary btn-link"><i class="ion-ios-thumbs-down"></i></button>
-                                    <input hidden type="text" name="commitid" class="form-control" value="{{com.id}}" /> {{com.com_dislike_numberb(current_user.id)}}
+                                    <input hidden type="text" name="commitid" class="form-control" value="{{com.id}}" /> {{com.com_dislike_numberb()}}
 
                                 </div>
                             </form>
@@ -132,21 +132,31 @@
 
 
                     </ul>
-                    <div class="tab-content rounded">
+                    <div class="tab-content">
                         <div class="tab-pane container p-1 active ml-2">
                             <h4> {{com.header}} </h4>
 
                         </div>
                     </div>
-                    <div class="tab-content rounded">
+                    <div class="tab-content">
                         <div class="tab-pane container p-3 active">
                             <p>{{com.content}}</p>
                         </div>
                     </div>
                     <ul class="nav nav-pills nav-fill d-md-flex d-block">
                         <li class="nav-item mb-2">
-                            <a class="nav-link py-2"><span class="ion-ios-calendar mr-2"></span>{{com.date.year}}/{{com.date.month}}/{{com.date.day}}  {{com.date.hour}}:{{com.date.minute}}</a>
+                            <a class="nav-link py-3"><span class="ion-ios-calendar mr-2"></span>{{com.date.year}}/{{com.date.month}}/{{com.date.day}}  {{com.date.hour}}:{{com.date.minute}}</a>
                         </li>
+                        {% if current_user.username == com.username %}
+                        <li class="nav-item mb-2">
+                            <form action="" method="POST">
+                                <div class="nav-link py-2">
+                                    <button name="delete" value='{{com.id}}' class="btn btn-icon btn-primary btn-link"><i class="ion-ios-trash"></i></button>
+
+                                </div>
+                            </form>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
                 {% endfor %}
