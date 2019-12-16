@@ -27,6 +27,7 @@
     <div class="container mt-4">
         <div class="row mb-5">
             <div class="col-lg-6 mb-5 mb-md-0">
+                <h1 class="heading-section mb-5">TV Lists</h1>
                 <h2 class="heading-section mb-4">Watching List</h2>
                 {% if watching != None %} {% for item in watching %}
 
@@ -80,6 +81,7 @@
             </div>
 
             <div class="col-lg-6 mb-5 mb-md-0">
+                <h1 class="heading-section mb-5">Book Lists</h1>
                 <h2 class="heading-section mb-4">Reading List</h2>
                 {% if reading != None %} {% for item in reading %}
 
@@ -132,7 +134,7 @@
 
 
                 {% endfor %}{% endif %}
-                <h2 class="heading-section mb-4">hate List</h2>
+                <h2 class="heading-section mb-4">Hate List</h2>
                 {% if hateb != None %} {% for item in hateb %}
 
                 <input type="hidden" name="book_id" value="{{item}}" />
