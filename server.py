@@ -1,17 +1,21 @@
 from flask import Flask,render_template,url_for,flash, redirect, request
-import dbinit
+
+#Neslihan Çekiç - TV operations
 from tvseries import TV,find_tv,seasonwatched,episodewatched,season_check,add_episode,episode_check,add_scoret
 from tvseries import submit_commit, print_commit, com_like, com_dislike,delete_commit #commit operations
 from tvseries import fav_add,hate_add,wish_add,print_watching,print_watched,print_wish,print_fav,print_hate #list operations
 from tvseries import print_tv,print_tv_by_az,print_tv_by_score,print_tv_by_year #sort operations
+#Mürüvvet Bozkurt - Book operations
 from books import Book, find_book, updatepage,check_tpage,add_score
 from books import print_book,print_book_by_az,print_book_by_score,print_book_by_year #sort operations
 from books import submit_commit_book,print_commit_book,com_like_book, com_dislike_book, delete_commitb #commit operations
 from books import print_favb,print_hateb,print_wishb,print_readed,print_reading,fav_addb,hate_addb,wish_addb #list operations
-from flask_bcrypt import Bcrypt
-from flask_login import LoginManager,login_user, current_user, logout_user, login_required
+#Functions for user database
 from userdb import User, username_check, get, update_user, delete_user
-from forms import registirationForm, loginForm, tvForm, bookForm, UpdateForm, episodeForm
+
+from flask_bcrypt import Bcrypt #for crypting user's password
+from flask_login import LoginManager,login_user, current_user, logout_user, login_required #login operations
+from forms import registirationForm, loginForm, tvForm, bookForm, UpdateForm, episodeForm #for getting data from users
 
 app = Flask(__name__)
 
