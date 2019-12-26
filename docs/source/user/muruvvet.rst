@@ -18,7 +18,7 @@ Red : book that you added to your favorite list.
 Gray : book that you added to your hate list.
 .. figure:: mur/homepage.PNG
 	:scale: 50 %
-	:alt: Home Page
+	:alt: Home Pagerenk
 	:align: center
 
 Pressing the book button enters the book page.
