@@ -1,18 +1,18 @@
 User Guide
 ==========
 
-**explain how your application works from the user perspective, use
-screenshots whereever appropriate**
+**Welcome to TRACE user guide. This guide will briefly explain how to use the TRACE.**
+ 
+.. figure:: docs/source/mur/textlogo.png
+      :scale 50 %
+      :alt: TRACE
+      :align: center
 
-**to add a picture, use the following example**::
-
-   .. figure:: picture.png
-      :scale: 50 %
-      :alt: map to buried treasure
-
-      This is the caption of the figure (a simple paragraph).
+.. figure:: docs/source/mur/ico.ico
+      :scale 50 %
+      :alt: TRACE Logo
+      :align: center
 
 .. toctree::
-
-   member1
-   member2
+   Mürüvvet BOZKURT
+   Neslihan ÇEKİÇ
