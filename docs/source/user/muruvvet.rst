@@ -11,11 +11,11 @@ This page will be providing information on
 =====================
 You first see the homepage, after logging in to the website. On the homepage, you can see lists of books you have customized according to your own. Home page contains reading list, wish list, read list, favorite list, hate list. The lists have their own color.
 The meaning of colors:
-Yellow : book that you are reading. \n
-Purple : book that you added to your wish list. 
-Green : book that you already read.
-Red : book that you added to your favorite list.
-Gray : book that you added to your hate list.
+Yellow : book that you are reading. \                                                                                      
+Purple : book that you added to your wish list.  \                                                                                       
+Green : book that you already read.     \              
+Red : book that you added to your favorite list. \
+Gray : book that you added to your hate list. \
 
 
 .. figure:: mur/homepage.PNG
