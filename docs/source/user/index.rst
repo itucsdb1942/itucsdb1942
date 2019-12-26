@@ -14,5 +14,5 @@ User Guide
       :align: center
 
 .. toctree::
-   Mürüvvet BOZKURT
-   Neslihan ÇEKİÇ
+   neslihan
+   muruvvet
