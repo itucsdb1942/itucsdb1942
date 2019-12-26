@@ -14,7 +14,7 @@ INIT_STATEMENTS = [
             ID SERIAL PRIMARY KEY,
             NAME VARCHAR(20) NOT NULL,
             SURNAME VARCHAR(20) NOT NULL,
-            USERNAME VARCHAR(20) UNIQUEUNI NOT NULL,
+            USERNAME VARCHAR(20) UNIQUE NOT NULL,
             mail VARCHAR(80) UNIQUE NOT NULL,
             gender VARCHAR(6) NOT NULL,
             birth DATE NOT NULL,
@@ -75,7 +75,7 @@ INIT_STATEMENTS = [
 
        """CREATE TABLE writer(
             ID SERIAL PRIMARY KEY,
-            wr_name VARCHAR(50) NOT NULL UNIQUE,
+            wr_name VARCHAR(50) tvNOT NULL UNIQUE,
             wr_country VARCHAR(50)
         );""",
 

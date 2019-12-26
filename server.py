@@ -324,7 +324,7 @@ def signup_page():
 def tvform_page():
     form=tvForm()
     if request.method =='POST':
-        if form.validate_on_submit:
+        if form.validate_on_submit():
             tv = TV(title=form.title.data,language=form.language.data, year=form.year.data,season=form.season.data,genre=form.genre.data,channel=form.channel.data)
             tv.addtv()
             flash(f'{form.title.data} is created!', 'success')
@@ -336,7 +336,7 @@ def tvform_page():
 def bookForm_page():
     form=bookForm()
     if request.method =='POST':
-        if form.validate_on_submit:
+        if form.validate_on_submit():
             book = Book(name=form.name.data,writer=form.writer.data, year_pub=form.year_pub.data,tpage=form.tpage.data,publisher=form.publisher.data,language=form.language.data,genre=form.genre.data)
             book.addbook()
             flash(f'{form.name.data} is created!', 'success')
