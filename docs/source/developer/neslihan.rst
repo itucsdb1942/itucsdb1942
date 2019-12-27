@@ -114,7 +114,7 @@ Sign up page was created using flask in server.py file. Here the registrationFor
 
 In the design of the site, when there is a validation, it is provided to press error under the input places.
 
-   .. code-block:: guess
+   .. code-block:: HTML
 
       {% if form.name.errors %} {{form.name(type="text" , class="form-control is-invalid" , placeholder="Name")}}
                                 <div class="invalid-feedback">
@@ -134,74 +134,25 @@ The flask_login library was used for Login Management.
 
 The user_loader function of the login manager was implemented by making a get function in the userdb.py file.
 
-   .. code-block:: python
-      def get(user_id):
-            with connection.cursor() as cursor:
-                    statement = """SELECT id, name, surname, username, mail, gender, birth, password FROM users 
-                                        WHERE id = ({}); """.format(user_id)
-                    cursor.execute(statement)
-                    user= False
-                    for i, n, s, u, m, g, b, p  in cursor:
-                        user= User(id=i, name=n, surname=s, username=u,
-                        mail=m, gender=g, date=b, password=p)
-                    return user
-
-   .. code-block:: python
-      @login_manager.user_loader
-      def load_user(user_id):
-            return get(int(user_id))
-
 
 @Login_required has been added under the app.route of the pages that should not be accessed without login.
 
-       .. code-block:: python
-          @app.route("/home", methods=['GET', 'POST'])
-          @login_required
-          ..
+      
 
 
 Logout operation implemented.
 
-       .. code-block:: python
-          @app.route("/logout")
-          def logout():
-                logout_user()
-                return redirect(url_for('login_page'))
-
+       
     
 4. Home Page
 ============
 
 For the home page, functions were first written in the tvseries.py file and in the books.py file to print the lists. (The books.py file is made by my groupmate.) The functions in TVseries are print_watching, print_watched, print_wish, print_fav, print_hate. The sample code is given below.
-       .. code-block:: python
-          def print_wish(idno):
-                tvs={}
-                try:
-                    with connection.cursor() as cursor:
-                                            statement = """SELECT tv_list.tvid, tvseries.title FROM tv_list,tvseries
-                                                        WHERE tv_list.wish_list=TRUE AND tvseries.id=tv_list.tvid AND userid=%s;"""                
-                                            cursor.execute(statement,(idno,))
-                                            for tvid, tvname in cursor:
-                                                tvs[tvid]=tvname
-                                            connection.commit()
-                                            return tvs
-                except dbapi2.DatabaseError:
-                            connection.rollback()
-                            cursor=connection.cursor()   
+     
 These lists were sent to the site and printed.
         
 For site design, a for loop was created to show the lists. Also when clicking on tvseries or book, it was made to go to their page.
-        .. code-block:: guess
-           <h2 class="heading-section mb-4">Watching List</h2>
-                {% if watching != None %} {% for item in watching %}
-
-                <h2 class="heading-section mb-3">
-                    <a class="text-white-50" href="/tv/{{item}}">
-                        <i span style="color:yellow" class="ion-ios-film mr-2"></i> {{watching[item]}}
-                        <br></a>
-                </h2>
-                {% endfor %}{% endif %}
-
+        
 5. TV Series Page
 =================
 
