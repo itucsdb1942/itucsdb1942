@@ -9,21 +9,22 @@ Creation of Tables
 We created a domain called scores to define score. All tables are created in "INIT_STATEMENTS"
 
 .. code-block:: sql
-	""" CREATE DOMAIN SCORES AS FLOAT
+
+	 CREATE DOMAIN SCORES AS FLOAT
             DEFAULT 0.0
-            CHECK((VALUE>=0.0) AND (VALUE<=10.0)); """
+            CHECK((VALUE>=0.0) AND (VALUE<=10.0)); 
 
 Firstly, I thought of all the tables I would use and created them. There are 3 main tables and 2 extra tables for books. My main tables are "books", "book_list", "comment_b" and my extra tables are "Writer" and "Book_trace". I do not need the "Writer" table, but I did not delete it because it would be hard to make changes because I started writing the code. The reason for "on delete cascade" addition will be explained in the account.py
 
 .. code-block:: sql
 
-	"""CREATE TABLE writer(
+	CREATE TABLE writer(
             ID SERIAL PRIMARY KEY,
             wr_name VARCHAR(50) NOT NULL UNIQUE,
             wr_country VARCHAR(50)
-        );""",
+        );,
 
-         """ CREATE TABLE books(
+          CREATE TABLE books(
             ID SERIAL PRIMARY KEY,
             NAME VARCHAR(80) UNIQUE NOT NULL,
             WRITERID INTEGER REFERENCES writer(id),
@@ -33,9 +34,9 @@ Firstly, I thought of all the tables I would use and created them. There are 3 m
             LANGUAGE VARCHAR(80),
             GENRE VARCHAR(50),
             SCORE SCORES,
-            VOTE INTEGER DEFAULT 0);""",
+            VOTE INTEGER DEFAULT 0);,
 
-        """CREATE TABLE book_list(
+        CREATE TABLE book_list(
             ID SERIAL PRIMARY KEY,
             userid INTEGER REFERENCES users(id) on delete cascade,
             bookid INTEGER REFERENCES books(id) on delete cascade,
@@ -45,17 +46,17 @@ Firstly, I thought of all the tables I would use and created them. There are 3 m
             readed BOOL DEFAULT FALSE,
             reading BOOL DEFAULT FALSE,
             UNIQUE(userid,bookid)
-        );""",
+        );,
 
-        """CREATE TABLE book_trace(
+        CREATE TABLE book_trace(
             ID SERIAL PRIMARY KEY,
             userid INTEGER REFERENCES users(id) on delete cascade,
             bookid INTEGER REFERENCES books(id) on delete cascade,
             readpage INTEGER DEFAULT 0,
             UNIQUE(userid, bookid)
-        );""",
+        );,
 
-        """CREATE TABLE comment_b(
+        CREATE TABLE comment_b(
             ID SERIAL PRIMARY KEY,
             userid INTEGER REFERENCES users(id) on delete cascade,
             bookid INTEGER REFERENCES books(id) on delete cascade,
@@ -64,7 +65,7 @@ Firstly, I thought of all the tables I would use and created them. There are 3 m
             likeb INTEGER DEFAULT 0,
             dislikeb INTEGER DEFAULT 0,
             date TIMESTAMP
-        );"""
+        );
 
 
 ****************
@@ -96,31 +97,33 @@ This function returns one book. It provide us to print information of the book i
  The user can update the number of pages read with this function. The userid and bookid are unique because a book cannot be in the read list, read list, read list at the same time. If you take "UniqueViolation error, you update the number of pages of that book instead of inserting the same book to trace.
 
 .. code-block:: python
-			def updatepage(bookid, userid, page):
+
+	def updatepage(bookid, userid, page):
     
-    try:
-        with connection.cursor() as cursor:
-            statement = """INSERT INTO book_trace (userid, bookid, readpage)
-                        VALUES ( %s, %s, %s)
-                    RETURNING id;"""
-            cursor.execute(statement,(userid,bookid,page,))
-            connection.commit()
-    except dbapi2.errors.UniqueViolation:
-        connection.rollback()
-        with connection.cursor() as cursor:
-            statement = """ UPDATE book_trace 
-                        SET readpage = %s WHERE userid = %s AND bookid = %s"""
-            cursor.execute(statement, (page, userid, bookid,))
-            connection.commit()
-    except dbapi2.errors.InFailedSqlTransactions:
-        connection.rollback()
-        cursor=connection.cursor()
+        try:
+            with connection.cursor() as cursor:
+                statement = """INSERT INTO book_trace (userid, bookid, readpage)
+                            VALUES ( %s, %s, %s)
+                        RETURNING id;"""
+                cursor.execute(statement,(userid,bookid,page,))
+                connection.commit()
+        except dbapi2.errors.UniqueViolation:
+            connection.rollback()
+            with connection.cursor() as cursor:
+                statement = """ UPDATE book_trace 
+                            SET readpage = %s WHERE userid = %s AND bookid = %s"""
+                cursor.execute(statement, (page, userid, bookid,))
+                connection.commit()
+        except dbapi2.errors.InFailedSqlTransactions:
+            connection.rollback()
+            cursor=connection.cursor()
 	
-1.3 checking Progress
+1.3 Checking Progress
 ~~~~~~~~~~~~~~~~~~~~~~~~
 This code does not allow entering a page number greater than the total page of the book.
 
 .. code-block:: python
+
 	def check_tpage(readed,bookid,userid):
                 
                         statement="""SELECT t_page FROM books WHERE id= (%s)"""
@@ -134,7 +137,9 @@ This code does not allow entering a page number greater than the total page of t
 1.4 Rate Book
 ~~~~~~~~~~~~~~~~~~~~~~~~
 This code will update the book's score and the number of times the book is rated.
+
 .. code-block:: python
+
     def add_score(bookid,score):
     with connection.cursor() as cursor:
         statement = """ UPDATE books
@@ -149,6 +154,7 @@ This code will update the book's score and the number of times the book is rated
 Only admin user can delete books. Since many tables are connected to userid and bookid, variables are defined in tables as cascading where necessary.
 
 .. code-block:: python
+
           def delete_book(idno):
             try:
                 with connection.cursor() as cursor:
@@ -172,6 +178,7 @@ For Example:
 Print Default
 
 .. code-block:: python
+
      def print_book():
                 with connection.cursor() as cursor:
                     book_list=[]
@@ -195,6 +202,7 @@ Print Default
 You add a new row to the comment table by adding a comment. Datetime.now provides that get the current date and time.
 
 .. code-block:: python
+
 	def submit_commit_book(bookid,userid,header,context):
             now = datetime.now()
             try:
@@ -212,6 +220,7 @@ You add a new row to the comment table by adding a comment. Datetime.now provide
 I enabled the user to delete only his / her comment by sending userid.
 
 .. code-block:: python
+
 	def  delete_commitb(idno, userid):
     try:
         with connection.cursor() as cursor:
@@ -228,6 +237,7 @@ I enabled the user to delete only his / her comment by sending userid.
 We send form to html and if like button is pressed it increases the number of likes by one. A user may like or dislike same comment more than once.To prevent this, I had to keep the userid, but it is not necessary, so I did not it.
 
 .. code-block:: python
+
 	def com_like_book(commitid):
             statement = """ UPDATE comment_b
                         SET likeb= likeb+1 WHERE id = %s;"""
@@ -237,6 +247,7 @@ We send form to html and if like button is pressed it increases the number of li
 For reading numbers of like and dislike;
 
 .. code-block:: python
+
 	def com_dislike_numberb(self):
                 statement = """ SELECT dislikeb FROM comment_b
                             WHERE  id = %s;"""
@@ -255,6 +266,7 @@ For reading numbers of like and dislike;
 I added all comments to the commit list and returned the commit list. So I wrote the required function to print all comments on the screen.
 
 .. code-block:: python
+
 	def print_commit_book(bookid):
             commits=[]
             try:
@@ -284,6 +296,7 @@ List operations consist of "create", "update", "read" operations.The values â€‹â
 There are separate "read" functions for all tables in "book_trace". They all have the same structure. I've just changed which table to do. So here's just one example. 
 
 .. code-block:: python
+
 	def print_readed(idno):
     books={}
     try:
@@ -303,6 +316,7 @@ There are separate "read" functions for all tables in "book_trace". They all hav
 The structure of functions of adding to favorite, wish or hate lists is the same. I implemented the same function for 3 separate lists.Therefore, there is only one code example below. If there is a "UniqueViolation", existing books are updated as true or false. If there is "InFailedSqlTransactions", a transaction goes back.
 
 .. code-block:: python
+
 	def fav_addb(userid,bookid):
         	try:
             	with connection.cursor() as cursor:
