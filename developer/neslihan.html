@@ -1,0 +1,1215 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Parts Implemented by Neslihan ÇEKİÇ &mdash; ITUCSDB1942 2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Parts Implemented by Mürüvvet BOZKURT" href="muruvvet.html" />
+    <link rel="prev" title="Developer Guide" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ITUCSDB1942
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Parts Implemented by Neslihan ÇEKİÇ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#database-structure">Database Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sign-up-page">Sign Up Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#login-management">Login Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#home-page">Home Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tv-series-page">TV Series Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-tv-series-page">Add TV Series Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dynamic-page-of-tv-series">Dynamic Page of Tv Series</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tv-series-list-operations">TV Series List Operations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tv-series-episode-operations">TV Series Episode Operations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tv-series-comment-operations">TV Series Comment Operations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tv-series-vote-operations">TV Series Vote Operations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tv-series-delete-operation-for-admin-user">TV Series Delete Operation (For Admin User)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#add-episode-page">Add Episode Page</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="muruvvet.html">Parts Implemented by Mürüvvet BOZKURT</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ITUCSDB1942</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Developer Guide</a> &raquo;</li>
+        
+      <li>Parts Implemented by Neslihan ÇEKİÇ</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/developer/neslihan.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="parts-implemented-by-neslihan-cekic">
+<h1>Parts Implemented by Neslihan ÇEKİÇ<a class="headerlink" href="#parts-implemented-by-neslihan-cekic" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="database-structure">
+<h2>Database Structure<a class="headerlink" href="#database-structure" title="Permalink to this headline">¶</a></h2>
+<p>In general, I took part in the operations of users and TVSeries tracking. As an extra I have provided login management to the app.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/dbnesli.png"><img alt="Database implemented by Nesli" src="../_images/dbnesli.png" style="width: 906.6px; height: 899.1px;" /></a>
+</div>
+<p>Table creation queries were entered in dbinit.py.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">tvseries</span> <span class="p">(</span>
+       <span class="n">ID</span> <span class="nb">SERIAL</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+       <span class="n">TITLE</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span> <span class="k">UNIQUE</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+       <span class="n">CHANNEL</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+       <span class="k">LANGUAGE</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+       <span class="n">SEASON</span> <span class="nb">INTEGER</span><span class="p">,</span>
+       <span class="k">YEAR</span> <span class="nb">INTEGER</span><span class="p">,</span>
+       <span class="n">GENRE</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+       <span class="n">VOTE</span> <span class="nb">INTEGER</span> <span class="k">DEFAULT</span> <span class="mi">0</span><span class="p">,</span>
+       <span class="n">SCORE</span> <span class="n">SCORES</span>
+   <span class="p">);,</span>
+
+     <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">tv_commit</span><span class="p">(</span>
+       <span class="n">ID</span> <span class="nb">SERIAL</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+       <span class="n">userid</span> <span class="nb">INTEGER</span> <span class="k">REFERENCES</span> <span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="k">on</span> <span class="k">delete</span> <span class="k">cascade</span><span class="p">,</span>
+       <span class="n">tvid</span> <span class="nb">INTEGER</span> <span class="k">REFERENCES</span> <span class="n">tvseries</span><span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="k">on</span> <span class="k">delete</span> <span class="k">cascade</span><span class="p">,</span>
+       <span class="n">header</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+       <span class="n">content</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">200</span><span class="p">),</span>
+       <span class="n">LIKE_N</span> <span class="nb">INTEGER</span> <span class="k">DEFAULT</span> <span class="mi">0</span><span class="p">,</span>
+       <span class="n">DISLIKE_N</span> <span class="nb">INTEGER</span> <span class="k">DEFAULT</span> <span class="mi">0</span><span class="p">,</span>
+       <span class="nb">date</span> <span class="k">TIMESTAMP</span>
+       <span class="p">);,</span>
+
+    <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">episode</span> <span class="p">(</span>
+       <span class="n">ID</span> <span class="nb">SERIAL</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+       <span class="n">tvid</span> <span class="nb">INTEGER</span> <span class="k">REFERENCES</span> <span class="n">tvseries</span><span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="k">on</span> <span class="k">delete</span> <span class="k">cascade</span><span class="p">,</span>
+       <span class="n">season_n</span> <span class="nb">INTEGER</span><span class="p">,</span>
+       <span class="nb">number</span> <span class="nb">INTEGER</span><span class="p">,</span>
+       <span class="n">name</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">80</span><span class="p">),</span>
+       <span class="k">UNIQUE</span><span class="p">(</span><span class="n">tvid</span><span class="p">,</span><span class="n">season_n</span><span class="p">,</span><span class="nb">number</span><span class="p">)</span>
+   <span class="p">);,</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">tv_list</span><span class="p">(</span>
+       <span class="n">ID</span> <span class="nb">SERIAL</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+       <span class="n">userid</span> <span class="nb">INTEGER</span> <span class="k">REFERENCES</span> <span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="k">on</span> <span class="k">delete</span> <span class="k">cascade</span><span class="p">,</span>
+       <span class="n">tvid</span> <span class="nb">INTEGER</span> <span class="k">REFERENCES</span> <span class="n">tvseries</span><span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="k">on</span> <span class="k">delete</span> <span class="k">cascade</span><span class="p">,</span>
+       <span class="n">fav_list</span> <span class="n">BOOL</span> <span class="k">DEFAULT</span> <span class="k">FALSE</span><span class="p">,</span>
+       <span class="n">hate_list</span> <span class="n">BOOL</span> <span class="k">DEFAULT</span> <span class="k">FALSE</span><span class="p">,</span>
+       <span class="n">wish_list</span> <span class="n">BOOL</span> <span class="k">DEFAULT</span> <span class="k">FALSE</span><span class="p">,</span>
+       <span class="n">watched_list</span> <span class="n">BOOL</span> <span class="k">DEFAULT</span> <span class="k">FALSE</span><span class="p">,</span>
+       <span class="n">watching_list</span> <span class="n">BOOL</span> <span class="k">DEFAULT</span> <span class="k">FALSE</span><span class="p">,</span>
+       <span class="k">UNIQUE</span><span class="p">(</span><span class="n">userid</span><span class="p">,</span><span class="n">tvid</span><span class="p">)</span>
+       <span class="p">);,</span>
+
+ <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">tv_trace</span><span class="p">(</span>
+       <span class="n">ID</span> <span class="nb">SERIAL</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+       <span class="n">userid</span> <span class="nb">INTEGER</span> <span class="k">REFERENCES</span> <span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="k">on</span> <span class="k">delete</span> <span class="k">cascade</span><span class="p">,</span>
+       <span class="n">episodeid</span> <span class="nb">INTEGER</span> <span class="k">REFERENCES</span> <span class="n">episode</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+       <span class="n">watched</span> <span class="n">BOOL</span> <span class="k">DEFAULT</span> <span class="k">FALSE</span><span class="p">,</span>
+       <span class="k">UNIQUE</span><span class="p">(</span><span class="n">userid</span><span class="p">,</span> <span class="n">episodeid</span><span class="p">)</span>
+       <span class="p">);,</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sign-up-page">
+<h2>Sign Up Page<a class="headerlink" href="#sign-up-page" title="Permalink to this headline">¶</a></h2>
+<p>For users, a class named User was first created in the userdb.py file.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">UserMixin</span><span class="p">):</span>
+      <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">,</span><span class="n">surname</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">,</span><span class="n">username</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">,</span><span class="n">mail</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">,</span><span class="n">gender</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">,</span><span class="n">date</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">,</span><span class="n">password</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="o">=</span><span class="nb">id</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="n">name</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">surname</span><span class="o">=</span><span class="n">surname</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="o">=</span><span class="n">username</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">mail</span><span class="o">=</span><span class="n">mail</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">gender</span><span class="o">=</span><span class="n">gender</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">date</span><span class="o">=</span><span class="n">date</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="o">=</span><span class="n">password</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>By creating a method named adduser to this class, users row insert operation to database is performed.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">adduser</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+  <span class="n">user_data</span> <span class="o">=</span>  <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                  <span class="s1">&#39;surname&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">surname</span><span class="p">,</span>
+                  <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+                  <span class="s1">&#39;mail&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mail</span><span class="p">,</span>
+                  <span class="s1">&#39;gender&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">gender</span><span class="p">,</span>
+                  <span class="s1">&#39;birth&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
+                  <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">}</span>
+
+
+  <span class="k">try</span><span class="p">:</span>
+          <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+                      <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO users (name, surname, username, mail, gender, birth, password)</span>
+<span class="s2">                                  VALUES (</span><span class="si">%(name)s</span><span class="s2">, </span><span class="si">%(surname)s</span><span class="s2">, </span><span class="si">%(username)s</span><span class="s2">, </span><span class="si">%(mail)s</span><span class="s2">, </span><span class="si">%(gender)s</span><span class="s2">, </span><span class="si">%(birth)s</span><span class="s2">, </span><span class="si">%(password)s</span><span class="s2">)</span>
+<span class="s2">                              RETURNING id;&quot;&quot;&quot;</span>
+                      <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span><span class="n">user_data</span><span class="p">)</span>
+                      <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                      <span class="n">user_id</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span><span class="p">:</span>
+      <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Additional username_check and mail_check functions are written to the userdb.py file to check whether the data sent is in the database.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">username_check</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+      <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+              <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT id, name, surname, username, mail, gender, birth, password FROM users</span>
+<span class="s2">                                  WHERE username = (</span><span class="si">%s</span><span class="s2">); &quot;&quot;&quot;</span>
+              <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="n">username</span><span class="p">,))</span>
+              <span class="n">user</span><span class="o">=</span> <span class="kc">False</span>
+              <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">p</span>  <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+                  <span class="n">user</span><span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">surname</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">u</span><span class="p">,</span>
+                  <span class="n">mail</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">gender</span><span class="o">=</span><span class="n">g</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="n">b</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+              <span class="k">return</span> <span class="n">user</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Flask_wtf was used to get inputs easily. To do this, a forms.py file was created and a class named registrationForm was created. Here, the validations of the information required for the user to register are determined and extra validates are written for the pre-existing username and e-mail. The username_check and mail_check functions in the userdb.py file were used for these validates.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">registirationForm</span><span class="p">(</span><span class="n">FlaskForm</span><span class="p">):</span>
+      <span class="n">name</span><span class="o">=</span><span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">(),</span> <span class="n">Length</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">20</span><span class="p">)])</span>
+      <span class="n">surname</span><span class="o">=</span><span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Surname&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">(),</span> <span class="n">Length</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">20</span><span class="p">)])</span>
+      <span class="n">username</span><span class="o">=</span><span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Username&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">(),</span> <span class="n">Length</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">20</span><span class="p">)])</span>
+      <span class="n">mail</span> <span class="o">=</span><span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Mail&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">(),</span> <span class="n">Email</span><span class="p">()])</span>
+      <span class="n">gender</span><span class="o">=</span><span class="n">RadioField</span><span class="p">(</span><span class="s1">&#39;Gender&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="s1">&#39;Male&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;female&#39;</span><span class="p">,</span> <span class="s1">&#39;Female&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;other&#39;</span><span class="p">,</span> <span class="s1">&#39;Other&#39;</span><span class="p">)],</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+      <span class="n">date</span><span class="o">=</span><span class="n">DateField</span><span class="p">(</span><span class="s1">&#39;Date of Birth&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+      <span class="n">password</span> <span class="o">=</span> <span class="n">PasswordField</span><span class="p">(</span><span class="s1">&#39;Password&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+      <span class="n">confirmpassword</span> <span class="o">=</span> <span class="n">PasswordField</span><span class="p">(</span><span class="s1">&#39;Confirm Password&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">(),</span> <span class="n">EqualTo</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">)])</span>
+      <span class="n">submit</span> <span class="o">=</span> <span class="n">SubmitField</span><span class="p">(</span><span class="s1">&#39;Sign Up&#39;</span><span class="p">)</span>
+
+      <span class="k">def</span> <span class="nf">validate_username</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+          <span class="n">user</span> <span class="o">=</span> <span class="n">username_check</span><span class="p">(</span><span class="n">username</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+          <span class="k">if</span> <span class="n">user</span><span class="p">:</span>
+              <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s1">&#39;That username is taken!&#39;</span><span class="p">)</span>
+
+      <span class="k">def</span> <span class="nf">validate_mail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mail</span><span class="p">):</span>
+          <span class="n">user</span> <span class="o">=</span> <span class="n">mail_check</span><span class="p">(</span><span class="n">mail</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+          <span class="k">if</span> <span class="n">user</span><span class="p">:</span>
+              <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s1">&#39;That e-mail is taken!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Sign up page was created using flask in server.py file. Here the registrationForm class in the forms.py file was called and used in the site. By using Flask_bcrypt, we have encrypted the user’s password and securely added it to the database. If the sign-up was successfully completed, the log-in page was redirected and the success alert was printed. If any error occurs, error alert is displayed.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/signup&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+
+  <span class="k">def</span> <span class="nf">signup_page</span><span class="p">():</span>
+      <span class="n">form</span><span class="o">=</span><span class="n">registirationForm</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span><span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+          <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">validate_on_submit</span><span class="p">():</span>
+              <span class="n">crypt_password</span><span class="o">=</span><span class="n">bcrypt</span><span class="o">.</span><span class="n">generate_password_hash</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="c1">#creating hashed password</span>
+              <span class="n">flash</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Account Created for </span><span class="si">{form.username.data}</span><span class="s1">! Now You Can Login.&#39;</span><span class="p">,</span> <span class="s1">&#39;success&#39;</span><span class="p">)</span>
+              <span class="n">user</span><span class="o">=</span><span class="n">User</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">surname</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">surname</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">username</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                          <span class="n">mail</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">mail</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">gender</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">gender</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">crypt_password</span><span class="p">)</span>
+              <span class="n">user</span><span class="o">.</span><span class="n">adduser</span><span class="p">()</span>
+              <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;login_page&#39;</span><span class="p">))</span>
+          <span class="k">else</span><span class="p">:</span>
+              <span class="n">flash</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed to Create Account for </span><span class="si">{form.username.data}</span><span class="s1">!&#39;</span><span class="p">,</span> <span class="s1">&#39;danger&#39;</span><span class="p">)</span>
+
+      <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;signup.html&quot;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>In the design of the site, when there is a validation, it is provided to press error under the input places.</p>
+<blockquote>
+<div><div class="highlight-HTML notranslate"><div class="highlight"><pre><span></span>{% if form.name.errors %} {{form.name(type=&quot;text&quot; , class=&quot;form-control is-invalid&quot; , placeholder=&quot;Name&quot;)}}
+                          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;invalid-feedback&quot;</span><span class="p">&gt;</span>
+                              {% for error in form.name.errors %}
+                              <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>{{ error }}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> {% endfor %}
+                          <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                          {% else %} {{form.name(type=&quot;text&quot; , class=&quot;form-control&quot; , placeholder=&quot;Name&quot; )}}{% endif%}
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="login-management">
+<h2>Login Management<a class="headerlink" href="#login-management" title="Permalink to this headline">¶</a></h2>
+<p>The flask_login library was used for Login Management.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask_login</span> <span class="kn">import</span> <span class="n">LoginManager</span><span class="p">,</span><span class="n">login_user</span><span class="p">,</span> <span class="n">current_user</span><span class="p">,</span> <span class="n">logout_user</span><span class="p">,</span> <span class="n">login_required</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The user_loader function of the login manager was implemented by making a get function in the userdb.py file.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">user_id</span><span class="p">):</span>
+      <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+              <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT id, name, surname, username, mail, gender, birth, password FROM users</span>
+<span class="s2">                                  WHERE id = (</span><span class="si">{}</span><span class="s2">); &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+              <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
+              <span class="n">user</span><span class="o">=</span> <span class="kc">False</span>
+              <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">p</span>  <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+                  <span class="n">user</span><span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">surname</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">u</span><span class="p">,</span>
+                  <span class="n">mail</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">gender</span><span class="o">=</span><span class="n">g</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="n">b</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+              <span class="k">return</span> <span class="n">user</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@login_manager</span><span class="o">.</span><span class="n">user_loader</span>
+<span class="k">def</span> <span class="nf">load_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">get</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">user_id</span><span class="p">))</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>&#64;Login_required has been added under the app.route of the pages that should not be accessed without login.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/home&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="nd">@login_required</span>
+<span class="o">..</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Logout operation implemented.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/logout&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">logout</span><span class="p">():</span>
+      <span class="n">logout_user</span><span class="p">()</span>
+      <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;login_page&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="home-page">
+<h2>Home Page<a class="headerlink" href="#home-page" title="Permalink to this headline">¶</a></h2>
+<p>For the home page, functions were first written in the tvseries.py file and in the books.py file to print the lists. (The books.py file is made by my groupmate.)</p>
+<p>The functions in TVseries are print_watching, print_watched, print_wish, print_fav, print_hate. The sample code is given below.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_wish</span><span class="p">(</span><span class="n">idno</span><span class="p">):</span>
+      <span class="n">tvs</span><span class="o">=</span><span class="p">{}</span>
+      <span class="k">try</span><span class="p">:</span>
+          <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+                                  <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT tv_list.tvid, tvseries.title FROM tv_list,tvseries</span>
+<span class="s2">                                              WHERE tv_list.wish_list=TRUE AND tvseries.id=tv_list.tvid AND userid=</span><span class="si">%s</span><span class="s2">;&quot;&quot;&quot;</span>
+                                  <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="n">idno</span><span class="p">,))</span>
+                                  <span class="k">for</span> <span class="n">tvid</span><span class="p">,</span> <span class="n">tvname</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+                                      <span class="n">tvs</span><span class="p">[</span><span class="n">tvid</span><span class="p">]</span><span class="o">=</span><span class="n">tvname</span>
+                                  <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                                  <span class="k">return</span> <span class="n">tvs</span>
+      <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span><span class="p">:</span>
+                  <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+                  <span class="n">cursor</span><span class="o">=</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>These lists were sent to the site and printed.</p>
+<p>For site design, a for loop was created to show the lists. Also when clicking on tvseries or book, it was made to go to their page.</p>
+<blockquote>
+<div><div class="highlight-HTML notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">h2</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;heading-section mb-4&quot;</span><span class="p">&gt;</span>Watching List<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+     {% if watching != None %} {% for item in watching %}
+
+     <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;heading-section mb-3&quot;</span><span class="p">&gt;</span>
+         <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;text-white-50&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/tv/{{item}}&quot;</span><span class="p">&gt;</span>
+             <span class="p">&lt;</span><span class="nt">i</span> <span class="na">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;color:yellow&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;ion-ios-film mr-2&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span> {{watching[item]}}
+             <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+     <span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+     {% endfor %}{% endif %}
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="tv-series-page">
+<h2>TV Series Page<a class="headerlink" href="#tv-series-page" title="Permalink to this headline">¶</a></h2>
+<p>The tvseries.py file was first created for the database operations of the tv series page. In this file, a class named TV has been created.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TV</span><span class="p">:</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">language</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">season</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">genre</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">vote</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">score</span><span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="o">=</span><span class="nb">id</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="o">=</span><span class="n">title</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">language</span><span class="o">=</span><span class="n">language</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="o">=</span><span class="n">year</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">season</span><span class="o">=</span><span class="n">season</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">genre</span><span class="o">=</span><span class="n">genre</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="o">=</span><span class="n">channel</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vote</span><span class="o">=</span><span class="n">vote</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">score</span><span class="o">=</span><span class="n">score</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Then a function named print_tv () was written to see all tvseries in the database.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_tv</span><span class="p">():</span>
+                <span class="n">tv_list</span><span class="o">=</span><span class="p">[]</span>
+
+                <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT ID, TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE, VOTE, SCORE FROM tvseries ORDER BY id; &quot;&quot;&quot;</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
+                <span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">lang</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">season</span><span class="p">,</span> <span class="n">genre</span><span class="p">,</span> <span class="n">vote</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+                    <span class="n">tv</span> <span class="o">=</span><span class="n">TV</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span><span class="n">title</span><span class="p">,</span><span class="n">lang</span><span class="p">,</span><span class="n">year</span><span class="p">,</span><span class="n">season</span><span class="p">,</span><span class="n">genre</span><span class="p">,</span><span class="n">channel</span><span class="p">,</span><span class="n">vote</span><span class="p">,</span><span class="n">score</span><span class="p">)</span>
+                    <span class="n">tv_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tv</span><span class="p">)</span>
+
+                <span class="k">return</span> <span class="n">tv_list</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Print_tv_by_az (), print_tv_by_score (), print_tv_by_year () functions were written for sort operations.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_tv_by_az</span><span class="p">():</span>
+        <span class="n">tv_list</span><span class="o">=</span><span class="p">[]</span>
+
+        <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT ID, TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE, VOTE, SCORE FROM tvseries ORDER BY title; &quot;&quot;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span>
+        <span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">lang</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">season</span><span class="p">,</span> <span class="n">genre</span><span class="p">,</span> <span class="n">vote</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">tv</span> <span class="o">=</span><span class="n">TV</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span><span class="n">title</span><span class="p">,</span><span class="n">lang</span><span class="p">,</span><span class="n">year</span><span class="p">,</span><span class="n">season</span><span class="p">,</span><span class="n">genre</span><span class="p">,</span><span class="n">channel</span><span class="p">,</span><span class="n">vote</span><span class="p">,</span><span class="n">score</span><span class="p">)</span>
+            <span class="n">tv_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tv</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tv_list</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>TV_percent method of TV class was created for the tvseries tracking progress.</p>
+<p>Here, according to the percentage of progress, watched and watching list columns in the tv_list table inserted or updated with watched_add, watching_add, notwatch_add
+functions in tvseries.py. (These functions will be explained later.)</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">tv_percent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">userid</span><span class="p">):</span>
+                <span class="n">checkall</span><span class="o">=</span><span class="mi">0</span>
+                <span class="n">checkw</span><span class="o">=</span><span class="mi">0</span>
+                <span class="n">statement</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;SELECT COUNT(episode.id) FROM episode WHERE episode.tvid = (</span><span class="si">%s</span><span class="s2">)&quot;&quot;&quot;</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,))</span>
+                <span class="n">checkall</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">checkall</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="mi">0</span>
+                <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT COUNT(tv_trace.id) FROM tv_trace,episode,tvseries</span>
+<span class="s2">                                    WHERE tvseries.id=</span><span class="si">%s</span><span class="s2"> AND tvseries.id= episode.tvid AND tv_trace.episodeid = episode.id AND userid = (</span><span class="si">%s</span><span class="s2">); &quot;&quot;&quot;</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="n">userid</span><span class="p">,))</span>
+                <span class="n">checkw</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                <span class="n">percent</span><span class="o">=</span><span class="n">checkw</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">checkall</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">percent</span><span class="o">==</span><span class="mf">100.0</span><span class="p">):</span>
+                    <span class="n">watched_add</span><span class="p">(</span><span class="n">userid</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="k">elif</span><span class="p">(</span><span class="n">percent</span><span class="o">&gt;</span><span class="mf">0.0</span><span class="p">):</span>
+                    <span class="n">watching_add</span><span class="p">(</span><span class="n">userid</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="k">elif</span><span class="p">(</span><span class="n">percent</span><span class="o">==</span><span class="mf">0.0</span><span class="p">):</span>
+                    <span class="n">notwatch_add</span><span class="p">(</span><span class="n">userid</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">checkw</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">checkall</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>A function named season_percent has been created for the progress of the specific season.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">season_percent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">userid</span><span class="p">,</span><span class="n">season_n</span><span class="p">):</span>
+                <span class="n">checkall</span><span class="o">=</span><span class="mi">0</span>
+                <span class="n">checkw</span><span class="o">=</span><span class="mi">0</span>
+
+                <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT COUNT(episode.id) FROM episode</span>
+<span class="s2">                                WHERE episode.tvid = (</span><span class="si">%s</span><span class="s2">) AND episode.season_n=(</span><span class="si">%s</span><span class="s2">); &quot;&quot;&quot;</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="n">season_n</span><span class="p">,))</span>
+                <span class="n">checkall</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">checkall</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="mi">0</span>
+                <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT COUNT(tv_trace.id) FROM tv_trace,episode,tvseries</span>
+<span class="s2">                                    WHERE tvseries.id=</span><span class="si">%s</span><span class="s2"> AND tvseries.id= episode.tvid AND tv_trace.episodeid = episode.id AND userid = (</span><span class="si">%s</span><span class="s2">) AND episode.season_n=(</span><span class="si">%s</span><span class="s2">); &quot;&quot;&quot;</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="n">userid</span><span class="p">,</span><span class="n">season_n</span><span class="p">))</span>
+                <span class="n">checkw</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+                <span class="k">return</span> <span class="n">checkw</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">checkall</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The seasonwatched function was written for the season watch button. Here, if the user has watched that season, the try except method was used to delete those lines.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">seasonwatched</span><span class="p">(</span><span class="n">userid</span><span class="p">,</span><span class="n">tvid</span><span class="p">,</span><span class="n">season</span><span class="p">):</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+    <span class="n">episodeids</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+        <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT ID FROM episode</span>
+<span class="s2">                        WHERE tvid = (</span><span class="si">%s</span><span class="s2">) AND season_n = (</span><span class="si">%s</span><span class="s2">); &quot;&quot;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="n">tvid</span><span class="p">,</span><span class="n">season</span><span class="p">,))</span>
+        <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">episodeids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">episodeids</span><span class="p">:</span>
+                    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO tv_trace (userid, episodeid, watched)</span>
+<span class="s2">                                        VALUES ( (</span><span class="si">%s</span><span class="s2">), (</span><span class="si">%s</span><span class="s2">), (</span><span class="si">%s</span><span class="s2">))</span>
+<span class="s2">                                    RETURNING id;&quot;&quot;&quot;</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="n">userid</span><span class="p">,</span><span class="n">item</span><span class="p">,</span><span class="s2">&quot;TRUE&quot;</span><span class="p">))</span>
+                    <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+    <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">UniqueViolation</span><span class="p">:</span>
+                <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+                <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">episodeids</span><span class="p">:</span>
+                        <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot; DELETE from tv_trace</span>
+<span class="s2">                                            WHERE userid = (</span><span class="si">%s</span><span class="s2">) AND episodeid =(</span><span class="si">%s</span><span class="s2">);&quot;&quot;&quot;</span>
+                        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">(</span> <span class="n">userid</span><span class="p">,</span> <span class="n">item</span><span class="p">,))</span>
+                        <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The tvpage web page was created in the server.py file, and it was determined which sort order according to its extension. When clicking on tvseries, the post method was used to redirect to its web page. Another post method was created for the season watch button.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/tv/&lt;string:sort&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="nd">@login_required</span>
+
+<span class="k">def</span> <span class="nf">tvpage</span><span class="p">(</span><span class="n">sort</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">sort</span><span class="o">==</span><span class="s2">&quot;sortbyaz&quot;</span><span class="p">:</span>
+        <span class="n">tvs</span><span class="o">=</span><span class="n">print_tv_by_az</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">sort</span><span class="o">==</span><span class="s2">&quot;sortbyscore&quot;</span><span class="p">:</span>
+        <span class="n">tvs</span><span class="o">=</span><span class="n">print_tv_by_score</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">sort</span><span class="o">==</span><span class="s2">&quot;sortbyyear&quot;</span><span class="p">:</span>
+        <span class="n">tvs</span><span class="o">=</span><span class="n">print_tv_by_year</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">sort</span><span class="o">==</span><span class="s2">&quot;sortbydefault&quot;</span><span class="p">:</span>
+        <span class="n">tvs</span><span class="o">=</span><span class="n">print_tv</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span><span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">item</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;form_id&#39;</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;tv&#39;</span><span class="p">,</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tvid</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;tvid&#39;</span><span class="p">]</span>
+            <span class="n">season</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;sezon&#39;</span><span class="p">]</span>
+            <span class="n">seasonwatched</span><span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="n">tvid</span><span class="p">,</span><span class="n">season</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;tvpage.html&quot;</span><span class="p">,</span> <span class="n">tv</span><span class="o">=</span><span class="n">tvs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>In tvpage.html, a dropdown was created for sort operations.</p>
+<blockquote>
+<div><div class="highlight-HTML notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;dropdown-menu dropdown-menu-right&quot;</span> <span class="na">aria-labelledby</span><span class="o">=</span><span class="s">&quot;dropdownMenuButton&quot;</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;dropdown-item&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;arrange&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;sortbyaz&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/tv/sortbyaz&quot;</span><span class="p">&gt;</span>Sort by A-Z<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;dropdown-item&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;arrange&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;sortbyscore&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/tv/sortbyscore&quot;</span><span class="p">&gt;</span>Sort by Score<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;dropdown-item&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;arrange&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;sortbyyear&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/tv/sortbyyear&quot;</span><span class="p">&gt;</span>Sort by Year<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>A hidden form was created to go to the dynamic page of any tvseries. Also, the tv_percent function has colored the icon of the tvseries according to the viewing status.</p>
+<blockquote>
+<div><div class="highlight-HTML notranslate"><div class="highlight"><pre><span></span>{% for item in tv %}
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-lg-6 mb-5 mb-md-0&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;tv-form{{item.id}}&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;POST&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;form_id&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;{{item.id}}&quot;</span> <span class="p">/&gt;</span>
+            <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;heading-section mb-3&quot;</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;text-white-50&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;javascript:{}&quot;</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&quot;document.getElementById(&#39;tv-form{{item.id}}&#39;).submit();&quot;</span><span class="p">&gt;</span>
+                {% if item.tv_percent(current_user.id) == 100.0 %}
+                <span class="p">&lt;</span><span class="nt">i</span> <span class="na">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;color:green&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;ion-ios-film mr-2&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+                {% elif item.tv_percent(current_user.id)== 0.0 %}
+                <span class="p">&lt;</span><span class="nt">i</span> <span class="na">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;color:red&quot;</span>  <span class="na">class</span><span class="o">=</span><span class="s">&quot;ion-ios-film mr-2&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+                {% else %}<span class="p">&lt;</span><span class="nt">i</span> <span class="na">span</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;color:yellow&quot;</span>  <span class="na">class</span><span class="o">=</span><span class="s">&quot;ion-ios-film mr-2&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+                {% endif %}
+                {{item.title}}
+                <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>For the seasons, the loop was created and the buttons were functionalized with the form. With the season_percent function, the watch button was colored and a progress bar was made.</p>
+<blockquote>
+<div><div class="highlight-HTML notranslate"><div class="highlight"><pre><span></span>{% for season in range(1, item.season+1) %}
+{% with progress = item.season_percent(current_user.id,season) %}
+    &lt;div&gt;Season {{season}}
+            &lt;form id=&quot;tvid{{item.id}}&quot; action=&quot;&quot; method=&quot;POST&quot;&gt;
+            {% if progress== 100.0 %}
+             &lt;button name=&quot;watched&quot; id=&quot;button{{item.id}}.{{season}}&quot; class=&quot;btn btn-icon btn-primary btn-link&quot; onclick=&quot;change(&#39;button{{item.id}}.{{season}}&#39;)&quot;&gt;&lt;i class=&quot;ion-ios-eye&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+             {% else %}
+             &lt;button name=&quot;watched&quot; id=&quot;button{{item.id}}.{{season}}&quot; class=&quot;btn btn-icon btn-dark btn-link&quot; onclick=&quot;change(&#39;button{{item.id}}.{{season}}&#39;)&quot;&gt;&lt;i class=&quot;ion-ios-eye&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+              {% endif %}
+                    &lt;input type=&quot;hidden&quot; name=&quot;tvid&quot; value=&quot;{{item.id}}&quot;
+                    &lt;input type=&quot;hidden&quot; name=&quot;sezon&quot; value&quot;{{season}}&quot; /&gt;
+            &lt;/form&gt;
+
+            &lt;div class=&quot;progress mb-2&quot; style=&quot;height: 15px;&quot;&gt;
+
+                &lt;div class=&quot;progress-bar progress-bar-striped&quot; role=&quot;progressbar&quot; aria-valuenow=&quot;60&quot; aria-valuemin=&quot;0&quot; aria-valuemax=&quot;100&quot; style=&quot;width: {{progress}}%;&quot;&gt;
+                        &lt;span&gt;{{progress}}% Complete&lt;/span&gt;
+                &lt;/div&gt;
+{% endwith %}
+    &lt;/div&gt;
+    &lt;/div&gt;
+{% endfor %}
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="add-tv-series-page">
+<h2>Add TV Series Page<a class="headerlink" href="#add-tv-series-page" title="Permalink to this headline">¶</a></h2>
+<p>This page is accessed via the button at the beginning of the tvpage.</p>
+<p>A form class named tvForm was created in forms.py for adding tvseries to the database.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">tvForm</span><span class="p">(</span><span class="n">FlaskForm</span><span class="p">):</span>
+    <span class="n">title</span><span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span><span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+    <span class="n">language</span><span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Language&#39;</span><span class="p">,</span><span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+    <span class="n">year</span><span class="o">=</span> <span class="n">IntegerField</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span><span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+    <span class="n">season</span><span class="o">=</span> <span class="n">IntegerField</span><span class="p">(</span><span class="s1">&#39;Season&#39;</span><span class="p">,</span><span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+    <span class="n">genre</span><span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Genre&#39;</span><span class="p">,</span><span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+    <span class="n">channel</span><span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Channel&#39;</span><span class="p">,</span><span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+    <span class="n">submit</span> <span class="o">=</span> <span class="n">SubmitField</span><span class="p">(</span><span class="s1">&#39;Add Tv Series&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The addtv function has been added to the TV class in the tvseries.py file.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">addtv</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+                        <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO tvseries (TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE)</span>
+<span class="s2">                                    VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)</span>
+<span class="s2">                                RETURNING id;&quot;&quot;&quot;</span>
+                        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">language</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">season</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">genre</span><span class="p">,))</span>
+                        <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span><span class="p">:</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">=</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>In server.py, the addtv page was created with the same logic as the sign up page. A redirect is provided to the home page if the operation is successful.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/addtv&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">tvform_page</span><span class="p">():</span>
+    <span class="n">form</span><span class="o">=</span><span class="n">tvForm</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span><span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">validate_on_submit</span><span class="p">():</span>
+            <span class="n">tv</span> <span class="o">=</span> <span class="n">TV</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">language</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">language</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">season</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">season</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">genre</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">genre</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">channel</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">tv</span><span class="o">.</span><span class="n">addtv</span><span class="p">()</span>
+            <span class="n">flash</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{form.title.data}</span><span class="s1"> is created!&#39;</span><span class="p">,</span> <span class="s1">&#39;success&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;home&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;addtv.html&quot;</span><span class="p">,</span> <span class="n">form</span> <span class="o">=</span> <span class="n">form</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="dynamic-page-of-tv-series">
+<h2>Dynamic Page of Tv Series<a class="headerlink" href="#dynamic-page-of-tv-series" title="Permalink to this headline">¶</a></h2>
+<p>First, the function named find_tv was written to tvseries.py to get the information of the tvseries with its id number.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_tv</span><span class="p">(</span><span class="n">idno</span><span class="p">):</span>
+        <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT ID, TITLE, CHANNEL, LANGUAGE, YEAR, SEASON, GENRE, VOTE, SCORE FROM tvseries WHERE id=</span><span class="si">%s</span><span class="s2">; &quot;&quot;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="n">idno</span><span class="p">,))</span>
+        <span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">lang</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">season</span><span class="p">,</span> <span class="n">genre</span><span class="p">,</span> <span class="n">vote</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">tv</span> <span class="o">=</span><span class="n">TV</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span><span class="n">title</span><span class="p">,</span><span class="n">lang</span><span class="p">,</span><span class="n">year</span><span class="p">,</span><span class="n">season</span><span class="p">,</span><span class="n">genre</span><span class="p">,</span><span class="n">channel</span><span class="p">,</span><span class="n">vote</span><span class="p">,</span><span class="n">score</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tv</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>I will explain the content of these dynamic pages that host many processes by categorizing them.</p>
+<div class="section" id="tv-series-list-operations">
+<h3>TV Series List Operations<a class="headerlink" href="#tv-series-list-operations" title="Permalink to this headline">¶</a></h3>
+<p>Tv_list is a boolean table that checks if a tvseries belongs to which list. In this table, which has a total of 5 lists (columns), the control operation is for one tvseries in one line. Therefore, update operation was applied instead of delete operation.</p>
+<p>To add tvseries to the list, the functions fav_add, hate_add and wish_add were written to tv_series.py.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fav_add</span><span class="p">(</span><span class="n">userid</span><span class="p">,</span> <span class="n">tvid</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO tv_list (userid, tvid, fav_list)</span>
+<span class="s2">                        VALUES ( </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)</span>
+<span class="s2">                    RETURNING id;&quot;&quot;&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="n">userid</span><span class="p">,</span><span class="n">tvid</span><span class="p">,</span><span class="s2">&quot;TRUE&quot;</span><span class="p">))</span>
+            <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+    <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">UniqueViolation</span><span class="p">:</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+
+        <span class="n">a</span><span class="o">=</span><span class="s2">&quot;FALSE&quot;</span>
+        <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot; SELECT fav_list FROM tv_list</span>
+<span class="s2">                        WHERE userid = </span><span class="si">%s</span><span class="s2"> AND tvid = </span><span class="si">%s</span><span class="s2">;&quot;&quot;&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">(</span> <span class="n">userid</span><span class="p">,</span> <span class="n">tvid</span><span class="p">,))</span>
+            <span class="n">check</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">check</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="n">a</span><span class="o">=</span><span class="s2">&quot;TRUE&quot;</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot; UPDATE tv_list</span>
+<span class="s2">                        SET fav_list = </span><span class="si">%s</span><span class="s2"> WHERE userid = </span><span class="si">%s</span><span class="s2"> AND tvid = </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">userid</span><span class="p">,</span> <span class="n">tvid</span><span class="p">,))</span>
+            <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">InFailedSqlTransactions</span><span class="p">:</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">=</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>In addition, watched_add, watching_add, notwatch_add functions were written. Since they are related to each other, the update operations are performed accordingly.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">watched_add</span><span class="p">(</span><span class="n">userid</span><span class="p">,</span> <span class="n">tvid</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO tv_list (userid, tvid, watched_list)</span>
+<span class="s2">                        VALUES ( </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)</span>
+<span class="s2">                    RETURNING id;&quot;&quot;&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="n">userid</span><span class="p">,</span><span class="n">tvid</span><span class="p">,</span><span class="s2">&quot;TRUE&quot;</span><span class="p">))</span>
+            <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+    <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">UniqueViolation</span><span class="p">:</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot; UPDATE tv_list</span>
+<span class="s2">                        SET watched_list = </span><span class="si">%s</span><span class="s2">,  watching_list = </span><span class="si">%s</span><span class="s2"> WHERE userid = </span><span class="si">%s</span><span class="s2"> AND tvid = </span><span class="si">%s</span><span class="s2">;&quot;&quot;&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;TRUE&quot;</span><span class="p">,</span><span class="s2">&quot;FALSE&quot;</span><span class="p">,</span> <span class="n">userid</span><span class="p">,</span> <span class="n">tvid</span><span class="p">,))</span>
+            <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">InFailedSqlTransactions</span><span class="p">:</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">=</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Also check_fav, check_hate and check_wish functions were written to check if they are in the list. So if the TVseries is in that list the button is colored accordingly.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">check_fav</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">userid</span><span class="p">):</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot; SELECT fav_list FROM tv_list</span>
+<span class="s2">                        WHERE userid = </span><span class="si">%s</span><span class="s2"> AND tvid = </span><span class="si">%s</span><span class="s2">;&quot;&quot;&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">(</span> <span class="n">userid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,))</span>
+            <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">check</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">check</span><span class="o">==</span><span class="kc">False</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="tv-series-episode-operations">
+<h3>TV Series Episode Operations<a class="headerlink" href="#tv-series-episode-operations" title="Permalink to this headline">¶</a></h3>
+<p>First, a class named Episode was created in the tvseries.py file.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Episode</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span><span class="n">tv</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">season_n</span><span class="p">,</span><span class="n">episode_n</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="o">=</span><span class="nb">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tv</span><span class="o">=</span><span class="n">tv</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">season_n</span><span class="o">=</span><span class="n">season_n</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">episode_n</span><span class="o">=</span><span class="n">episode_n</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>In order to print the episodes of a season, the method called print_episode was written to the TV class.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TV</span><span class="p">:</span>
+    <span class="o">..</span>
+    <span class="k">def</span> <span class="nf">print_episode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">se_number</span><span class="p">):</span>
+                    <span class="n">ep_list</span><span class="o">=</span><span class="p">[]</span>
+                    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT ID, name, number FROM episode</span>
+<span class="s2">                                    WHERE tvid = (</span><span class="si">%s</span><span class="s2">) AND season_n = (</span><span class="si">%s</span><span class="s2">) ORDER BY number; &quot;&quot;&quot;</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="n">se_number</span><span class="p">,))</span>
+                    <span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span><span class="n">ep_number</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+                        <span class="n">episode</span> <span class="o">=</span> <span class="n">Episode</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">se_number</span><span class="p">,</span><span class="n">ep_number</span><span class="p">)</span>
+                        <span class="n">ep_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">episode</span><span class="p">)</span>
+
+                    <span class="k">return</span> <span class="n">ep_list</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The checkEpisodewatched method was written to check if the episode was watched.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">checkEpisodeWatched</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">userid</span><span class="p">,</span><span class="n">season</span><span class="p">):</span>
+                    <span class="n">check</span><span class="o">=</span><span class="mi">0</span>
+                    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT COUNT(id) FROM tv_trace</span>
+<span class="s2">                                    WHERE episodeid = (</span><span class="si">%s</span><span class="s2">) AND userid = (</span><span class="si">%s</span><span class="s2">); &quot;&quot;&quot;</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="n">userid</span><span class="p">,))</span>
+                    <span class="n">check</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">check</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="kc">True</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The episodewatched function is written to save the episode to the database. If the episode is already watched, the code is entered in except and the episode is removed from the tv_trace table.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">episodewatched</span><span class="p">(</span><span class="n">userid</span><span class="p">,</span><span class="n">episodeid</span><span class="p">):</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO tv_trace (userid, episodeid, watched)</span>
+<span class="s2">                        VALUES ( </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)</span>
+<span class="s2">                    RETURNING id;&quot;&quot;&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="n">userid</span><span class="p">,</span><span class="n">episodeid</span><span class="p">,</span><span class="s2">&quot;TRUE&quot;</span><span class="p">))</span>
+            <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">UniqueViolation</span><span class="p">:</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot; DELETE FROM tv_trace</span>
+<span class="s2">                        WHERE userid = </span><span class="si">%s</span><span class="s2"> AND episodeid = </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">(</span> <span class="n">userid</span><span class="p">,</span> <span class="n">episodeid</span><span class="p">,))</span>
+            <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">InFailedSqlTransactions</span><span class="p">:</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">=</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="tv-series-comment-operations">
+<h3>TV Series Comment Operations<a class="headerlink" href="#tv-series-comment-operations" title="Permalink to this headline">¶</a></h3>
+<p>For comments, a class named commit was created in tvseries.py.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">commit</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="nb">id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">username</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">tvid</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">content</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">date</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">like</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">dislike</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="o">=</span><span class="nb">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="o">=</span><span class="n">username</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tvid</span><span class="o">=</span><span class="n">tvid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">=</span><span class="n">header</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="o">=</span><span class="n">content</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">like</span><span class="o">=</span><span class="n">like</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">date</span><span class="o">=</span><span class="n">date</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dislike</span><span class="o">=</span><span class="n">dislike</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>A function named print_commit was written to see all comments in the database.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_commit</span><span class="p">(</span><span class="n">tvid</span><span class="p">):</span>
+        <span class="n">commits</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+                            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT tv_commit.id, tv_commit.header,tv_commit.content,tv_commit.date, users.username FROM tv_commit,users</span>
+<span class="s2">                                         WHERE tv_commit.tvid=(</span><span class="si">%s</span><span class="s2">) AND tv_commit.userid=users.id ORDER BY date DESC;&quot;&quot;&quot;</span>
+                            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="n">tvid</span><span class="p">,))</span>
+                            <span class="k">for</span> <span class="nb">id</span><span class="p">,</span><span class="n">head</span><span class="p">,</span><span class="n">cont</span><span class="p">,</span><span class="n">date</span><span class="p">,</span><span class="n">username</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+                                <span class="n">com</span><span class="o">=</span><span class="n">commit</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span><span class="n">tvid</span><span class="o">=</span><span class="n">tvid</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="n">head</span><span class="p">,</span><span class="n">content</span><span class="o">=</span><span class="n">cont</span><span class="p">,</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
+                                <span class="n">commits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">com</span><span class="p">)</span>
+
+                            <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span><span class="p">:</span>
+            <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">=</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">commits</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Com_like_number and com_dislike_number methods have been written to commit class to see how many dislike and dislike it takes.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">com_like_number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot; SELECT LIKE_N FROM tv_commit</span>
+<span class="s2">                    WHERE  id = </span><span class="si">%s</span><span class="s2">;&quot;&quot;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">(</span>  <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,))</span>
+        <span class="n">like_n</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">like_n</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The com_like and com_dislike update functions have been written to give comments like and dislike.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">com_like</span><span class="p">(</span><span class="n">commitid</span><span class="p">):</span>
+        <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot; UPDATE tv_commit</span>
+<span class="s2">                    SET like_n = like_n+1 WHERE id = </span><span class="si">%s</span><span class="s2">;&quot;&quot;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">(</span> <span class="n">commitid</span><span class="p">,))</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Submit_commit function was added to add a new comment.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">submit_commit</span><span class="p">(</span><span class="n">tvid</span><span class="p">,</span><span class="n">userid</span><span class="p">,</span><span class="n">header</span><span class="p">,</span><span class="n">context</span><span class="p">):</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+                            <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO tv_commit (userid, tvid, header, content,date)</span>
+<span class="s2">                                        VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)</span>
+<span class="s2">                                    RETURNING id;&quot;&quot;&quot;</span>
+                            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="n">userid</span><span class="p">,</span><span class="n">tvid</span><span class="p">,</span><span class="n">header</span><span class="p">,</span><span class="n">context</span><span class="p">,</span><span class="n">now</span><span class="p">))</span>
+                            <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span><span class="p">:</span>
+            <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">=</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The delete_commit function was written to delete the comment. The delete button is only displayed in the current user’s comments.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span>  <span class="nf">delete_commit</span><span class="p">(</span><span class="n">idno</span><span class="p">,</span> <span class="n">userid</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+                    <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot; DELETE FROM tv_commit</span>
+<span class="s2">                                WHERE userid = </span><span class="si">%s</span><span class="s2"> AND id = </span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">(</span> <span class="n">userid</span><span class="p">,</span> <span class="n">idno</span><span class="p">,))</span>
+                    <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">=</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-HTML notranslate"><div class="highlight"><pre><span></span>{% for com in commit %}
+..
+{% if current_user.username == com.username %}
+                    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-item mb-2&quot;</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;POST&quot;</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-link py-2&quot;</span><span class="p">&gt;</span>
+                                <span class="p">&lt;</span><span class="nt">button</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;delete&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;{{com.id}}&#39;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-icon btn-primary btn-link&quot;</span><span class="p">&gt;&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;ion-ios-trash&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+
+                            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+                    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+{% endif %}
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="tv-series-vote-operations">
+<h3>TV Series Vote Operations<a class="headerlink" href="#tv-series-vote-operations" title="Permalink to this headline">¶</a></h3>
+<p>The add_scoret function was written to tvseries.py to update the score.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_scoret</span><span class="p">(</span><span class="n">tvid</span><span class="p">,</span><span class="n">score</span><span class="p">):</span>
+   <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+       <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot; UPDATE tvseries</span>
+<span class="s2">                               SET SCORE = (SCORE*VOTE+</span><span class="si">%s</span><span class="s2">)/(VOTE+1),VOTE=VOTE+1 WHERE id = </span><span class="si">%s</span><span class="s2">;&quot;&quot;&quot;</span>
+       <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">tvid</span><span class="p">,))</span>
+       <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+   <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="tv-series-delete-operation-for-admin-user">
+<h3>TV Series Delete Operation (For Admin User)<a class="headerlink" href="#tv-series-delete-operation-for-admin-user" title="Permalink to this headline">¶</a></h3>
+<p>A function named delete_tv has been created in tvseries.py for this option that only admin user (neslihancekic) can see.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">delete_tv</span><span class="p">(</span><span class="n">idno</span><span class="p">):</span>
+       <span class="k">try</span><span class="p">:</span>
+           <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+                           <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;DELETE FROM tvseries WHERE id=</span><span class="si">%s</span><span class="s2">;&quot;&quot;&quot;</span>
+                           <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="n">idno</span><span class="p">,))</span>
+                           <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+       <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span><span class="p">:</span>
+           <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+           <span class="n">cursor</span><span class="o">=</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-HTML notranslate"><div class="highlight"><pre><span></span>{%if current_user.username==&quot;neslihancekic&quot;%}
+         <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="p">&gt;</span>
+             <span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;POST&quot;</span><span class="p">&gt;</span>
+                 <span class="p">&lt;</span><span class="nt">button</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;deletetv&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;1&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-link btn-danger&quot;</span><span class="p">&gt;&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;ion-ios-film mr-2&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>Delete {{tv.title}}<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+             <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+         <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+ {%endif%}
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="add-episode-page">
+<h2>Add Episode Page<a class="headerlink" href="#add-episode-page" title="Permalink to this headline">¶</a></h2>
+<p>This page is used to add episodes that aren’t on that tvseries. To do this, episodeForm was created in the Forms.py file.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">episodeForm</span><span class="p">(</span><span class="n">FlaskForm</span><span class="p">):</span>
+   <span class="n">title</span><span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span><span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+   <span class="n">season</span><span class="o">=</span> <span class="n">IntegerField</span><span class="p">(</span><span class="s1">&#39;Language&#39;</span><span class="p">,</span><span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+   <span class="n">episode</span><span class="o">=</span> <span class="n">IntegerField</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span><span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+   <span class="n">submit</span> <span class="o">=</span> <span class="n">SubmitField</span><span class="p">(</span><span class="s1">&#39;Add Episode&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>In the tvseries.py file, the season_check function allows you to check whether the entered season exists or not, and the episode_check function to check whether that episode exists in the database.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span>  <span class="k">def</span> <span class="nf">season_check</span><span class="p">(</span><span class="n">seas</span><span class="p">,</span><span class="n">idno</span><span class="p">):</span>
+     <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT season FROM tvseries WHERE id=</span><span class="si">%s</span><span class="s2">; &quot;&quot;&quot;</span>
+     <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="n">idno</span><span class="p">,))</span>
+     <span class="n">season</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+     <span class="k">if</span> <span class="n">season</span><span class="o">&gt;=</span><span class="n">seas</span><span class="p">:</span>
+         <span class="k">return</span> <span class="kc">True</span>
+     <span class="k">return</span> <span class="kc">False</span>
+
+<span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">python</span>
+
+      <span class="k">def</span> <span class="nf">episode_check</span><span class="p">(</span><span class="n">seas</span><span class="p">,</span><span class="n">ep</span><span class="p">,</span><span class="n">idno</span><span class="p">):</span>
+         <span class="n">a</span><span class="o">=</span><span class="mi">0</span>
+         <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT season_n,number,tvid FROM episode WHERE tvid=</span><span class="si">%s</span><span class="s2"> AND season_n=</span><span class="si">%s</span><span class="s2"> AND number=</span><span class="si">%s</span><span class="s2">; &quot;&quot;&quot;</span>
+         <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="n">idno</span><span class="p">,</span> <span class="n">seas</span><span class="p">,</span><span class="n">ep</span><span class="p">))</span>
+         <span class="k">for</span> <span class="n">check</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+             <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span>
+         <span class="k">if</span> <span class="n">a</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+         <span class="k">return</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The insert operation is completed by writing the add_episode function.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_episode</span><span class="p">(</span><span class="n">tvid</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">number</span><span class="p">,</span><span class="n">season_n</span><span class="p">):</span>
+   <span class="k">try</span><span class="p">:</span>
+       <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+           <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO episode (tvid, name, number, season_n)</span>
+<span class="s2">                                    VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">)</span>
+<span class="s2">                                RETURNING id;&quot;&quot;&quot;</span>
+           <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">statement</span><span class="p">,(</span><span class="n">tvid</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">number</span><span class="p">,</span><span class="n">season_n</span><span class="p">))</span>
+           <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+           <span class="n">episode_id</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+   <span class="k">except</span><span class="p">:</span>
+       <span class="n">connection</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+       <span class="n">cursor</span><span class="o">=</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The addepisode page has been built in server.py, paying attention to validations.</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/tv/&lt;int:item&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span> <span class="c1">#dynamic pages</span>
+ <span class="nd">@login_required</span>
+ <span class="k">def</span> <span class="nf">tv</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+<span class="n">tv</span><span class="o">=</span><span class="n">find_tv</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<span class="n">commit_list</span><span class="o">=</span><span class="n">print_commit</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span><span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;fav&quot;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                    <span class="n">fav_add</span><span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="n">item</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;tv&#39;</span><span class="p">,</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;hate&quot;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                    <span class="n">hate_add</span><span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="n">item</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;tv&#39;</span><span class="p">,</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;wish&quot;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                    <span class="n">wish_add</span><span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="n">item</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;tv&#39;</span><span class="p">,</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">episodeid</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;episodeid&#39;</span><span class="p">]</span>
+            <span class="n">episodewatched</span><span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="n">episodeid</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;like_update&quot;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                <span class="n">commitid</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;commitid&#39;</span><span class="p">]</span>
+                <span class="n">com_like</span><span class="p">(</span><span class="n">commitid</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;tv&#39;</span><span class="p">,</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;submitcommit&quot;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                <span class="n">tvid</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;tvidforcommit&#39;</span><span class="p">]</span>
+                <span class="n">commith</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;header&#39;</span><span class="p">]</span>
+                <span class="n">commitc</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span>
+                <span class="n">submit_commit</span><span class="p">(</span><span class="n">tvid</span><span class="p">,</span><span class="n">current_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="n">commith</span><span class="p">,</span><span class="n">commitc</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;tv&#39;</span><span class="p">,</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&quot;dislike_update&quot;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                <span class="n">commitid</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;commitid&#39;</span><span class="p">]</span>
+                <span class="n">com_dislike</span><span class="p">(</span><span class="n">commitid</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;tv&#39;</span><span class="p">,</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">score</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;rate&#39;</span><span class="p">])</span><span class="o">*</span><span class="mi">2</span>
+            <span class="n">add_scoret</span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="n">score</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;tv&#39;</span><span class="p">,</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">deletecommit</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;delete&#39;</span><span class="p">]</span>
+            <span class="n">delete_commit</span><span class="p">(</span><span class="n">deletecommit</span><span class="p">,</span><span class="n">current_user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;tv&#39;</span><span class="p">,</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;deletetv&#39;</span><span class="p">]</span> <span class="o">==</span><span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                <span class="n">delete_tv</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;tvpage&#39;</span><span class="p">,</span><span class="n">sort</span><span class="o">=</span><span class="s2">&quot;sortbydefault&quot;</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+<span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;tv.html&quot;</span><span class="p">,</span> <span class="n">tv</span><span class="o">=</span><span class="n">tv</span><span class="p">,</span> <span class="n">commit</span><span class="o">=</span><span class="n">commit_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="muruvvet.html" class="btn btn-neutral float-right" title="Parts Implemented by Mürüvvet BOZKURT" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Developer Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ITUCSDB1942
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

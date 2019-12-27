@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Developer Guide &mdash; ITUCSDB1942 2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Parts Implemented by Neslihan ÇEKİÇ" href="neslihan.html" />
+    <link rel="prev" title="Parts Implemented by Muruvvet Bozkurt" href="../user/muruvvet.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ITUCSDB1942
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="neslihan.html">Parts Implemented by Neslihan ÇEKİÇ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="muruvvet.html">Parts Implemented by Mürüvvet BOZKURT</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ITUCSDB1942</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Developer Guide</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/developer/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="developer-guide">
+<h1>Developer Guide<a class="headerlink" href="#developer-guide" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><em>Database Design</em></p></li>
+</ul>
+<p>We provided database management with elephansql.</p>
+<p>We created the create queries of all tables in the dbinit.py file and ran this file before developing the program to ensure that all tables were created.</p>
+<p>We created a domain called scores to define score. All tables are created in “INIT_STATEMENTS”</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">DOMAIN</span> <span class="n">SCORES</span> <span class="k">AS</span> <span class="nb">FLOAT</span>
+   <span class="k">DEFAULT</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span>
+   <span class="k">CHECK</span><span class="p">((</span><span class="n">VALUE</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span> <span class="k">AND</span> <span class="p">(</span><span class="n">VALUE</span><span class="o">&lt;=</span><span class="mi">10</span><span class="p">.</span><span class="mi">0</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>When starting the project, we implemented the Users table and its operations together.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">users</span><span class="p">(</span>
+        <span class="n">ID</span> <span class="nb">SERIAL</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+        <span class="n">NAME</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+        <span class="n">SURNAME</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+        <span class="n">USERNAME</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="k">UNIQUE</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+        <span class="n">mail</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span> <span class="k">UNIQUE</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+        <span class="n">gender</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+        <span class="n">birth</span> <span class="nb">DATE</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+        <span class="n">password</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span>
+        <span class="p">);</span>
+</pre></div>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/database.png"><img alt="Database Design" src="../_images/database.png" style="width: 1600.2px; height: 900.0px;" /></a>
+</div>
+<ul class="simple">
+<li><p><em>Requirements</em></p></li>
+</ul>
+<p>We implemented the website with python_flask. And we’ve built our site using the following additional packages.</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>     Flask&gt;=1.0
+psycopg2-binary&gt;=2.7
+gunicorn&gt;=19.9
+flask-wtf&gt;=0.14
+flask-bcrypt&gt;=0.7.1
+flask-login&gt;=0.4.1
+</pre></div>
+</div>
+<p>For web design, we used the bootsrap based Ui package from <a class="reference external" href="http://colorlib.com">http://colorlib.com</a></p>
+<ul class="simple">
+<li><p><em>Layout</em></p></li>
+</ul>
+<p>Layout html page was created.</p>
+<p>Navigation bar designed. The following code was used in layout.html to make it visible only when the user logged in:</p>
+<blockquote>
+<div><div class="highlight-HTML notranslate"><div class="highlight"><pre><span></span>{% if current_user.is_authenticated%}
+nav class=&quot;navbar navbar-expand-lg navbar-dark ftco_navbar bg-primary ftco-navbar-light&quot; id=&quot;ftco-navbar&quot;&gt;
+..
+</pre></div>
+</div>
+</div></blockquote>
+<p>Alerts are designed in layout.html. Thus, this design would appear in any flash message.</p>
+<blockquote>
+<div><div class="highlight-HTML notranslate"><div class="highlight"><pre><span></span> {% with messages= get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;alert alert-{{category}} &quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container &quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;d-flex &quot;</span><span class="p">&gt;</span>
+            {% if category == &#39;success&#39; %}
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;alert-icon &quot;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;ion-ios-checkmark-circle &quot;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;mb-0 ml-2 &quot;</span><span class="p">&gt;&lt;</span><span class="nt">b</span><span class="p">&gt;</span>Success Alert:<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span> Yeey! {{message}}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            {% endif %}
+</pre></div>
+</div>
+</div></blockquote>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="neslihan.html">Parts Implemented by Neslihan ÇEKİÇ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="neslihan.html#database-structure">Database Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neslihan.html#sign-up-page">Sign Up Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neslihan.html#login-management">Login Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neslihan.html#home-page">Home Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neslihan.html#tv-series-page">TV Series Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neslihan.html#add-tv-series-page">Add TV Series Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neslihan.html#dynamic-page-of-tv-series">Dynamic Page of Tv Series</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neslihan.html#tv-series-list-operations">TV Series List Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="neslihan.html#tv-series-episode-operations">TV Series Episode Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="neslihan.html#tv-series-comment-operations">TV Series Comment Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="neslihan.html#tv-series-vote-operations">TV Series Vote Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="neslihan.html#tv-series-delete-operation-for-admin-user">TV Series Delete Operation (For Admin User)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neslihan.html#add-episode-page">Add Episode Page</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="muruvvet.html">Parts Implemented by Mürüvvet BOZKURT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="muruvvet.html#creation-of-tables">Creation of Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="muruvvet.html#basic-book-operations">Basic Book Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="muruvvet.html#book-sort-operations">Book Sort Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="muruvvet.html#book-comment-operations">Book Comment Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="muruvvet.html#book-list-operations">Book List Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="muruvvet.html#add-book-page-operations">Add Book Page Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="muruvvet.html#login-page-operations">Login Page Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="muruvvet.html#account-operations">Account Operations</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="neslihan.html" class="btn btn-neutral float-right" title="Parts Implemented by Neslihan ÇEKİÇ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../user/muruvvet.html" class="btn btn-neutral float-left" title="Parts Implemented by Muruvvet Bozkurt" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ITUCSDB1942
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
