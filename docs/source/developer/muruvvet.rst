@@ -67,16 +67,15 @@ Firstly, I thought of all the tables I would use and created them. There are 3 m
         );
 
 
-****************
-books.py
-****************
 
 1. Basic Book Operations
-~~~~~~~~~~~~~~~~~~~~~~~~
+=====================================
+
 Basic book operations contain functions for printing information of the one book(dynamic page), deleting books, checking progress, updating page number that user read and rating operations.
 
 1.1 Printing Information of The One Book
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 This function returns one book. It provide us to print information of the book in dynamic page.
 
 .. code-block:: python
@@ -93,6 +92,7 @@ This function returns one book. It provide us to print information of the book i
 
 1.2 Updating Page Number
 ~~~~~~~~~~~~~~~~~~~~~~~~
+
  The user can update the number of pages read with this function. The userid and bookid are unique because a book cannot be in the read list, read list, read list at the same time. If you take "UniqueViolation error, you update the number of pages of that book instead of inserting the same book to trace.
 
 .. code-block:: python
@@ -119,6 +119,7 @@ This function returns one book. It provide us to print information of the book i
 	
 1.3 Checking Progress
 ~~~~~~~~~~~~~~~~~~~~~~~~
+
 This code does not allow entering a page number greater than the total page of the book.
 
 .. code-block:: python
@@ -135,6 +136,7 @@ This code does not allow entering a page number greater than the total page of t
     
 1.4 Rate Book
 ~~~~~~~~~~~~~~~~~~~~~~~~
+
 This code will update the book's score and the number of times the book is rated.
 
 .. code-block:: python
@@ -150,6 +152,7 @@ This code will update the book's score and the number of times the book is rated
 
 1.5 Delete books
 ~~~~~~~~~~~~~~~~~~~~~~~~
+
 Only admin user can delete books. Since many tables are connected to userid and bookid, variables are defined in tables as cascading where necessary.
 
 .. code-block:: python
@@ -165,11 +168,13 @@ Only admin user can delete books. Since many tables are connected to userid and 
                 cursor=connection.cursor()
 
 2. Sort Operations 
-~~~~~~~~~~~~~~~~~~~~~~~~
+=====================================
+
 These are the functions that determine the order in which books are printed on the book page.
 
 2.1 Print Default & A-Z & Year & Score 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 These functions sort by book id, alphabetical order, year, score. The only difference between functions is the "ORDER BY..." part. Book_list is a tuble that contains all books. We add each book in our database to this tuple. In fact,  tuple is printed on the screen. 
 
 For Example:
@@ -216,6 +221,7 @@ You add a new row to the comment table by adding a comment. Datetime.now provide
                 cursor=connection.cursor()
 3.2 Deleting 
 ~~~~~~~~~~~~~
+
 I enabled the user to delete only his / her comment by sending userid.
 
 .. code-block:: python
@@ -233,6 +239,7 @@ I enabled the user to delete only his / her comment by sending userid.
 
 3.3 Updating and Reading Like & Dislike
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 We send form to html and if like button is pressed it increases the number of likes by one. A user may like or dislike same comment more than once.To prevent this, I had to keep the userid, but it is not necessary, so I did not it.
 
 .. code-block:: python
@@ -285,7 +292,7 @@ I added all comments to the commit list and returned the commit list. So I wrote
             return commits
 
 4. List Operations
-~~~~~~~~~~~~~~~~~~~~~~~~
+=====================================
 
 List operations consist of create, update, read operations.The values ​​stored in the list are in bool. 
 When we want to remove a book from a list, we can not delete it. Because the deletion is done row by row and then the book is deleted from the other lists.  
@@ -294,6 +301,7 @@ In order to avoid this situation, I am just updating the table that user wants t
 
 4.1 Read Lists
 ~~~~~~~~~~~~~~~~~~~~~~
+
 There are separate "read" functions for all tables in "book_trace". They all have the same structure. I've just changed which table to do. So here's just one example. 
 
 .. code-block:: python
@@ -314,6 +322,7 @@ There are separate "read" functions for all tables in "book_trace". They all hav
 
 4.2 Adding Books to the Favorite, Hate, Wish list 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 The structure of functions of adding to favorite, wish or hate lists is the same. I implemented the same function for 3 separate lists.Therefore, there is only one code example below. If there is a "UniqueViolation", existing books are updated as true or false. If there is "InFailedSqlTransactions", a transaction goes back.
 
 .. code-block:: python
