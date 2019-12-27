@@ -16,6 +16,7 @@ We created a domain called scores to define score. All tables are created in "IN
 Firstly, I thought of all the tables I would use and created them. There are 3 main tables and 2 extra tables for books. My main tables are "books", "book_list", "comment_b" and my extra tables are "Writer" and "Book_trace". I do not need the "Writer" table, but I did not delete it because it would be hard to make changes because I started writing the code. The reason for "on delete cascade" addition will be explained in the account.py
 
 .. code-block:: sql
+
 	"""CREATE TABLE writer(
             ID SERIAL PRIMARY KEY,
             wr_name VARCHAR(50) NOT NULL UNIQUE,
@@ -80,23 +81,22 @@ This function returns one book. It provide us to print information of the book i
 
 .. code-block:: python
 
-     def find_book(idno):
+	def find_book(idno):
         
                 statement = """SELECT books.ID, books.NAME, writer.wr_name, books.PUB_YEAR, books.T_PAGE, books.PUBLISHER, 
-                books.LANGUAGE, books.GENRE, books.SCORE, books.VOTE FROM BOOKS, writer WHERE books.id=%s AND books.writerid=writer.id; """
+                books.LANGUAGE, books.GENRE, books.SCORE, books.VOTE FROM BOOKS, writer WHERE books.id=%s AND books.writerid=writer.id; 		"""
                 cursor.execute(statement,(idno,))
                 connection.commit()
                 for id, name, wri_name, year, page, pub, lang, gen, sc, vote in cursor:
                     book =Book(id,name,wri_name,year,page,gprint_commit_booken,pub,lang,vote,sc)
                 return book
-         
 
 1.2 Updating Page Number
 ~~~~~~~~~~~~~~~~~~~~~~~~
  The user can update the number of pages read with this function. The userid and bookid are unique because a book cannot be in the read list, read list, read list at the same time. If you take "UniqueViolation error, you update the number of pages of that book instead of inserting the same book to trace.
 
 .. code-block:: python
-	def updatepage(bookid, userid, page):
+			def updatepage(bookid, userid, page):
     
     try:
         with connection.cursor() as cursor:
@@ -115,7 +115,7 @@ This function returns one book. It provide us to print information of the book i
     except dbapi2.errors.InFailedSqlTransactions:
         connection.rollback()
         cursor=connection.cursor()
-
+	
 1.3 checking Progress
 ~~~~~~~~~~~~~~~~~~~~~~~~
 This code does not allow entering a page number greater than the total page of the book.
@@ -135,7 +135,6 @@ This code does not allow entering a page number greater than the total page of t
 ~~~~~~~~~~~~~~~~~~~~~~~~
 This code will update the book's score and the number of times the book is rated.
 .. code-block:: python
-    
     def add_score(bookid,score):
     with connection.cursor() as cursor:
         statement = """ UPDATE books
@@ -150,7 +149,6 @@ This code will update the book's score and the number of times the book is rated
 Only admin user can delete books. Since many tables are connected to userid and bookid, variables are defined in tables as cascading where necessary.
 
 .. code-block:: python
-        
           def delete_book(idno):
             try:
                 with connection.cursor() as cursor:
@@ -174,7 +172,6 @@ For Example:
 Print Default
 
 .. code-block:: python
-
      def print_book():
                 with connection.cursor() as cursor:
                     book_list=[]
