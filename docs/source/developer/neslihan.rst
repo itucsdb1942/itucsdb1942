@@ -132,7 +132,7 @@ The flask_login library was used for Login Management.
 
 The user_loader function of the login manager was implemented by making a get function in the userdb.py file.
 .. example-code::
-   .. code-block:: python
+   .. code-block:: guess
       def get(user_id):
             with connection.cursor() as cursor:
                     statement = """SELECT id, name, surname, username, mail, gender, birth, password FROM users 
@@ -144,7 +144,7 @@ The user_loader function of the login manager was implemented by making a get fu
                         mail=m, gender=g, date=b, password=p)
                     return user
 
-   .. code-block:: python
+   .. code-block:: guess
       @login_manager.user_loader
       def load_user(user_id):
             return get(int(user_id))
@@ -152,10 +152,10 @@ The user_loader function of the login manager was implemented by making a get fu
 
 @Login_required has been added under the app.route of the pages that should not be accessed without login.
 
-       .. code-block:: python
+       .. code-block:: guess
           @app.route("/home", methods=['GET', 'POST'])
           @login_required
-          ..
+          
 
 
 Logout operation implemented.
