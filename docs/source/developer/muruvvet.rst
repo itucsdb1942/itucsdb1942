@@ -72,7 +72,7 @@ books.py
 ****************
 
 1. Basic Book Operations
-~~~~~~~~~~~~~~~~~~~~~~~~
+========================
 Basic book operations contain functions for printing information of the one book(dynamic page), deleting books, checking progress, updating page number that user read and rating operations.
 
 1.1 Printing Information of The One Book
@@ -163,7 +163,7 @@ Only admin user can delete books. Since many tables are connected to userid and 
                 cursor=connection.cursor()
 
 2. Sort Operations 
-~~~~~~~~~~~~~~~~~~~~~~~~
+========================
 These are the functions that determine the order in which books are printed on the book page.
 
 2.1 Print Default & A-Z & Year & Score 
@@ -191,7 +191,7 @@ Print Default
 
 
 3. Comment Operations
-~~~~~~~~~~~~~~~~~~~~~~~~
+========================
 
 3.1 Inserting
 ~~~~~~~~~~~
@@ -270,7 +270,7 @@ Print Default
             return commits
 
 4. List Operations
-~~~~~~~~~~~~~~~~~~~~~~~~
+========================
 
 
 4.1 Print Lists
