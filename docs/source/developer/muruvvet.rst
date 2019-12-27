@@ -6,7 +6,7 @@ Creation of Tables
 **************
 
 .. figure:: dbmur.png
-	:scale: 50 %
+	:scale: 30 %
 	:alt: Database implemented by Mürüvvet
 	:align: center
 

@@ -7,7 +7,7 @@ Parts Implemented by Neslihan ÇEKİÇ
 In general, I took part in the operations of users and TVSeries tracking. As an extra I have provided login management to the app.
 
 .. figure:: dbnesli.png
-	:scale: 50 %
+	:scale: 30 %
 	:alt: Database implemented by Nesli
 	:align: center
 
