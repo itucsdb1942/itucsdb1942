@@ -114,7 +114,7 @@ Sign up page was created using flask in server.py file. Here the registrationFor
 
 In the design of the site, when there is a validation, it is provided to press error under the input places.
 
-   .. code-block:: hmtl
+   .. code-block:: guess
 
       {% if form.name.errors %} {{form.name(type="text" , class="form-control is-invalid" , placeholder="Name")}}
                                 <div class="invalid-feedback">
@@ -128,13 +128,13 @@ In the design of the site, when there is a validation, it is provided to press e
 
 The flask_login library was used for Login Management.
 
-   .. code-block:: python
+    .. code-block:: python
         from flask_login import LoginManager,login_user, current_user, logout_user, login_required 
 
 
 The user_loader function of the login manager was implemented by making a get function in the userdb.py file.
 
-   .. code-block:: python
+    .. code-block:: python
         def get(user_id):
             with connection.cursor() as cursor:
                     statement = """SELECT id, name, surname, username, mail, gender, birth, password FROM users 
@@ -172,7 +172,6 @@ Logout operation implemented.
 4. Home Page
 ============
 
-
 For the home page, functions were first written in the tvseries.py file and in the books.py file to print the lists. (The books.py file is made by my groupmate.) The functions in TVseries are print_watching, print_watched, print_wish, print_fav, print_hate. The sample code is given below.
         .. code-block:: python
             def print_wish(idno):
@@ -202,7 +201,7 @@ For site design, a for loop was created to show the lists. Also when clicking on
                         <br></a>
                 </h2>
                 {% endfor %}{% endif %}
-                
+
 5. TV Series Page
 =================
 6. Add TV Series Page
