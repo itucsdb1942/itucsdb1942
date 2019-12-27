@@ -1,9 +1,9 @@
 Parts Implemented by Mürüvvet BOZKURT
-================================
+=====================================
 
-**************
+*******************
 Creation of Tables
-**************
+*******************
 
 .. figure:: dbmur.png
 	:scale: 30 %
@@ -76,7 +76,7 @@ books.py
 Basic book operations contain functions for printing information of the one book(dynamic page), deleting books, checking progress, updating page number that user read and rating operations.
 
 1.1 Printing Information of The One Book
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 This function returns one book. It provide us to print information of the book in dynamic page.
 
 .. code-block:: python
@@ -169,7 +169,7 @@ Only admin user can delete books. Since many tables are connected to userid and 
 These are the functions that determine the order in which books are printed on the book page.
 
 2.1 Print Default & A-Z & Year & Score 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 These functions sort by book id, alphabetical order, year, score. The only difference between functions is the "ORDER BY..." part. Book_list is a tuble that contains all books. We add each book in our database to this tuple. In fact,  tuple is printed on the screen. 
 
 For Example:
@@ -196,7 +196,7 @@ Print Default
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 3.1 Inserting
-~~~~~~~~~~~
+~~~~~~~~~~~~~~~
 
 You add a new row to the comment table by adding a comment. Datetime.now provides that get the current date and time.
 
@@ -215,7 +215,7 @@ You add a new row to the comment table by adding a comment. Datetime.now provide
                 connection.rollback()
                 cursor=connection.cursor()
 3.2 Deleting 
-~~~~~~~~~~~
+~~~~~~~~~~~~~
 I enabled the user to delete only his / her comment by sending userid.
 
 .. code-block:: python
@@ -232,7 +232,7 @@ I enabled the user to delete only his / her comment by sending userid.
         cursor=connection.cursor()
 
 3.3 Updating and Reading Like & Dislike
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 We send form to html and if like button is pressed it increases the number of likes by one. A user may like or dislike same comment more than once.To prevent this, I had to keep the userid, but it is not necessary, so I did not it.
 
 .. code-block:: python

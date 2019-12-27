@@ -87,7 +87,7 @@ On this page, you can do many things about the book.
 Here you can see information about the book as in "book page".
 
 3.1 Adding to lists
-~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 There are many specific lists like favorite list, wish list, hate list. You can add the book by clicking the icon of the list you want to add. The icon of the list  of color changes when you add the book to a list there. Red color means that book is in favorite list. Gray means that book is in hate list. Green means that book is in wish list.
 
 .. note:: A book can be added to both the favorite list and the hate list.

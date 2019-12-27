@@ -76,7 +76,7 @@ On this page, you can add a tvseries that is not in the database by entering the
 	:align: center
 
 5. TV Series Dynamic Page
-----------------------
+--------------------------
 .. figure:: nesli/dynamic0.png
 	:scale: 50 %
 	:alt: Dynamic Page
@@ -88,7 +88,7 @@ On this page, you can add a tvseries that is not in the database by entering the
 You can rate the tv series using 5 stars.
 
 5.2. See info and your progress
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 By default the information of the TV series appears. On the right you can see the progress of watching the entire TV series. 
 
 5.3. Access to Add Episode Page
