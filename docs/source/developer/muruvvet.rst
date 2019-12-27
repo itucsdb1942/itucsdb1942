@@ -1,9 +1,10 @@
 Parts Implemented by Mürüvvet BOZKURT
 =====================================
 
-*******************
+
 Creation of Tables
-*******************
+=====================
+
 
 .. figure:: dbmur.png
 	:scale: 30 %
