@@ -8,21 +8,23 @@ In the sign up page, you must enter your name, surname, e-mail, username, gender
 
 .. figure:: nesli/signup.PNG
 	:scale: 50 %
-	:alt: Home
+	:alt: Sign-up
 	:align: center
 
 2. Home Page
 ---------------
 When you log in to the site, it will automatically open the home page; you can quickly access the tv series and book pages. You can also go to your account page and easily and logout in the navigation bar that appears from the moment you log in.
+
 .. figure:: nesli/home1.PNG
 	:scale: 50 %
 	:alt: Home
 	:align: center
 
  When you scroll down the page you can see watched, watching, wish, favorite, hate lists for tv series and reading, read, wish, favorite and hate lists for books. You can click on the tvseries or book attached here to access its dynamic page. 
+
 .. figure:: nesli/home2.PNG
 	:scale: 50 %
-	:alt: Home
+	:alt: Home Scroll Down
 	:align: center
 
 3. TV Series Home Page
@@ -35,12 +37,12 @@ The colored symbols at the beginning of the TV series change color depending on 
 
 .. figure:: nesli/tvpage1.PNG
 	:scale: 50 %
-	:alt: Home
+	:alt: TV Page
 	:align: center
 
 .. figure:: nesli/tvpage2.PNG
 	:scale: 50 %
-	:alt: Home
+	:alt: TV Page Scroll Down
 	:align: center
 
 4. Add TV Series Page
@@ -50,7 +52,7 @@ On this page, you can add a tvseries that is not in the database by entering the
 
 .. figure:: nesli/addtv.PNG
 	:scale: 50 %
-	:alt: Home
+	:alt: Add Tv
 	:align: center
 
 5. TV Series Dynamic Page
@@ -61,26 +63,26 @@ By default the information of the TV series appears. On the right you can see th
 
 .. figure:: nesli/dynamic0.PNG
 	:scale: 50 %
-	:alt: Home
+	:alt: Dynamic Page
 	:align: center
 
 You can see the episodes of the season by selecting the season you want, you can mark that you are watching that episode by clicking the eye icon. The icon will be purple colored if you watched the episode.
 
 .. figure:: nesli/dynamic1.PNG
 	:scale: 50 %
-	:alt: Home
+	:alt: Episodes
 	:align: center
 
 You can add the series to your favorite list, hate list and wish list by clicking the buttons on the left. Icons are colored according to whether they are in that list.
 
 .. figure:: nesli/listsoff.PNG
 	:scale: 50 %
-	:alt: Home
+	:alt: Off lists color
 	:align: center
 
 .. figure:: nesli/listson.PNG
 	:scale: 50 %
-	:alt: Home
+	:alt: On Lists color
 	:align: center
 
 When you scroll down the page, you can leave a comment in the TV series, see other comments and vote by like or dislike. You can also delete your own comments.
@@ -88,7 +90,7 @@ When you scroll down the page, you can leave a comment in the TV series, see oth
 
 .. figure:: nesli/comment.PNG
 	:scale: 50 %
-	:alt: Home
+	:alt: Comment
 	:align: center
 
 6. Add Episode Page
@@ -100,5 +102,5 @@ If there is a series of episodes for that season and episode, it informs you wit
 
 .. figure:: nesli/addepisode.PNG
 	:scale: 50 %
-	:alt: Home
+	:alt: Add Episode
 	:align: center
