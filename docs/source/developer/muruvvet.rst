@@ -287,7 +287,9 @@ I added all comments to the commit list and returned the commit list. So I wrote
 4. List Operations
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-List operations consist of "create", "update", "read" operations.The values ​​stored in the list are in bool. when we want to remove a book from a list, we can not delete it. Because the deletion is done row by row and then the book is deleted from the other lists.  In order to avoid this situation, I am just updating the table that user wants to add or remove.
+List operations consist of create, update, read operations.The values ​​stored in the list are in bool. 
+When we want to remove a book from a list, we can not delete it. Because the deletion is done row by row and then the book is deleted from the other lists.  
+In order to avoid this situation, I am just updating the table that user wants to add or remove.
 
 
 4.1 Read Lists

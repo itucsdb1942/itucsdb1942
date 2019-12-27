@@ -1,7 +1,7 @@
 Parts Implemented by Neslihan ÇEKİÇ
 ===================================
 
-1. Database Structure
+Database Structure
 =====================
 
 In general, I took part in the operations of users and TVSeries tracking. As an extra I have provided login management to the app.
@@ -69,7 +69,7 @@ Table creation queries were entered in dbinit.py.
             );,
 
 
-2. Sign Up Page
+Sign Up Page
 ===============
 
 For users, a class named User was first created in the userdb.py file.
@@ -186,7 +186,7 @@ In the design of the site, when there is a validation, it is provided to press e
                                 </div>
                                 {% else %} {{form.name(type="text" , class="form-control" , placeholder="Name" )}}{% endif%}
 
-3. Login Management
+Login Management
 ===================
 
 The flask_login library was used for Login Management.
@@ -237,7 +237,7 @@ Logout operation implemented.
                 return redirect(url_for('login_page'))
 
     
-4. Home Page
+Home Page
 ============
 
 For the home page, functions were first written in the tvseries.py file and in the books.py file to print the lists. (The books.py file is made by my groupmate.) 
@@ -279,7 +279,7 @@ For site design, a for loop was created to show the lists. Also when clicking on
                 </h2>
                 {% endfor %}{% endif %}
 
-5. TV Series Page
+TV Series Page
 =================
 
 The tvseries.py file was first created for the database operations of the tv series page. In this file, a class named TV has been created.
@@ -511,7 +511,7 @@ For the seasons, the loop was created and the buttons were functionalized with t
             </div>
         {% endfor %}
 
-6. Add TV Series Page
+Add TV Series Page
 =====================
 
 This page is accessed via the button at the beginning of the tvpage.
@@ -566,7 +566,7 @@ In server.py, the addtv page was created with the same logic as the sign up page
             return render_template("addtv.html", form = form)
 
 
-7. Dynamic Page of Tv Series
+Dynamic Page of Tv Series
 ============================
 
 First, the function named find_tv was written to tvseries.py to get the information of the tvseries with its id number.
@@ -583,7 +583,7 @@ First, the function named find_tv was written to tvseries.py to get the informat
 I will explain the content of these dynamic pages that host many processes by categorizing them.
 
 
-7.1. TV Series List Operations
+TV Series List Operations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Tv_list is a boolean table that checks if a tvseries belongs to which list. In this table, which has a total of 5 lists (columns), the control operation is for one tvseries in one line. Therefore, update operation was applied instead of delete operation.
@@ -667,7 +667,7 @@ Also check_fav, check_hate and check_wish functions were written to check if the
                 except:
                     return False
 
-7.2. TV Series Episode Operations
+TV Series Episode Operations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 First, a class named Episode was created in the tvseries.py file.
@@ -740,7 +740,7 @@ The episodewatched function is written to save the episode to the database. If t
             cursor=connection.cursor()
         
 
-7.2. TV Series Comment Operations
+TV Series Comment Operations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For comments, a class named commit was created in tvseries.py.
@@ -849,7 +849,7 @@ The delete_commit function was written to delete the comment. The delete button 
                         </li>
     {% endif %}
 
-7.2. TV Series Vote Operations
+TV Series Vote Operations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The add_scoret function was written to tvseries.py to update the score.
@@ -864,7 +864,7 @@ The add_scoret function was written to tvseries.py to update the score.
             connection.commit()   
         cursor.close()
 
-7.2. TV Series Delete Operation (For Admin User)
+TV Series Delete Operation (For Admin User)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A function named delete_tv has been created in tvseries.py for this option that only admin user (neslihancekic) can see.
@@ -891,7 +891,7 @@ A function named delete_tv has been created in tvseries.py for this option that 
                 </div>
         {%endif%}
 
-8. Add Episode Page
+Add Episode Page
 ===================
 
 This page is used to add episodes that aren't on that tvseries. To do this, episodeForm was created in the Forms.py file.
