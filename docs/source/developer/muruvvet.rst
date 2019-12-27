@@ -117,20 +117,19 @@ This function returns one book. It provide us to print information of the book i
         connection.rollback()
         cursor=connection.cursor()
 
-1.3 checking Progress
+1.3 Checking Progress
 ~~~~~~~~~~~~~~~~~~~~~~~~
 This code does not allow entering a page number greater than the total page of the book.
 
 .. code-block:: python
 	def check_tpage(readed,bookid,userid):
-                
-                        statement="""SELECT t_page FROM books WHERE id= (%s)"""
-                        cursor.execute(statement,(bookid,))
-                        tpage=cursor.fetchone()[0] 
-                        connection.commit() 
-                        if readed>tpage:
-                            return False
-                        return True
+        	statement="""SELECT t_page FROM books WHERE id= (%s)"""
+                cursor.execute(statement,(bookid,))
+                tpage=cursor.fetchone()[0] 
+                connection.commit() 
+                if readed>tpage:
+                	return False
+                return True
     
 1.4 Rate Book
 ~~~~~~~~~~~~~~~~~~~~~~~~
