@@ -129,7 +129,8 @@ In the design of the site, when there is a validation, it is provided to press e
 The flask_login library was used for Login Management.
 
    .. example-code::
-        from flask_login import LoginManager,login_user, current_user, logout_user, login_required 
+        .. code-block:: python
+            from flask_login import LoginManager,login_user, current_user, logout_user, login_required 
 
 
 The user_loader function of the login manager was implemented by making a get function in the userdb.py file.
