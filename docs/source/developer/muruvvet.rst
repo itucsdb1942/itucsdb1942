@@ -13,10 +13,10 @@ We created a domain called scores to define score. All tables are created in "IN
             DEFAULT 0.0
             CHECK((VALUE>=0.0) AND (VALUE<=10.0)); """
 
-Firstly, I thought of all the tables I would use and created them. There are 3 main tables and 2 extra tables for books. My main tables are "books", "book_list", "comment_b" and my extra tables are "Writer" and "Book_trace". I do not need the "Writer" table, but I did not delete it because it would be hard to make changes because I started writing the code. The reason for "on delete cascade" addition will be explained in delete books.
-
+Firstly, I thought of all the tables I would use and created them. There are 3 main tables and 2 extra tables for books. My main tables are "books", "book_list", "comment_b" and my extra tables are "Writer" and "Book_trace". I do not need the "Writer" table, but I did not delete it because it would be hard to make changes because I started writing the code. The reason for "on delete cascade" addition will be explained in the account.py
 
 .. code-block:: sql
+
 	"""CREATE TABLE writer(
             ID SERIAL PRIMARY KEY,
             wr_name VARCHAR(50) NOT NULL UNIQUE,
@@ -97,7 +97,6 @@ This function returns one book. It provide us to print information of the book i
  The user can update the number of pages read with this function. The userid and bookid are unique because a book cannot be in the read list, read list, read list at the same time. If you take "UniqueViolation error, you update the number of pages of that book instead of inserting the same book to trace.
 
 .. code-block:: python
-
 	def updatepage(bookid, userid, page):
     
     try:
@@ -118,7 +117,7 @@ This function returns one book. It provide us to print information of the book i
         connection.rollback()
         cursor=connection.cursor()
 
-1.3 Checking Progress
+1.3 checking Progress
 ~~~~~~~~~~~~~~~~~~~~~~~~
 This code does not allow entering a page number greater than the total page of the book.
 
@@ -139,12 +138,12 @@ This code will update the book's score and the number of times the book is rated
 .. code-block:: python
     
     def add_score(bookid,score):
-    with connection.cursor() as cursor:
-        statement = """ UPDATE books
+    	with connection.cursor() as cursor:
+        	statement = """ UPDATE books
                                 SET SCORE = (SCORE*VOTE+%s)/(VOTE+1),VOTE=VOTE+1 WHERE id = %s;"""
-        cursor.execute(statement, (score, bookid,))
-        connection.commit()   
-        cursor.close()  
+        	cursor.execute(statement, (score, bookid,))
+        	connection.commit()   
+        	cursor.close()  
 
 
 1.5 Delete books
@@ -174,13 +173,14 @@ These functions sort by book id, alphabetical order, year, score. The only diffe
 For Example:
 
 Print Default
+
 .. code-block:: python
 
      def print_book():
                 with connection.cursor() as cursor:
                     book_list=[]
                     statement = """SELECT books.ID, books.NAME, writer.wr_name, books.PUB_YEAR, books.T_PAGE, books.PUBLISHER, 
-                    books.LANGUAGE, books.GENRE, books.SCORE, books.VOTE FROM BOOKS, writer WHERE books.writerid=writer.id ORDER BY id; """
+                    books.LANGUAGE, books.GENRE, books.SCORE, books.VOTE FROM BOOKS, writer WHERE books.writerid=writer.id ORDER BY id; 			"""
                     cursor.execute(statement)
                     for id, name, wr_name, year, page, pub, lang, gen, sc, vote in cursor:
                             book =Book(id,name,wr_name,year,page,gen,pub,lang,vote,sc)
@@ -196,5 +196,140 @@ Print Default
 3.1 Inserting
 ~~~~~~~~~~~
 .. code-block:: python
+	def submit_commit_book(bookid,userid,header,context):
+            now = datetime.now()
+            try:
+                with connection.cursor() as cursor:
+                                statement = """INSERT INTO comment_b (userid, bookid, headerb, contentb,date)
+                                            VALUES (%s, %s, %s, %s, %s)
+                                        RETURNING id;"""                
+                                cursor.execute(statement,(userid,bookid,header,context,now))
+                                connection.commit()
+            except dbapi2.DatabaseError:
+                connection.rollback()
+                cursor=connection.cursor()
+3.2 Deleting 
+~~~~~~~~~~~
+
+
+.. code-block:: python
+	def  delete_commitb(idno, userid):
+    		try:
+        		with connection.cursor() as cursor:
+                    		statement = """ DELETE FROM comment_b 
+                                	WHERE userid = %s AND id = %s"""
+                    		cursor.execute(statement, ( userid, idno,))
+                    		connection.commit()
+    		except:
+        		connection.rollback()
+        		cursor=connection.cursor()
+
+3.3 Updating and Reading Like & Dislike 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+3.3.1 Updating number of like&dislike
+~~~~~~~~~~~~~~~~~~
+.. code-block:: python
+	def com_like_book(commitid):
+            	statement = """ UPDATE comment_b
+                        	SET likeb= likeb+1 WHERE id = %s;"""
+            	cursor.execute(statement, ( commitid,))
+            	connection.commit()
+
+3.3.2 Reading number of like&dislike
+~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+	def com_dislike_numberb(self):
+                statement = """ SELECT dislikeb FROM comment_b
+                            WHERE  id = %s;"""
+                cursor.execute(statement, (  self.id,))
+                dislike_n=cursor.fetchone()[0]
+                connection.commit()
+                return dislike_n
+        
+
+3.4 Reading 
+~~~~~~~~~~~~~~~~~~
+.. code-block:: python
+	def print_commit_book(bookid):
+            commits=[]
+            try:
+                with connection.cursor() as cursor:
+                                statement = """SELECT comment_b.id, comment_b.headerb,comment_b.contentb,comment_b.date, users.username 						FROM comment_b,users WHERE comment_b.bookid=(%s) AND comment_b.userid=users.id ORDER BY 						date DESC;"""                
+                                cursor.execute(statement,(bookid,))
+                                for id,head,cont,date,username in cursor:
+                                    com=commitb(id=id, username=username,bookid=bookid,header=head,content=cont,date=date)
+                                    commits.append(com)  
+                                
+                                connection.commit()
+            except dbapi2.DatabaseError:
+                connection.rollback()
+                cursor=connection.cursor()
+                  
+            return commits
+
+4. List Operations
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+4.1 Print Lists
+~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: python
+	def print_readed(idno):
+    		books={}
+    		try:
+        		with connection.cursor() as cursor:
+                                statement = """SELECT book_list.bookid, books.name FROM book_list,books
+                                             WHERE book_list.readed=TRUE AND book_list.bookid=books.id AND userid=%s;"""                
+                                cursor.execute(statement,(idno,))
+                                for bookid, bookname in cursor:
+                                    books[bookid]=bookname
+                                return books
+    		except dbapi2.DatabaseError:
+                	connection.rollback()
+                	cursor=connection.cursor() 
+
+4.2 Adding Books to the Favorite, Hate, Wish list 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: python
+        def fav_addb(userid,bookid):
+        	try:
+            	with connection.cursor() as cursor:
+                	statement = """INSERT INTO book_list (userid, bookid, fav_b)
+                            	VALUES ( %s, %s, %s)
+                       	 RETURNING id;"""
+                	cursor.execute(statement,(userid,bookid,"TRUE"))
+                	connection.commit()
+                
+        	except dbapi2.errors.UniqueViolation:
+            	connection.rollback()
+            
+            	a="FALSE"
+            	with connection.cursor() as cursor:    
+                	statement = """ SELECT fav_b FROM book_list
+                            	WHERE userid = %s AND bookid = %s;"""
+                	cursor.execute(statement, ( userid, bookid,))
+                	check=cursor.fetchone()[0]
+                	if check == False:
+                    		a="TRUE"
+               		 statement = """ UPDATE book_list 
+                            	SET fav_b = %s WHERE userid = %s AND bookid = %s"""
+                cursor.execute(statement, (a, userid, bookid,))
+                connection.commit()
+        except dbapi2.errors.InFailedSqlTransactions:
+            connection.rollback()
+            cursor=connection.cursor()
+
+****************
+Server.py
+****************
+
+
+
+
+
+
+
 
  
