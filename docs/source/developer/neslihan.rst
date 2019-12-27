@@ -128,14 +128,15 @@ In the design of the site, when there is a validation, it is provided to press e
 
 The flask_login library was used for Login Management.
 
-.. example-code::
         .. code-block:: python
+
             from flask_login import LoginManager,login_user, current_user, logout_user, login_required 
 
 
 The user_loader function of the login manager was implemented by making a get function in the userdb.py file.
 .. example-code::
    .. code-block:: python
+
       def get(user_id):
             with connection.cursor() as cursor:
                     statement = """SELECT id, name, surname, username, mail, gender, birth, password FROM users 
@@ -148,6 +149,7 @@ The user_loader function of the login manager was implemented by making a get fu
                     return user
 
    .. code-block:: python
+
       @login_manager.user_loader
       def load_user(user_id):
             return get(int(user_id))
@@ -156,6 +158,7 @@ The user_loader function of the login manager was implemented by making a get fu
 @Login_required has been added under the app.route of the pages that should not be accessed without login.
 
        .. code-block:: python
+
           @app.route("/home", methods=['GET', 'POST'])
           @login_required
           ..
@@ -164,6 +167,7 @@ The user_loader function of the login manager was implemented by making a get fu
 Logout operation implemented.
 
        .. code-block:: python
+
           @app.route("/logout")
           def logout():
                 logout_user()
@@ -174,7 +178,8 @@ Logout operation implemented.
 ============
 
 For the home page, functions were first written in the tvseries.py file and in the books.py file to print the lists. (The books.py file is made by my groupmate.) The functions in TVseries are print_watching, print_watched, print_wish, print_fav, print_hate. The sample code is given below.
-       .. code-block:: python
+    .. code-block:: python
+
           def print_wish(idno):
                 tvs={}
                 try:
@@ -188,11 +193,13 @@ For the home page, functions were first written in the tvseries.py file and in t
                                             return tvs
                 except dbapi2.DatabaseError:
                             connection.rollback()
-                            cursor=connection.cursor()   
+                            cursor=connection.cursor() 
+
 These lists were sent to the site and printed.
         
 For site design, a for loop was created to show the lists. Also when clicking on tvseries or book, it was made to go to their page.
-        .. code-block:: guess
+        .. code-block:: HTML
+
            <h2 class="heading-section mb-4">Watching List</h2>
                 {% if watching != None %} {% for item in watching %}
 
