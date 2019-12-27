@@ -4,15 +4,14 @@ Parts Implemented by Mürüvvet BOZKURT
 **************
 Creation of Tables
 **************
-.. note:: All table creations exist in db_init.py file.
 
-We created a domain called scores to define score. All tables are created in "INIT_STATEMENTS"
+.. figure:: dbmur.png
+	:scale: 50 %
+	:alt: Database implemented by Mürüvvet
+	:align: center
 
-.. code-block:: sql
+.. note:: All table creations exist in dbinit.py file.
 
-	 CREATE DOMAIN SCORES AS FLOAT
-            DEFAULT 0.0
-            CHECK((VALUE>=0.0) AND (VALUE<=10.0)); 
 
 Firstly, I thought of all the tables I would use and created them. There are 3 main tables and 2 extra tables for books. My main tables are "books", "book_list", "comment_b" and my extra tables are "Writer" and "Book_trace". I do not need the "Writer" table, but I did not delete it because it would be hard to make changes because I started writing the code. The reason for "on delete cascade" addition will be explained in the account.py
 

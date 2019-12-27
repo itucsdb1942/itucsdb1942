@@ -1,10 +1,73 @@
-Parts Implemented by Member Name
-================================
+Parts Implemented by Neslihan ÇEKİÇ
+===================================
 
 1. Database Structure
 =====================
 
 In general, I took part in the operations of users and TVSeries tracking. As an extra I have provided login management to the app.
+
+.. figure:: dbnesli.png
+	:scale: 50 %
+	:alt: Database implemented by Nesli
+	:align: center
+
+
+Table creation queries were entered in dbinit.py.
+
+.. code-block:: sql
+
+     CREATE TABLE tvseries (
+            ID SERIAL PRIMARY KEY,
+            TITLE VARCHAR(80) UNIQUE NOT NULL,
+            CHANNEL VARCHAR(20),
+            LANGUAGE VARCHAR(20),
+            SEASON INTEGER,
+            YEAR INTEGER,
+            GENRE VARCHAR(20),
+            VOTE INTEGER DEFAULT 0,
+            SCORE SCORES
+        );,
+
+          CREATE TABLE tv_commit(
+            ID SERIAL PRIMARY KEY,
+            userid INTEGER REFERENCES users(id) on delete cascade,
+            tvid INTEGER REFERENCES tvseries(id) on delete cascade,
+            header VARCHAR(20),
+            content VARCHAR(200),
+            LIKE_N INTEGER DEFAULT 0,
+            DISLIKE_N INTEGER DEFAULT 0,
+            date TIMESTAMP
+            );, 
+
+         CREATE TABLE episode (
+            ID SERIAL PRIMARY KEY,
+            tvid INTEGER REFERENCES tvseries(id) on delete cascade,
+            season_n INTEGER,
+            number INTEGER,
+            name VARCHAR(80),
+            UNIQUE(tvid,season_n,number)
+        );,
+
+     CREATE TABLE tv_list(
+            ID SERIAL PRIMARY KEY,
+            userid INTEGER REFERENCES users(id) on delete cascade,
+            tvid INTEGER REFERENCES tvseries(id) on delete cascade,
+            fav_list BOOL DEFAULT FALSE,
+            hate_list BOOL DEFAULT FALSE,
+            wish_list BOOL DEFAULT FALSE,
+            watched_list BOOL DEFAULT FALSE,
+            watching_list BOOL DEFAULT FALSE,
+            UNIQUE(userid,tvid)
+            );,
+
+      CREATE TABLE tv_trace(
+            ID SERIAL PRIMARY KEY,
+            userid INTEGER REFERENCES users(id) on delete cascade,
+            episodeid INTEGER REFERENCES episode(id),
+            watched BOOL DEFAULT FALSE,
+            UNIQUE(userid, episodeid)
+            );,
+
 
 2. Sign Up Page
 ===============
@@ -255,6 +318,7 @@ Then a function named print_tv () was written to see all tvseries in the databas
 Print_tv_by_az (), print_tv_by_score (), print_tv_by_year () functions were written for sort operations.
 
  .. code-block:: python
+
         def print_tv_by_az():
                 tv_list=[]
     

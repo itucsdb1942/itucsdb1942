@@ -22,6 +22,14 @@ Code
          def __init__(self, x):
             self.x = x
 
+We created a domain called scores to define score. All tables are created in "INIT_STATEMENTS"
+
+.. code-block:: sql
+
+	 CREATE DOMAIN SCORES AS FLOAT
+            DEFAULT 0.0
+            CHECK((VALUE>=0.0) AND (VALUE<=10.0)); 
+            
 .. toctree::
 
    neslihan
