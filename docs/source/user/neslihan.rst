@@ -55,12 +55,12 @@ Access to All TV Series
 	:alt: TV Page Scroll Down
 	:align: center
 
-See Tv Series' Infos
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* *See Tv Series' Infos*
+
 By default, you can see the release date, genre, channel, language, number of votes and score information for each TV series.
 
-TRACE Seasons
-~~~~~~~~~~~~~~~~~~~~~
+* *TRACE Seasons*
+
 When you click on the "Seasons" panel, you can see all the seasons of that series and see your tracking progress as a percentage for each season. If you click on the eye icon, it will be saved to the database you are watching that season. The eye icon turns purple if you watch the entire season.
 The colored symbols at the beginning of the TV series change color depending on how much you watch the TV series. It will turn green if you have finished the series completely, yellow if you have watched a part, and red if you have never started. To reach the page of these series, simply click on the name of the series.
 

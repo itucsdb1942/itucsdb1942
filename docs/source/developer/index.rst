@@ -1,8 +1,7 @@
 Developer Guide
 ===============
 
-Database Design
----------------
+* *Database Design*
 
 We provided database management with elephansql.
 
@@ -39,8 +38,7 @@ When starting the project, we implemented the Users table and its operations tog
 	:align: center
 
 
-Requirements
---------------
+* *Requirements*
 
 We implemented the website with python_flask. And we've built our site using the following additional packages.
 
@@ -58,8 +56,7 @@ We implemented the website with python_flask. And we've built our site using the
 For web design, we used the bootsrap based Ui package from http://colorlib.com
 
 
-Layout
-------
+* *Layout*
 
 Layout html page was created.
 

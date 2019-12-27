@@ -71,11 +71,11 @@ Firstly, I thought of all the tables I would use and created them. There are 3 m
 books.py
 ****************
 
-1. Basic Book Operations
-~~~~~~~~~~~~~~~~~~~~~~~~
+Basic Book Operations
+---------------------------
 Basic book operations contain functions for printing information of the one book(dynamic page), deleting books, checking progress, updating page number that user read and rating operations.
 
-1.1 Printing Information of The One Book
+Printing Information of The One Book
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 This function returns one book. It provide us to print information of the book in dynamic page.
 
@@ -91,7 +91,7 @@ This function returns one book. It provide us to print information of the book i
                     book =Book(id,name,wri_name,year,page,gprint_commit_booken,pub,lang,vote,sc)
                 return book
 
-1.2 Updating Page Number
+Updating Page Number
 ~~~~~~~~~~~~~~~~~~~~~~~~
  The user can update the number of pages read with this function. The userid and bookid are unique because a book cannot be in the read list, read list, read list at the same time. If you take "UniqueViolation error, you update the number of pages of that book instead of inserting the same book to trace.
 
@@ -117,7 +117,7 @@ This function returns one book. It provide us to print information of the book i
             connection.rollback()
             cursor=connection.cursor()
 	
-1.3 Checking Progress
+Checking Progress
 ~~~~~~~~~~~~~~~~~~~~~~~~
 This code does not allow entering a page number greater than the total page of the book.
 
@@ -133,7 +133,7 @@ This code does not allow entering a page number greater than the total page of t
                             return False
                         return True
     
-1.4 Rate Book
+Rate Book
 ~~~~~~~~~~~~~~~~~~~~~~~~
 This code will update the book's score and the number of times the book is rated.
 
@@ -148,7 +148,7 @@ This code will update the book's score and the number of times the book is rated
         cursor.close()  
 
 
-1.5 Delete books
+Delete books
 ~~~~~~~~~~~~~~~~~~~~~~~~
 Only admin user can delete books. Since many tables are connected to userid and bookid, variables are defined in tables as cascading where necessary.
 
@@ -164,11 +164,11 @@ Only admin user can delete books. Since many tables are connected to userid and 
                 connection.rollback()
                 cursor=connection.cursor()
 
-2. Sort Operations 
-~~~~~~~~~~~~~~~~~~~~~~~~
+Sort Operations 
+-------------------
 These are the functions that determine the order in which books are printed on the book page.
 
-2.1 Print Default & A-Z & Year & Score 
+Print Default & A-Z & Year & Score 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 These functions sort by book id, alphabetical order, year, score. The only difference between functions is the "ORDER BY..." part. Book_list is a tuble that contains all books. We add each book in our database to this tuple. In fact,  tuple is printed on the screen. 
 
@@ -192,10 +192,10 @@ Print Default
          
 
 
-3. Comment Operations
-~~~~~~~~~~~~~~~~~~~~~~~~
+Comment Operations
+--------------------
 
-3.1 Inserting
+Inserting
 ~~~~~~~~~~~~~~~
 
 You add a new row to the comment table by adding a comment. Datetime.now provides that get the current date and time.
@@ -214,8 +214,10 @@ You add a new row to the comment table by adding a comment. Datetime.now provide
             except dbapi2.DatabaseError:
                 connection.rollback()
                 cursor=connection.cursor()
-3.2 Deleting 
+
+Deleting 
 ~~~~~~~~~~~~~
+
 I enabled the user to delete only his / her comment by sending userid.
 
 .. code-block:: python
@@ -231,7 +233,7 @@ I enabled the user to delete only his / her comment by sending userid.
         connection.rollback()
         cursor=connection.cursor()
 
-3.3 Updating and Reading Like & Dislike
+Updating and Reading Like & Dislike
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 We send form to html and if like button is pressed it increases the number of likes by one. A user may like or dislike same comment more than once.To prevent this, I had to keep the userid, but it is not necessary, so I did not it.
 
@@ -259,7 +261,7 @@ For reading numbers of like and dislike;
 
         
 
-3.4 Reading 
+Reading 
 ~~~~~~~~~~~~~~~~~~
 
 I added all comments to the commit list and returned the commit list. So I wrote the required function to print all comments on the screen.
@@ -284,15 +286,15 @@ I added all comments to the commit list and returned the commit list. So I wrote
                   
             return commits
 
-4. List Operations
-~~~~~~~~~~~~~~~~~~~~~~~~
+List Operations
+-----------------
 
 List operations consist of create, update, read operations.The values ​​stored in the list are in bool. 
 When we want to remove a book from a list, we can not delete it. Because the deletion is done row by row and then the book is deleted from the other lists.  
 In order to avoid this situation, I am just updating the table that user wants to add or remove.
 
 
-4.1 Read Lists
+Read Lists
 ~~~~~~~~~~~~~~~~~~~~~~
 There are separate "read" functions for all tables in "book_trace". They all have the same structure. I've just changed which table to do. So here's just one example. 
 
@@ -312,7 +314,7 @@ There are separate "read" functions for all tables in "book_trace". They all hav
                 connection.rollback()
                 cursor=connection.cursor() 
 
-4.2 Adding Books to the Favorite, Hate, Wish list 
+Adding Books to the Favorite, Hate, Wish list 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The structure of functions of adding to favorite, wish or hate lists is the same. I implemented the same function for 3 separate lists.Therefore, there is only one code example below. If there is a "UniqueViolation", existing books are updated as true or false. If there is "InFailedSqlTransactions", a transaction goes back.
 

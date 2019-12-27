@@ -22,7 +22,7 @@ Github Page: https://github.com/itucsdb1942/itucsdb1942
 Contents:
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
 
    user/index
    developer/index
