@@ -128,7 +128,7 @@ In the design of the site, when there is a validation, it is provided to press e
 
 The flask_login library was used for Login Management.
 
-   .. highlight:: python
+   .. example-code::
         from flask_login import LoginManager,login_user, current_user, logout_user, login_required 
 
 
