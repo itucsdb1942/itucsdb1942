@@ -11,7 +11,7 @@ This page will be providing information on
 * *Account Operations*
 
 Creation of Tables
-=====================
+-------------------
 
 
 .. figure:: dbmur.png
@@ -77,8 +77,8 @@ Firstly, I thought of all the tables I would use and created them. There are 3 m
 
 
 
-1. Basic Book Operations
-=====================================
+Basic Book Operations
+----------------------
 
 Basic book operations contain functions for printing information of the one book(dynamic page), deleting books, checking progress, updating page number that user read and rating operations.
 
@@ -99,7 +99,7 @@ The books.py file was first created for the database operations of the book page
         		self.vote=vote 
         		self.score=score
 
-Printing Information of The One Book
+* *Printing Information of The One Book*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This function returns one book. It provide us to print information of the book in dynamic page.
@@ -116,7 +116,7 @@ This function returns one book. It provide us to print information of the book i
                     book =Book(id,name,wri_name,year,page,gprint_commit_booken,pub,lang,vote,sc)
                 return book
 
-Updating Page Number
+* *Updating Page Number*
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
  The user can update the number of pages read with this function. The userid and bookid are unique because a book cannot be in the read list, read list, read list at the same time. If you take "UniqueViolation error, you update the number of pages of that book instead of inserting the same book to trace.
@@ -144,7 +144,7 @@ Updating Page Number
             cursor=connection.cursor()
 	    
 	
-Checking Progress
+* *Checking Progress*
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 This code does not allow entering a page number greater than the total page of the book.
@@ -161,7 +161,7 @@ This code does not allow entering a page number greater than the total page of t
                             return False
                         return True
     
-Rate Book
+* *Rate Book*
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 This code will update the book's score and the number of times the book is rated.
@@ -177,7 +177,7 @@ This code will update the book's score and the number of times the book is rated
         cursor.close()  
 
 
-Delete books
+* *Delete books*
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Only admin user can delete books. Since many tables are connected to userid and bookid, variables are defined in tables as cascading where necessary.
@@ -194,8 +194,8 @@ Only admin user can delete books. Since many tables are connected to userid and 
                 connection.rollback()
                 cursor=connection.cursor()
 
-2. Book Sort Operations 
-=====================================
+Book Sort Operations 
+----------------------
 
 The bookpage web page was created in the server.py file, and it was determined which sort order according to its extension. When clicking on "books", the post method was used to redirect to its web page.
 
@@ -233,7 +233,7 @@ The bookpage web page was created in the server.py file, and it was determined w
 		
 These are the functions that determine the order in which books are printed on the book page.
 
-Print Default & A-Z & Year & Score 
+* *Print Default & A-Z & Year & Score* 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 These functions sort by book id, alphabetical order, year, score. The only difference between functions is the "ORDER BY..." part. Book_list is a tuble that contains all books. We add each book in our database to this tuple. In fact,  tuple is printed on the screen. 
@@ -257,9 +257,9 @@ Print Default
                     return book_list
          
 
+Book Comment Operations
+--------------------------- 
 
-3. Book Comment Operations
-=====================================
 For comments, a class named commitb was created in books.py.
 
 .. code-block:: python
@@ -275,7 +275,7 @@ For comments, a class named commitb was created in books.py.
         		self.like=like
         		self.dislike=dislike
 
-Inserting
+* *Inserting*
 ~~~~~~~~~~~~~~~
 
 You add a new row to the comment table by adding a comment. Datetime.now provides that get the current date and time.
@@ -295,7 +295,7 @@ You add a new row to the comment table by adding a comment. Datetime.now provide
                 connection.rollback()
                 cursor=connection.cursor()
 
-Deleting 
+* *Deleting*
 ~~~~~~~~~~~~~
 
 I enabled the user to delete only his / her comment by sending userid.
@@ -313,7 +313,7 @@ I enabled the user to delete only his / her comment by sending userid.
         connection.rollback()
         cursor=connection.cursor()
 
-Updating and Reading Like & Dislike
+* *Updating and Reading Like & Dislike*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We send form to html and if like button is pressed it increases the number of likes by one. A user may like or dislike same comment more than once.To prevent this, I had to keep the userid, but it is not necessary, so I did not it.
@@ -342,7 +342,7 @@ For reading numbers of like and dislike;
 
         
 
-Reading 
+* *Reading*
 ~~~~~~~~~~~~~~~~~~
 
 I added all comments to the commit list and returned the commit list. So I wrote the required function to print all comments on the screen.
@@ -367,15 +367,15 @@ I added all comments to the commit list and returned the commit list. So I wrote
                   
             return commits
 
-4. Book List Operations
-=====================================
+Book List Operations
+--------------------------
 
 List operations consist of create, update, read operations.The values ​​stored in the list are in bool. 
 When we want to remove a book from a list, we can not delete it. Because the deletion is done row by row and then the book is deleted from the other lists.  
 In order to avoid this situation, I am just updating the table that user wants to add or remove.
 
-Automatically Add to Some Lists
-~~~~~~~~~~~~~~~~~~~~~~
+* *Automatically Add to Some Lists*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This function provide to add automatically to Read, Unread, reading list as percent progress of book.
 
@@ -402,7 +402,7 @@ This function provide to add automatically to Read, Unread, reading list as perc
                             notread_add(userid,self.id)
                         return round(percent,2)
 			
-Checking Lists
+* *Checking Lists*
 ~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
@@ -421,7 +421,8 @@ Checking Lists
                         return True
                 except:
                     return False
-Reading Lists
+
+* *Reading Lists*
 ~~~~~~~~~~~~~~~~~~~~~~
 
 There are separate "read" functions for all tables in "book_trace". They all have the same structure. I've just changed which table to do. So here's just one example. 
@@ -442,7 +443,7 @@ There are separate "read" functions for all tables in "book_trace". They all hav
                 connection.rollback()
                 cursor=connection.cursor() 
 
-Adding Books to the Favorite, Hate, Wish list 
+* *Adding Books to the Favorite, Hate, Wish list* 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The structure of functions of adding to favorite, wish or hate lists is the same. I implemented the same function for 3 separate lists.Therefore, there is only one code example below. If there is a "UniqueViolation", existing books are updated as true or false. If there is "InFailedSqlTransactions", a transaction goes back.
@@ -477,8 +478,8 @@ The structure of functions of adding to favorite, wish or hate lists is the same
             		connection.rollback()
             		cursor=connection.cursor()
 
-5. Add Book Page Operations
-=====================================
+Add Book Page Operations
+--------------------------
 
 This page is accessed via the button at the beginning of the book page.
 
@@ -558,9 +559,10 @@ A redirect is provided to the home page if the operation is successful in server
             	return redirect(url_for('home'))
     		return render_template("addbook.html", form = form)
 
-6. Login Page Operations
-=====================================
- "@login_required"  does not provide access to some pages on the website without user input.
+Login Page Operations
+----------------------------
+
+"@login_required"  does not provide access to some pages on the website without user input.
 If the user input is correct, you will be redirected directly to the homepage.
 
 .. code-block:: python
@@ -622,8 +624,8 @@ These python code snippets check whether the username and mail address entered m
                     return user
             
 
-7. Account Operations
-=====================================
+Account Operations
+----------------------
 By implementing this function, the user registered in the web site can update this information with a user name and e-mail address that has not been received before.
 
 .. code-block:: python
