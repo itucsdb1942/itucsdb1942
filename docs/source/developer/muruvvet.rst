@@ -13,7 +13,8 @@ We created a domain called scores to define score. All tables are created in "IN
             DEFAULT 0.0
             CHECK((VALUE>=0.0) AND (VALUE<=10.0)); """
 
-Firstly, I thought of all the tables I would use and created them. There are 3 main tables and 2 extra tables for books. My main tables are "books", "book_list", "comment_b" and my extra tables are "Writer" and "Book_trace". I do not need the "Writer" table, but I did not delete it because it would be hard to make changes because I started writing the code. The reason for "on delete cascade" addition will be explained in the account.py
+Firstly, I thought of all the tables I would use and created them. There are 3 main tables and 2 extra tables for books. My main tables are "books", "book_list", "comment_b" and my extra tables are "Writer" and "Book_trace". I do not need the "Writer" table, but I did not delete it because it would be hard to make changes because I started writing the code. The reason for "on delete cascade" addition will be explained in delete books.
+
 
 .. code-block:: sql
 	"""CREATE TABLE writer(
@@ -83,7 +84,7 @@ This function returns one book. It provide us to print information of the book i
      def find_book(idno):
         
                 statement = """SELECT books.ID, books.NAME, writer.wr_name, books.PUB_YEAR, books.T_PAGE, books.PUBLISHER, 
-                books.LANGUAGE, books.GENRE, books.SCORE, books.VOTE FROM BOOKS, writer WHERE books.id=%s AND books.writerid=writer.id; """
+                books.LANGUAGE, books.GENRE, books.SCORE, books.VOTE FROM BOOKS, writer WHERE books.id=%s AND books.writerid=writer.id; 		"""
                 cursor.execute(statement,(idno,))
                 connection.commit()
                 for id, name, wri_name, year, page, pub, lang, gen, sc, vote in cursor:
@@ -96,6 +97,7 @@ This function returns one book. It provide us to print information of the book i
  The user can update the number of pages read with this function. The userid and bookid are unique because a book cannot be in the read list, read list, read list at the same time. If you take "UniqueViolation error, you update the number of pages of that book instead of inserting the same book to trace.
 
 .. code-block:: python
+
 	def updatepage(bookid, userid, page):
     
     try:
@@ -116,7 +118,7 @@ This function returns one book. It provide us to print information of the book i
         connection.rollback()
         cursor=connection.cursor()
 
-1.3 checking Progress
+1.3 Checking Progress
 ~~~~~~~~~~~~~~~~~~~~~~~~
 This code does not allow entering a page number greater than the total page of the book.
 
