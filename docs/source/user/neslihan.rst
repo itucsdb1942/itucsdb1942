@@ -50,14 +50,20 @@ When you come to the Tvseries page, you can click the "Add Tv Series" button to 
 3.2. Access to All TV Series
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-By default, you can see the release date, genre, channel, language, number of votes and score information for each TV series.
-When you click on the "Seasons" panel, you can see all the seasons of that series and see your tracking progress as a percentage for each season. If you click on the eye icon, it will be saved to the database you are watching that season. The eye icon turns purple if you watch the entire season.
-The colored symbols at the beginning of the TV series change color depending on how much you watch the TV series. It will turn green if you have finished the series completely, yellow if you have watched a part, and red if you have never started. To reach the page of these series, simply click on the name of the series.
-
 .. figure:: nesli/tvpage2.png
 	:scale: 50 %
 	:alt: TV Page Scroll Down
 	:align: center
+
+3.2.1. See Tv Series' Infos
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+By default, you can see the release date, genre, channel, language, number of votes and score information for each TV series.
+
+3.2.1. TRACE Seasons
+~~~~~~~~~~~~~~~~~~~~~
+When you click on the "Seasons" panel, you can see all the seasons of that series and see your tracking progress as a percentage for each season. If you click on the eye icon, it will be saved to the database you are watching that season. The eye icon turns purple if you watch the entire season.
+The colored symbols at the beginning of the TV series change color depending on how much you watch the TV series. It will turn green if you have finished the series completely, yellow if you have watched a part, and red if you have never started. To reach the page of these series, simply click on the name of the series.
+
 
 4. Add TV Series Page
 ----------------------
@@ -89,8 +95,8 @@ By default the information of the TV series appears. On the right you can see th
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Below progress bar, If the episode you are watching is not in the database, there is an "Add Episode" button to add that episode.
 
-5.4. See all episodes and TRACE Them
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+5.4. See all episodes and TRACE Episodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 You can see the episodes of the season by selecting the season you want, you can mark that you are watching that episode by clicking the eye icon. The icon will be purple colored if you watched the episode.
 
 .. figure:: nesli/dynamic1.png

@@ -10,8 +10,8 @@ Welcome to itucsdb1942's documentation!
 
 **TRACE is follow-up application that you can keep track of the watching and reading status of TV series and book. It contains user-specific lists.**
 
-.. figure:: textlogo.png
-	:scale: 50 %
+.. figure:: user/textlogo.png
+	:scale: 10 %
 	:alt: Logo
 	:align: center
 
