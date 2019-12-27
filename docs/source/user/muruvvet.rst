@@ -2,13 +2,26 @@ Parts Implemented by Muruvvet Bozkurt
 =====================================
 
 This page will be providing information on
-
+* *Login Page*
 * *Home Page for book*
 * *Book Page*
 * *Dynamic Book Page*
+* *Account Page*
 
-Home Page for book
-----------------------
+
+
+1. Login Page
+=====================
+
+When the website is entered, the first page you will see is login paged. If you already have an account, you can login by entering your username and password. if you log in incorrectly, the site will give a warning alert. You need to use the sign up button to sign up for the website.
+
+.. figure:: mur/login.PNG
+	:scale: 50 %
+	:alt: Home Pagerenk
+	:align: center
+
+2. Home Page for book
+=====================
 You first see the homepage, after logging in to the website. On the homepage, you can see lists of books you have customized according to your own. Home page contains reading list, wish list, read list, favorite list, hate list. The lists have their own color.
 The meaning of colors:
 Yellow : book that you are reading. \                                                                                      
@@ -30,10 +43,10 @@ Pressing the book button enters the book page.
 	:alt: Home Page
 	:align: center
 
-Book Page
--------------
+3. Book Page
+=====================
 
-Adding Books
+3.1 Adding Books
 ~~~~~~~~~~~~~~~~~
 If the book you want does not exist in our database, you are redirected to the add book page by clicking on the "Add book" button.
 
@@ -53,7 +66,7 @@ The information of the desired book is added to the database.
 	:alt: Add book page2
 	:align: center
 
-Continuation of the book page 
+3.2 Continuation of the book page 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. figure:: mur/bookpage2.PNG
 	:scale: 50 %
@@ -61,34 +74,32 @@ Continuation of the book page
 	:align: center
 	
 
-Viewing Books
-^^^^^^^^^^^^^^^^^^^^^
+3.2.1 Viewing Books
+~~~~~~~~~~~~~~~~~~~~
 All books in the database are on this page. All information about the book such as author, publisher, year of publication, language, genre is available on this page. 
 
-Updating and Tracking 
-^^^^^^^^^^^^^^^^^^^^^
+3.2.2 Updating and Tracking 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 User may update and track the page they left. If total book page is eequal to pages that user read,  the book is added otomatically read list. If users update page that read is smaller than book total page and is not equal to zero, is added to reading list. There are meaning that the colors of next to book name. Red color means that book is not read by user. Green color means user already read. Yellow color means that user is reading. It is also redirected to the book's dynamic page by clicking on the book's name.
 
-Sorting
-^^^^^^^^^^^^^^^^^^^^^
+3.2.3 Sorting
+~~~~~~~~~~~~~~~~~~~~
 Books can be sorted by alphabetical order, year, and score.
 
 	
-Dynamic Book Page
----------------------
-
+4. Dynamic Book Page
+=====================
 .. figure:: mur/dinbook1.PNG
 	:scale: 50 %
 	:alt: dynamic page of book 1 
 	:align: center
-	
 On this page, you can do many things about the book.
 
-Viewing 
+4.1 Viewing 
 ~~~~~~~~~~~~~~~~~
 Here you can see information about the book as in "book page".
 
-Adding to lists
+4.1 Adding to lists
 ~~~~~~~~~~~~~~~~~~~
 There are many specific lists like favorite list, wish list, hate list. You can add the book by clicking the icon of the list you want to add. The icon of the list  of color changes when you add the book to a list there. Red color means that book is in favorite list. Gray means that book is in hate list. Green means that book is in wish list.
 
@@ -99,17 +110,17 @@ There are many specific lists like favorite list, wish list, hate list. You can 
 	:alt: change color 
 	:align: center
 
-Rating  
+4.3 Rating  
 ~~~~~~~~~~~~~~~~~
 Users can rate the book from 1 to 10 with stars. A user can rate the books as many times as they want. 
 
 .. note:: A user can rate the books as many times as they want.
 
-Progress 
+4.4 Progress 
 ~~~~~~~~~~~~
  You can also keep track of how many percent you read.
 
-Comment for book 
+4.5 Comment for book 
 ~~~~~~~~~~~~~~~~~~~~~~~~
 On this page you can comment on the book. A header must be added to the comment when adding comments. You can see all the comments of this book on this page. There are like and dislike buttons in the comments. You can see how many likes or dislikes are for the comment and the date and time the comments were discarded. You can see all the comments of this book on this page. 
 
@@ -121,4 +132,13 @@ On this page you can comment on the book. A header must be added to the comment 
 	:scale: 50 %
 	:alt: comment  
 	:align: center
+	
+5. Account Page
+=====================
 
+On the Account page, you can see your username and mail, delete your account, and update your email and username.
+
+.. figure:: mur/account.PNG
+	:scale: 50 %
+	:alt: comment  
+	:align: center
